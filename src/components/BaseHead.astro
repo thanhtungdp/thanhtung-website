@@ -6,16 +6,19 @@ import type { ImageMetadata } from 'astro';
 import FallbackImage from '../assets/blog-placeholder-1.jpg';
 import { SITE_TITLE } from '../consts';
 import { Font } from 'astro:assets';
+import { defaultLocale, getAlternateLinks, type Locale } from '../i18n';
 
 interface Props {
 	title: string;
 	description: string;
 	image?: ImageMetadata;
+	locale?: Locale;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = FallbackImage } = Astro.props;
+const { title, description, image = FallbackImage, locale = defaultLocale } = Astro.props;
+const alternateLinks = getAlternateLinks(Astro.url.pathname);
 ---
 
 <!-- Global Metadata -->
@@ -36,6 +39,13 @@ const { title, description, image = FallbackImage } = Astro.props;
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
+{
+	alternateLinks.map((link) => (
+		<link rel="alternate" hreflang={link.locale} href={new URL(link.path, Astro.site)} />
+	))
+}
+<link rel="alternate" hreflang="x-default" href={new URL(alternateLinks[0].path, Astro.site)} />
+<meta property="og:locale" content={locale === 'vi' ? 'vi_VN' : 'en_US'} />
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>

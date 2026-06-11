@@ -1,0 +1,38 @@
+---
+import BaseHead from '../BaseHead.astro';
+import Footer from '../Footer.astro';
+import Header from '../Header.astro';
+import { SITE_TITLE } from '../../consts';
+import { getTranslations, type Locale } from '../../i18n';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale);
+---
+
+<!doctype html>
+<html lang={locale}>
+	<head>
+		<BaseHead title={SITE_TITLE} description={t.siteDescription} locale={locale} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>{t.home.title}</h1>
+			<p>{t.home.intro}</p>
+			<p>{t.home.integrations}</p>
+			<p>{t.home.getStarted}</p>
+			<ul>
+				{t.home.items.map((item) => <li>{item}</li>)}
+			</ul>
+			<p>
+				{t.home.docsPrefix}{' '}
+				<a href="https://docs.astro.build/en/guides/internationalization/">{t.home.docsLink}</a>
+			</p>
+		</main>
+		<Footer />
+	</body>
+</html>

@@ -1,15 +1,29 @@
 ---
+import { getAlternateLinks, getLocaleFromUrl, getTranslations, localizePath } from '../i18n';
 import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getTranslations(locale);
+const alternateLinks = getAlternateLinks(Astro.url.pathname);
 ---
 
 <header>
 	<nav>
-		<h2><a href="/">{SITE_TITLE}</a></h2>
+		<h2><a href={localizePath('/', locale)}>{SITE_TITLE}</a></h2>
 		<div class="internal-links">
-			<HeaderLink href="/">Home</HeaderLink>
-			<HeaderLink href="/blog">Blog</HeaderLink>
-			<HeaderLink href="/about">About</HeaderLink>
+			<HeaderLink href={localizePath('/', locale)}>{t.nav.home}</HeaderLink>
+			<HeaderLink href={localizePath('/blog', locale)}>{t.nav.blog}</HeaderLink>
+			<HeaderLink href={localizePath('/about', locale)}>{t.nav.about}</HeaderLink>
+		</div>
+		<div class="language-links" aria-label="Language selector">
+			{
+				alternateLinks.map((link) => (
+					<a href={link.path} class:list={{ active: link.locale === locale }} hreflang={link.locale}>
+						{link.locale.toUpperCase()}
+					</a>
+				))
+			}
 		</div>
 		<div class="social-links">
 			<a href="https://m.webtoo.ls/@astro" target="_blank">
@@ -77,9 +91,40 @@ import HeaderLink from './HeaderLink.astro';
 	.social-links a {
 		display: flex;
 	}
+	.language-links {
+		display: flex;
+		gap: 0.25rem;
+		align-items: center;
+		margin-left: auto;
+		padding: 0 0.75rem;
+	}
+	.language-links a {
+		border-bottom-width: 0;
+		border-radius: 999px;
+		padding: 0.35rem 0.55rem;
+		font-size: 0.8rem;
+		line-height: 1;
+	}
+	.language-links a.active {
+		background: rgb(var(--accent));
+		color: white;
+	}
 	@media (max-width: 720px) {
 		.social-links {
 			display: none;
+		}
+		nav {
+			flex-wrap: wrap;
+			gap: 0.25rem;
+			padding: 0.5rem 0;
+		}
+		nav a {
+			padding-top: 0.5rem;
+			padding-bottom: 0.5rem;
+		}
+		.language-links {
+			margin-left: 0;
+			padding-inline: 0;
 		}
 	}
 </style>

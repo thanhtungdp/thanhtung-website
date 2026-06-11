@@ -1,9 +1,13 @@
 ---
+import { getLocaleFromUrl, getTranslations } from '../i18n';
+
 const today = new Date();
+const locale = getLocaleFromUrl(Astro.url);
+const t = getTranslations(locale);
 ---
 
 <footer>
-	&copy; {today.getFullYear()} Your name here. All rights reserved.
+	&copy; {today.getFullYear()} Thanh Tung. {t.footer}
 	<div class="social-links">
 		<a href="https://m.webtoo.ls/@astro" target="_blank">
 			<span class="sr-only">Follow Astro on Mastodon</span>

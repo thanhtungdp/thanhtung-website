@@ -1,11 +1,11 @@
 ---
-title: 'Markdown Style Guide'
-description: 'Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.'
+title: 'Hướng dẫn định dạng Markdown'
+description: 'Một số cú pháp Markdown cơ bản có thể dùng khi viết nội dung trong Astro.'
 pubDate: 'Jun 19 2024'
-heroImage: '../../assets/blog-placeholder-1.jpg'
+heroImage: '../../../assets/blog-placeholder-1.jpg'
 ---
 
-Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.
+Đây là nội dung mẫu minh hoạ một số cú pháp Markdown cơ bản có thể dùng khi viết nội dung trong Astro.
 
 ## Headings
 
@@ -39,7 +39,7 @@ Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sap
 
 ### Output
 
-![blog placeholder](../../assets/blog-placeholder-about.jpg)
+![blog placeholder](../../../assets/blog-placeholder-about.jpg)
 
 ## Blockquotes
 

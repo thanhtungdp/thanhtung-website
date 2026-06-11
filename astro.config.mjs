@@ -8,6 +8,10 @@ import { defineConfig, fontProviders } from 'astro/config';
 export default defineConfig({
 	site: 'https://example.com',
 	integrations: [mdx(), sitemap()],
+	i18n: {
+		locales: ['vi', 'en'],
+		defaultLocale: 'vi',
+	},
 	fonts: [
 		{
 			provider: fontProviders.local(),

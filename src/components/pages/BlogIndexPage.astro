@@ -20,100 +20,168 @@ const posts = await getBlogPosts(locale);
 <!doctype html>
 <html lang={locale}>
 	<head>
-		<BaseHead title={SITE_TITLE} description={t.siteDescription} locale={locale} />
-		<style>
-			main {
-				width: 960px;
-			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
-				display: block;
-			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
-			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
-			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
-			}
-		</style>
+		<BaseHead title={`${t.blog.title} | ${SITE_TITLE}`} description={t.blog.description} locale={locale} />
 	</head>
 	<body>
 		<Header />
-		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={getBlogPath(post, locale)}>
-									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
-									)}
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} locale={locale} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
+		<main class="blog-index-shell">
+			<section class="blog-hero">
+				<p>{posts.length} {locale === 'vi' ? 'bài viết' : 'articles'}</p>
+				<h1>{t.blog.title}</h1>
+				<span>{t.blog.description}</span>
+			</section>
+
+			<section class="posts-list" aria-label={t.blog.title}>
+				{
+					posts.map((post, index) => (
+						<article class:list={['post-row surface-card', { featured: index === 0 }]}>
+							<a href={getBlogPath(post, locale)}>
+								{post.data.heroImage && (
+									<Image width={index === 0 ? 980 : 420} height={index === 0 ? 520 : 260} src={post.data.heroImage} alt="" loading={index === 0 ? 'eager' : 'lazy'} />
+								)}
+								<div class="post-content">
+									<p class="date"><FormattedDate date={post.data.pubDate} locale={locale} /></p>
+									<h2>{post.data.title}</h2>
+									<p class="description">{post.data.description}</p>
+									<span>{t.blog.readMore}</span>
+								</div>
+							</a>
+						</article>
+					))
+				}
 			</section>
 		</main>
 		<Footer />
 	</body>
 </html>
+
+<style>
+	.blog-index-shell {
+		padding-top: 4rem;
+	}
+
+	.blog-hero {
+		max-width: 840px;
+		margin-bottom: 2.25rem;
+	}
+
+	.blog-hero p {
+		display: inline-flex;
+		margin-bottom: 0.9rem;
+		padding: 0.42rem 0.7rem;
+		border: 1px solid rgb(var(--border));
+		border-radius: 999px;
+		background: rgb(255 255 255 / 0.72);
+		color: rgb(var(--primary));
+		font-size: 0.82rem;
+		font-weight: 800;
+	}
+
+	.blog-hero span {
+		display: block;
+		max-width: 58ch;
+		color: rgb(var(--muted-foreground));
+		font-size: clamp(1.05rem, 2vw, 1.22rem);
+	}
+
+	.posts-list {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1rem;
+	}
+
+	.post-row {
+		overflow: hidden;
+		transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+	}
+
+	.post-row:hover {
+		transform: translateY(-3px);
+		border-color: rgb(var(--primary) / 0.3);
+	}
+
+	.post-row a {
+		display: grid;
+		grid-template-columns: 0.42fr 0.58fr;
+		height: 100%;
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.post-row.featured {
+		grid-column: 1 / -1;
+	}
+
+	.post-row.featured a {
+		grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+	}
+
+	.post-row img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		min-height: 15rem;
+		object-fit: cover;
+		border-radius: 0;
+	}
+
+	.post-content {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding: clamp(1rem, 3vw, 2rem);
+	}
+
+	.date {
+		margin-bottom: 0.7rem;
+		color: rgb(var(--primary));
+		font-size: 0.82rem;
+		font-weight: 800;
+	}
+
+	.post-content h2 {
+		font-size: clamp(1.35rem, 3vw, 2.6rem);
+		letter-spacing: -0.04em;
+	}
+
+	.post-row:not(.featured) .post-content h2 {
+		font-size: clamp(1.1rem, 2vw, 1.45rem);
+	}
+
+	.description {
+		color: rgb(var(--muted-foreground));
+		font-size: 0.98rem;
+		line-height: 1.58;
+	}
+
+	.post-content span {
+		margin-top: auto;
+		padding-top: 1rem;
+		color: rgb(var(--primary));
+		font-size: 0.92rem;
+		font-weight: 800;
+	}
+
+	@media (max-width: 900px) {
+		.posts-list,
+		.post-row.featured a,
+		.post-row a {
+			grid-template-columns: 1fr;
+		}
+
+		.post-row.featured {
+			grid-column: auto;
+		}
+
+		.post-row img {
+			min-height: auto;
+			aspect-ratio: 16 / 9;
+		}
+	}
+
+	@media (max-width: 760px) {
+		.blog-index-shell {
+			padding-top: 2.5rem;
+		}
+	}
+</style>

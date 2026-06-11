@@ -10,72 +10,84 @@ export const defaultLocale: Locale = 'vi';
 
 const ui = {
 	vi: {
-		siteDescription: 'Chào mừng bạn đến với website của tôi!',
+		siteDescription: 'Ghi chép về quản trị, vận hành và chuyển đổi số cho doanh nghiệp Việt Nam.',
 		nav: {
 			home: 'Trang chủ',
-			blog: 'Blog',
+			blog: 'Bài viết',
 			about: 'Giới thiệu',
 		},
 		home: {
-			title: 'Xin chào, Astro!',
+			eyebrow: 'Strategy, systems, execution',
+			title: 'Góc nhìn gọn gàng cho doanh nghiệp tăng trưởng',
 			intro:
-				'Đây là starter blog Astro đã được cấu hình song ngữ. Route tiếng Việt giữ nguyên ở gốc website, còn tiếng Anh nằm trong tiền tố /en.',
-			integrations:
-				'Bạn có thể tiếp tục tuỳ biến cấu hình Astro, thêm integration, hoặc mở rộng nội dung riêng cho từng ngôn ngữ.',
-			getStarted: 'Một vài điểm đã được chuẩn bị:',
+				'Tôi viết về quản trị, vận hành và chuyển đổi số từ những dự án thật với doanh nghiệp Việt Nam.',
+			primaryCta: 'Đọc bài mới',
+			secondaryCta: 'Về tôi',
+			sections: {
+				thinking: 'Chủ đề chính',
+				thinkingText: 'Những ghi chép giúp lãnh đạo biến ý tưởng thành hệ thống vận hành rõ ràng hơn.',
+				latest: 'Bài viết mới',
+				latestText: 'Các case study, quan sát và framework được viết ngắn gọn để dễ áp dụng.',
+			},
 			items: [
-				'Khai báo vi và en trong astro.config.mjs',
-				'Header tự đổi link theo ngôn ngữ hiện tại',
-				'Route tiếng Anh có sẵn tại /en',
-				'Ngày tháng định dạng theo locale',
-				'Metadata và thẻ alternate được sinh theo locale',
+				'Chiến lược và OKRs',
+				'Tối ưu vận hành',
+				'Chuyển đổi số thực chiến',
+				'Văn hoá quản trị minh bạch',
 			],
-			docsPrefix: 'Tài liệu tham khảo:',
-			docsLink: 'Astro Internationalization',
 		},
 		about: {
 			title: 'Giới thiệu',
-			description: 'Một trang giới thiệu mẫu cho website song ngữ.',
+			description: 'Một trang giới thiệu về Thanh Tung và các chủ đề đang theo đuổi.',
 			updatedPrefix: 'Cập nhật lần cuối vào',
 		},
 		blog: {
+			title: 'Bài viết',
+			description: 'Các ghi chép mới nhất về quản trị, vận hành và chuyển đổi số.',
 			updatedPrefix: 'Cập nhật lần cuối vào',
+			readMore: 'Đọc bài',
 		},
-		footer: 'Bản quyền đã được bảo lưu.',
+		footer: 'Ghi chép độc lập về quản trị và chuyển đổi số.',
 	},
 	en: {
-		siteDescription: 'Welcome to my website!',
+		siteDescription: 'Notes on management, operations, and digital transformation for growing teams.',
 		nav: {
 			home: 'Home',
-			blog: 'Blog',
+			blog: 'Writing',
 			about: 'About',
 		},
 		home: {
-			title: 'Hello, Astro!',
+			eyebrow: 'Strategy, systems, execution',
+			title: 'Clear thinking for companies that are ready to grow',
 			intro:
-				'This Astro blog starter is now configured for two languages. Vietnamese keeps the root routes, while English lives under the /en prefix.',
-			integrations:
-				'You can keep customizing Astro, add integrations, or split content per locale as the site grows.',
-			getStarted: 'A few things are already in place:',
+				'I write about management, operations, and digital transformation through real projects with Vietnamese businesses.',
+			primaryCta: 'Read latest',
+			secondaryCta: 'About me',
+			sections: {
+				thinking: 'Core themes',
+				thinkingText: 'Practical notes that help leaders turn ideas into clearer operating systems.',
+				latest: 'Latest writing',
+				latestText: 'Case studies, observations, and frameworks written to be easy to apply.',
+			},
 			items: [
-				'vi and en are declared in astro.config.mjs',
-				'The header keeps links in the active language',
-				'English routes are available under /en',
-				'Dates format with the current locale',
-				'Metadata and alternate links are generated per locale',
+				'Strategy and OKRs',
+				'Operating rhythm',
+				'Digital transformation',
+				'Transparent management culture',
 			],
-			docsPrefix: 'Reference:',
-			docsLink: 'Astro Internationalization',
 		},
 		about: {
 			title: 'About',
-			description: 'A sample about page for the bilingual website.',
+			description: 'A short introduction to Thanh Tung and the themes behind this site.',
 			updatedPrefix: 'Last updated on',
 		},
 		blog: {
+			title: 'Writing',
+			description: 'Latest notes on management, operations, and digital transformation.',
 			updatedPrefix: 'Last updated on',
+			readMore: 'Read article',
 		},
-		footer: 'All rights reserved.',
+		footer: 'Independent notes on management and digital transformation.',
 	},
 } as const;
 

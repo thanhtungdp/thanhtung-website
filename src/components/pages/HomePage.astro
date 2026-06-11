@@ -1,9 +1,16 @@
 ---
+import { Image } from 'astro:assets';
+import AiAgentsImage from '../../assets/projects/ai-agents.png';
+import AiProgramImage from '../../assets/projects/ai-product-program.png';
+import ILotusLandImage from '../../assets/projects/ilotusland.png';
+import TeachingImage from '../../assets/projects/teaching-scale.png';
 import BaseHead from '../BaseHead.astro';
 import Footer from '../Footer.astro';
+import FormattedDate from '../FormattedDate.astro';
 import Header from '../Header.astro';
 import { SITE_TITLE } from '../../consts';
-import { getTranslations, type Locale } from '../../i18n';
+import { getTranslations, localizePath, type Locale } from '../../i18n';
+import { getBlogPath, getBlogPosts } from '../../lib/blog';
 
 interface Props {
 	locale: Locale;
@@ -11,6 +18,83 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = getTranslations(locale);
+const isVi = locale === 'vi';
+const latestPosts = (await getBlogPosts(locale)).slice(0, 3);
+
+const projects = isVi
+	? [
+			{
+				title: 'iLotusLand Industrial IoT',
+				desc: 'Nền tảng quan trắc công nghiệp với hơn 1.000 trạm, phục vụ FDI, nhà máy và cơ quan nhà nước.',
+				image: ILotusLandImage,
+				meta: 'IoT Platform',
+			},
+			{
+				title: 'Simplamo Strategy AI',
+				desc: 'AI tạo OKRs, KPIs và mục tiêu quý từ ngữ cảnh quản trị thật, đang dùng trong nền tảng Simplamo.',
+				image: AiAgentsImage,
+				meta: 'AI Agent',
+			},
+			{
+				title: 'Pascal tới 1 triệu học sinh',
+				desc: 'Biến một chủ đề khô thành trải nghiệm học cuốn hút, đạt hơn 1 triệu lượt xem và tiếp cận học sinh quy mô lớn.',
+				image: TeachingImage,
+				meta: 'Education',
+			},
+			{
+				title: 'AI Product Training Program',
+				desc: 'Chương trình học theo nhịp mỗi ngày có sản phẩm chạy thật: web, mobile, backend và AI.',
+				image: AiProgramImage,
+				meta: 'Training System',
+			},
+		]
+	: [
+			{
+				title: 'iLotusLand Industrial IoT',
+				desc: 'An industrial monitoring platform with 1,000+ stations serving FDI factories and public agencies.',
+				image: ILotusLandImage,
+				meta: 'IoT Platform',
+			},
+			{
+				title: 'Simplamo Strategy AI',
+				desc: 'AI that generates OKRs, KPIs, and quarterly goals from real business context inside Simplamo.',
+				image: AiAgentsImage,
+				meta: 'AI Agent',
+			},
+			{
+				title: 'Pascal to 1M learners',
+				desc: 'Turned a dry technical subject into engaging lessons that reached more than one million views.',
+				image: TeachingImage,
+				meta: 'Education',
+			},
+			{
+				title: 'AI Product Training Program',
+				desc: 'A build-first learning arc where every day ends with a product that runs.',
+				image: AiProgramImage,
+				meta: 'Training System',
+			},
+		];
+
+const services = isVi
+	? [
+			'Tư vấn chiến lược, OKRs, BSC, KPI và 4DX cho doanh nghiệp đang tăng trưởng.',
+			'Thiết kế hệ thống AI agent từ bài toán kinh doanh tới sản phẩm chạy thật.',
+			'Đào tạo AI product, web, mobile, backend và tư duy sản phẩm cho đội ngũ.',
+			'Cố vấn vận hành để biến mục tiêu thành nhịp họp, dashboard và trách nhiệm rõ ràng.',
+		]
+	: [
+			'Advise on strategy, OKRs, BSC, KPI, and 4DX for growing companies.',
+			'Design AI agent systems from business problem to working product.',
+			'Train teams in AI products, web, mobile, backend, and product thinking.',
+			'Help leaders turn goals into meeting rhythm, dashboards, and clear ownership.',
+		];
+
+const stats = [
+	{ value: '1M+', label: isVi ? 'học sinh đã tiếp cận' : 'learners reached' },
+	{ value: '1,000+', label: isVi ? 'trạm quan trắc' : 'monitoring stations' },
+	{ value: '600+', label: isVi ? 'nhà máy FDI phục vụ' : 'FDI factories served' },
+	{ value: '100+', label: isVi ? 'tổ chức dùng Simplamo' : 'organizations using Simplamo' },
+];
 ---
 
 <!doctype html>
@@ -20,19 +104,520 @@ const t = getTranslations(locale);
 	</head>
 	<body>
 		<Header />
-		<main>
-			<h1>{t.home.title}</h1>
-			<p>{t.home.intro}</p>
-			<p>{t.home.integrations}</p>
-			<p>{t.home.getStarted}</p>
-			<ul>
-				{t.home.items.map((item) => <li>{item}</li>)}
-			</ul>
-			<p>
-				{t.home.docsPrefix}{' '}
-				<a href="https://docs.astro.build/en/guides/internationalization/">{t.home.docsLink}</a>
-			</p>
+		<main class="home-shell">
+			<section class="hero section-block">
+				<div class="hero-copy">
+					<p class="kicker">{isVi ? 'AI builder · educator · operator' : 'AI builder · educator · operator'}</p>
+					<h1>{isVi ? 'Simple Technology enables X10 Operations' : 'Simple Technology enables X10 Operations'}</h1>
+					<p class="hero-lead">
+						{
+							isVi
+								? 'Tôi xây sản phẩm AI thật, thắp lửa lớp học và giúp người học trở thành maker có sản phẩm với người dùng thật.'
+								: 'I build real AI products, ignite classrooms, and turn learners into makers with products used by real people.'
+						}
+					</p>
+					<div class="hero-actions">
+						<a class="button-primary" href={localizePath('/blog', locale)}>{isVi ? 'Đọc bài viết' : 'Read writing'}</a>
+						<a class="button-secondary" href="mailto:thanhtung@simplamo.com">{isVi ? 'Liên hệ' : 'Contact'}</a>
+					</div>
+				</div>
+				<aside class="profile-card surface-card">
+					<p>{isVi ? 'Phan Thanh Tung' : 'Phan Thanh Tung'}</p>
+					<h2>{isVi ? 'Tech Visionary. Serial Founder. Full-Stack Architect.' : 'Tech Visionary. Serial Founder. Full-Stack Architect.'}</h2>
+					<div>
+						<span>Ho Chi Minh City</span>
+						<span>thanhtung@simplamo.com</span>
+					</div>
+				</aside>
+			</section>
+
+			<section class="section-block featured-projects">
+				<div class="section-title">
+					<p>{isVi ? 'Featured projects' : 'Featured projects'}</p>
+					<h2>{isVi ? '4 dự án nổi bật' : '4 featured projects'}</h2>
+				</div>
+				<div class="project-grid">
+					{
+						projects.map((project) => (
+							<article class="project-card surface-card">
+								<div class="thumb">
+									<Image src={project.image} width={640} height={360} alt={project.title} loading="lazy" />
+								</div>
+								<div class="project-body">
+									<span>{project.meta}</span>
+									<h3>{project.title}</h3>
+									<p>{project.desc}</p>
+								</div>
+							</article>
+						))
+					}
+				</div>
+			</section>
+
+			<section class="section-block doing-section">
+				<div class="section-title narrow">
+					<p>{isVi ? 'What I do' : 'What I do'}</p>
+					<h2>{isVi ? 'Tôi giúp đội ngũ học nhanh hơn và vận hành sắc hơn' : 'I help teams learn faster and operate sharper'}</h2>
+				</div>
+				<div class="service-list">
+					{services.map((item, index) => <div class="service-item"><span>{`0${index + 1}`}</span><p>{item}</p></div>)}
+				</div>
+			</section>
+
+			<section class="section-block writing-section">
+				<div class="section-title writing-title">
+					<div>
+						<p>{isVi ? 'Latest writing' : 'Latest writing'}</p>
+						<h2>{isVi ? 'Góc blog & chia sẻ' : 'Blog & field notes'}</h2>
+					</div>
+					<a class="button-secondary compact" href={localizePath('/blog', locale)}>{isVi ? 'Xem tất cả' : 'View all'}</a>
+				</div>
+				<div class="blog-grid">
+					{
+						latestPosts.map((post) => (
+							<article class:list={['blog-card', 'surface-card', { 'has-media': Boolean(post.data.heroImage) }]}>
+								<a href={getBlogPath(post, locale)}>
+									{post.data.heroImage && (
+										<Image src={post.data.heroImage} width={520} height={300} alt="" loading="lazy" />
+									)}
+									<div>
+										<span><FormattedDate date={post.data.pubDate} locale={locale} /></span>
+										<h3>{post.data.title}</h3>
+										<p>{post.data.description}</p>
+									</div>
+								</a>
+							</article>
+						))
+					}
+				</div>
+			</section>
+
+			<section class="section-block stats-section surface-card">
+				<div class="section-title narrow">
+					<p>{isVi ? 'Statistics' : 'Statistics'}</p>
+					<h2>{isVi ? 'Những con số đã chạy ngoài đời thật' : 'Numbers from real systems'}</h2>
+				</div>
+				<div class="stats-grid">
+					{stats.map((stat) => <div class="stat-card"><strong>{stat.value}</strong><span>{stat.label}</span></div>)}
+				</div>
+			</section>
 		</main>
 		<Footer />
 	</body>
 </html>
+
+<style>
+	.home-shell {
+		padding-top: 3.5rem;
+	}
+
+	.section-block {
+		position: relative;
+		padding: clamp(2.75rem, 7vw, 5.5rem) 0;
+	}
+
+	.hero {
+		display: grid;
+		grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr);
+		gap: clamp(1.5rem, 4vw, 4rem);
+		align-items: center;
+		min-height: min(620px, calc(100dvh - 8rem));
+		padding-top: 1rem;
+	}
+
+	.kicker,
+	.section-title p {
+		display: inline-flex;
+		margin-bottom: 1rem;
+		padding: 0.42rem 0.72rem;
+		border: 1px solid rgb(var(--border));
+		border-radius: 999px;
+		background: rgb(255 255 255 / 0.82);
+		color: rgb(var(--primary));
+		font-size: 0.82rem;
+		font-weight: 850;
+		letter-spacing: 0.01em;
+	}
+
+	.hero h1 {
+		max-width: 11ch;
+		font-size: clamp(3.1rem, 7.6vw, 6.6rem);
+		line-height: 0.94;
+		letter-spacing: -0.07em;
+	}
+
+	.hero-lead {
+		max-width: 58ch;
+		margin-top: 1.25rem;
+		color: rgb(var(--muted-foreground));
+		font-size: clamp(1.08rem, 2vw, 1.28rem);
+		line-height: 1.62;
+	}
+
+	.hero-actions {
+		display: flex;
+		gap: 0.75rem;
+		flex-wrap: wrap;
+		margin-top: 1.8rem;
+	}
+
+	.profile-card {
+		padding: clamp(1.25rem, 3vw, 2rem);
+		background: rgb(10 10 10);
+		color: white;
+		border-color: rgb(10 10 10);
+	}
+
+	.profile-card p {
+		margin-bottom: 1.8rem;
+		color: rgb(251 146 60);
+		font-size: 0.95rem;
+		font-weight: 850;
+	}
+
+	.profile-card h2 {
+		max-width: 12ch;
+		color: white;
+		font-size: clamp(2rem, 5vw, 4.25rem);
+		line-height: 0.98;
+	}
+
+	.profile-card div {
+		display: grid;
+		gap: 0.55rem;
+		margin-top: 2.5rem;
+		color: rgb(212 212 212);
+		font-size: 0.95rem;
+	}
+
+	.section-title {
+		margin-bottom: 1.5rem;
+	}
+
+	.section-title.narrow {
+		max-width: 760px;
+	}
+
+	.section-title h2 {
+		max-width: 12ch;
+		font-size: clamp(2.25rem, 6vw, 5.2rem);
+		line-height: 0.96;
+	}
+
+	.project-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1rem;
+	}
+
+	.project-card {
+		overflow: hidden;
+		background: rgb(255 255 255 / 0.88);
+		transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+	}
+
+	.project-card:hover {
+		transform: translateY(-3px);
+		border-color: rgb(var(--primary) / 0.42);
+	}
+
+	.thumb {
+		padding: 0.45rem;
+		background: rgb(10 10 10);
+	}
+
+	.thumb img {
+		display: block;
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		object-fit: cover;
+		border-radius: 0.8rem;
+	}
+
+	.project-body {
+		padding: clamp(1rem, 2.4vw, 1.5rem);
+	}
+
+	.project-body span {
+		color: rgb(var(--primary));
+		font-size: 0.8rem;
+		font-weight: 850;
+	}
+
+	.project-body h3 {
+		margin-top: 0.45rem;
+		font-size: clamp(1.25rem, 3vw, 2rem);
+	}
+
+	.project-body p {
+		color: rgb(var(--muted-foreground));
+		font-size: 0.98rem;
+		line-height: 1.56;
+	}
+
+	.doing-section {
+		display: grid;
+		grid-template-columns: 0.82fr 1.18fr;
+		gap: clamp(1.5rem, 5vw, 5rem);
+		align-items: start;
+	}
+
+	.service-list {
+		display: grid;
+		gap: 0.75rem;
+	}
+
+	.service-item {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		gap: 1rem;
+		align-items: start;
+		padding: 1.1rem;
+		border: 1px solid rgb(var(--border));
+		border-radius: var(--radius);
+		background: rgb(255 255 255 / 0.82);
+	}
+
+	.service-item span {
+		color: rgb(var(--primary));
+		font-size: 0.86rem;
+		font-weight: 900;
+	}
+
+	.service-item p {
+		margin: 0;
+		color: rgb(var(--foreground));
+		font-size: clamp(1rem, 2vw, 1.18rem);
+		font-weight: 700;
+		line-height: 1.45;
+	}
+
+	.writing-title {
+		display: flex;
+		align-items: end;
+		justify-content: space-between;
+		gap: 1rem;
+	}
+
+	.writing-title .compact {
+		padding-inline: 1rem;
+		white-space: nowrap;
+	}
+
+	.blog-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1rem;
+	}
+
+	.blog-card {
+		overflow: hidden;
+		background: rgb(255 255 255 / 0.88);
+		transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+	}
+
+	.blog-card:hover {
+		transform: translateY(-3px);
+		border-color: rgb(var(--primary) / 0.42);
+	}
+
+	.blog-card a {
+		display: flex;
+		min-height: 100%;
+		color: inherit;
+		text-decoration: none;
+		flex-direction: column;
+	}
+
+	.blog-card img {
+		display: block;
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		object-fit: cover;
+		border-radius: 0;
+	}
+
+	.blog-card div {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		padding: 1.15rem;
+	}
+
+	.blog-card span {
+		color: rgb(var(--primary));
+		font-size: 0.78rem;
+		font-weight: 850;
+	}
+
+	.blog-card h3 {
+		margin-top: 0.5rem;
+		font-size: clamp(1.05rem, 2vw, 1.35rem);
+		line-height: 1.12;
+		letter-spacing: -0.035em;
+	}
+
+	.blog-card p {
+		display: -webkit-box;
+		margin-top: 0.7rem;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		color: rgb(var(--muted-foreground));
+		font-size: 0.94rem;
+		line-height: 1.5;
+	}
+
+	.stats-section {
+		padding: clamp(1.25rem, 3vw, 2rem);
+		background: rgb(10 10 10);
+		color: white;
+	}
+
+	.stats-section h2 {
+		color: white;
+	}
+
+	.stats-grid {
+		display: grid;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		gap: 0.75rem;
+		margin-top: 2rem;
+	}
+
+	.stat-card {
+		padding: 1.25rem;
+		border: 1px solid rgb(255 255 255 / 0.12);
+		border-radius: var(--radius);
+		background: rgb(255 255 255 / 0.06);
+	}
+
+	.stat-card strong {
+		display: block;
+		color: rgb(251 146 60);
+		font-size: clamp(2rem, 5vw, 4.25rem);
+		line-height: 1;
+		letter-spacing: -0.06em;
+	}
+
+	.stat-card span {
+		display: block;
+		margin-top: 0.65rem;
+		color: rgb(229 229 229);
+		font-size: 0.95rem;
+		line-height: 1.45;
+	}
+
+	@media (max-width: 940px) {
+		.hero,
+		.doing-section {
+			grid-template-columns: 1fr;
+			min-height: auto;
+		}
+
+		.project-grid,
+		.blog-grid,
+		.stats-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (max-width: 640px) {
+		.home-shell {
+			padding-top: 1.25rem;
+		}
+
+		.section-block {
+			padding: 2.25rem 0;
+		}
+
+		.hero h1 {
+			font-size: clamp(2.62rem, 13.5vw, 4.25rem);
+			letter-spacing: -0.06em;
+		}
+
+		.hero-actions,
+		.hero-actions a {
+			width: 100%;
+		}
+
+		.project-grid,
+		.blog-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.stats-section {
+			padding: 1rem;
+		}
+
+		.stats-section .section-title h2 {
+			font-size: clamp(1.85rem, 10vw, 3rem);
+			line-height: 1;
+		}
+
+		.stats-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 0.55rem;
+			margin-top: 1.15rem;
+		}
+
+		.stat-card {
+			padding: 0.9rem;
+			border-radius: 0.8rem;
+		}
+
+		.stat-card strong {
+			font-size: clamp(1.75rem, 11vw, 2.55rem);
+			letter-spacing: -0.055em;
+		}
+
+		.stat-card span {
+			margin-top: 0.45rem;
+			font-size: 0.78rem;
+			line-height: 1.25;
+		}
+
+		.writing-title {
+			align-items: start;
+			flex-direction: column;
+		}
+
+		.writing-title .compact {
+			width: 100%;
+		}
+
+		.blog-card.has-media a {
+			display: grid;
+			grid-template-columns: 6.3rem minmax(0, 1fr);
+			align-items: stretch;
+		}
+
+		.blog-card.has-media img {
+			height: 100%;
+			min-height: 100%;
+			aspect-ratio: 1;
+			object-fit: cover;
+		}
+
+		.blog-card div {
+			padding: 0.88rem;
+		}
+
+		.blog-card h3 {
+			font-size: 1rem;
+			line-height: 1.18;
+		}
+
+		.blog-card p {
+			margin-top: 0.45rem;
+			-webkit-line-clamp: 2;
+			font-size: 0.84rem;
+			line-height: 1.35;
+		}
+
+		.service-item {
+			grid-template-columns: 1fr;
+			gap: 0.45rem;
+		}
+	}
+</style>

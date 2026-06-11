@@ -8,6 +8,7 @@ import BaseHead from '../BaseHead.astro';
 import Footer from '../Footer.astro';
 import FormattedDate from '../FormattedDate.astro';
 import Header from '../Header.astro';
+import { MotionProjectGrid, MotionStatsGrid, TiltProfileCard, X10Mark } from '../motion/HomeMotion';
 import { SITE_TITLE } from '../../consts';
 import { getTranslations, localizePath, type Locale } from '../../i18n';
 import { getBlogPath, getBlogPosts } from '../../lib/blog';
@@ -28,24 +29,40 @@ const projects = isVi
 				desc: 'Nền tảng quan trắc công nghiệp với hơn 1.000 trạm, phục vụ FDI, nhà máy và cơ quan nhà nước.',
 				image: ILotusLandImage,
 				meta: 'IoT Platform',
+				role: 'Founder / Architect',
+				impact: '1,000+ trạm',
+				domain: 'Industrial IoT',
+				cta: 'Xem case study',
 			},
 			{
 				title: 'Simplamo Strategy AI',
 				desc: 'AI tạo OKRs, KPIs và mục tiêu quý từ ngữ cảnh quản trị thật, đang dùng trong nền tảng Simplamo.',
 				image: AiAgentsImage,
 				meta: 'AI Agent',
+				role: 'Product Architect',
+				impact: '100+ tổ chức',
+				domain: 'OKR / KPI / 4DX',
+				cta: 'Đọc câu chuyện',
 			},
 			{
 				title: 'Pascal tới 1 triệu học sinh',
 				desc: 'Biến một chủ đề khô thành trải nghiệm học cuốn hút, đạt hơn 1 triệu lượt xem và tiếp cận học sinh quy mô lớn.',
 				image: TeachingImage,
 				meta: 'Education',
+				role: 'Educator',
+				impact: '1M+ lượt xem',
+				domain: 'Learning at scale',
+				cta: 'Xem hành trình',
 			},
 			{
 				title: 'AI Product Training Program',
 				desc: 'Chương trình học theo nhịp mỗi ngày có sản phẩm chạy thật: web, mobile, backend và AI.',
 				image: AiProgramImage,
 				meta: 'Training System',
+				role: 'Program Designer',
+				impact: 'Build-first',
+				domain: 'AI / Web / Mobile',
+				cta: 'Khám phá chương trình',
 			},
 		]
 	: [
@@ -54,26 +71,44 @@ const projects = isVi
 				desc: 'An industrial monitoring platform with 1,000+ stations serving FDI factories and public agencies.',
 				image: ILotusLandImage,
 				meta: 'IoT Platform',
+				role: 'Founder / Architect',
+				impact: '1,000+ stations',
+				domain: 'Industrial IoT',
+				cta: 'View case study',
 			},
 			{
 				title: 'Simplamo Strategy AI',
 				desc: 'AI that generates OKRs, KPIs, and quarterly goals from real business context inside Simplamo.',
 				image: AiAgentsImage,
 				meta: 'AI Agent',
+				role: 'Product Architect',
+				impact: '100+ organizations',
+				domain: 'OKR / KPI / 4DX',
+				cta: 'Read story',
 			},
 			{
 				title: 'Pascal to 1M learners',
 				desc: 'Turned a dry technical subject into engaging lessons that reached more than one million views.',
 				image: TeachingImage,
 				meta: 'Education',
+				role: 'Educator',
+				impact: '1M+ views',
+				domain: 'Learning at scale',
+				cta: 'View journey',
 			},
 			{
 				title: 'AI Product Training Program',
 				desc: 'A build-first learning arc where every day ends with a product that runs.',
 				image: AiProgramImage,
 				meta: 'Training System',
+				role: 'Program Designer',
+				impact: 'Build-first',
+				domain: 'AI / Web / Mobile',
+				cta: 'Explore program',
 			},
 		];
+
+const projectCards = projects.map((project) => ({ ...project, imageSrc: project.image.src }));
 
 const services = isVi
 	? [
@@ -95,6 +130,29 @@ const stats = [
 	{ value: '600+', label: isVi ? 'nhà máy FDI phục vụ' : 'FDI factories served' },
 	{ value: '100+', label: isVi ? 'tổ chức dùng Simplamo' : 'organizations using Simplamo' },
 ];
+
+const proofStats = isVi
+	? [
+			{ value: '1M+', label: 'học sinh tiếp cận' },
+			{ value: '1,000+', label: 'trạm IoT' },
+			{ value: '100+', label: 'tổ chức dùng Simplamo' },
+			{ value: 'AI / SaaS', label: 'sản phẩm thật' },
+		]
+	: [
+			{ value: '1M+', label: 'learners reached' },
+			{ value: '1,000+', label: 'IoT stations' },
+			{ value: '100+', label: 'Simplamo organizations' },
+			{ value: 'AI / SaaS', label: 'real products' },
+		];
+
+const profileCard = {
+	name: 'Phan Thanh Tung',
+	title: isVi ? 'Tech Visionary. Serial Founder. Full-Stack Architect.' : 'Tech Visionary. Serial Founder. Full-Stack Architect.',
+	location: 'Ho Chi Minh City',
+	email: 'thanhtung@simplamo.com',
+	focus: isVi ? 'Đang xây Simplamo, AI agents và chương trình đào tạo sản phẩm AI.' : 'Building Simplamo, AI agents, and practical AI product training.',
+	status: isVi ? 'Đang xây Simplamo' : 'Building Simplamo',
+};
 ---
 
 <!doctype html>
@@ -106,9 +164,14 @@ const stats = [
 		<Header />
 		<main class="home-shell">
 			<section class="hero section-block">
-				<div class="hero-copy">
-					<p class="kicker">{isVi ? 'AI builder · educator · operator' : 'AI builder · educator · operator'}</p>
-					<h1>{isVi ? 'Simple Technology enables X10 Operations' : 'Simple Technology enables X10 Operations'}</h1>
+				<div class="hero-copy motion-hero-copy">
+					<p class="kicker">{isVi ? 'Xây AI · Giáo dục · Vận hành' : 'AI builder · educator · operator'}</p>
+					<h1>
+						<span>Simple</span>
+						<span>Technology</span>
+						<span>enables <X10Mark client:load /></span>
+						<span>Operations</span>
+					</h1>
 					<p class="hero-lead">
 						{
 							isVi
@@ -120,43 +183,24 @@ const stats = [
 						<a class="button-primary" href={localizePath('/blog', locale)}>{isVi ? 'Đọc bài viết' : 'Read writing'}</a>
 						<a class="button-secondary" href="mailto:thanhtung@simplamo.com">{isVi ? 'Liên hệ' : 'Contact'}</a>
 					</div>
-				</div>
-				<aside class="profile-card surface-card">
-					<p>{isVi ? 'Phan Thanh Tung' : 'Phan Thanh Tung'}</p>
-					<h2>{isVi ? 'Tech Visionary. Serial Founder. Full-Stack Architect.' : 'Tech Visionary. Serial Founder. Full-Stack Architect.'}</h2>
-					<div>
-						<span>Ho Chi Minh City</span>
-						<span>thanhtung@simplamo.com</span>
+					<div class="proof-strip surface-card" aria-label={isVi ? 'Bằng chứng nhanh' : 'Quick proof'}>
+						{proofStats.map((item) => <div><strong>{item.value}</strong><span>{item.label}</span></div>)}
 					</div>
-				</aside>
+				</div>
+				<TiltProfileCard {...profileCard} client:load />
 			</section>
 
 			<section class="section-block featured-projects">
 				<div class="section-title">
-					<p>{isVi ? 'Featured projects' : 'Featured projects'}</p>
+					<p>{isVi ? 'Dự án nổi bật' : 'Featured projects'}</p>
 					<h2>{isVi ? '4 dự án nổi bật' : '4 featured projects'}</h2>
 				</div>
-				<div class="project-grid">
-					{
-						projects.map((project) => (
-							<article class="project-card surface-card">
-								<div class="thumb">
-									<Image src={project.image} width={640} height={360} alt={project.title} loading="lazy" />
-								</div>
-								<div class="project-body">
-									<span>{project.meta}</span>
-									<h3>{project.title}</h3>
-									<p>{project.desc}</p>
-								</div>
-							</article>
-						))
-					}
-				</div>
+				<MotionProjectGrid projects={projectCards} client:visible />
 			</section>
 
 			<section class="section-block doing-section">
 				<div class="section-title narrow">
-					<p>{isVi ? 'What I do' : 'What I do'}</p>
+					<p>{isVi ? 'Tôi làm gì' : 'What I do'}</p>
 					<h2>{isVi ? 'Tôi giúp đội ngũ học nhanh hơn và vận hành sắc hơn' : 'I help teams learn faster and operate sharper'}</h2>
 				</div>
 				<div class="service-list">
@@ -167,7 +211,7 @@ const stats = [
 			<section class="section-block writing-section">
 				<div class="section-title writing-title">
 					<div>
-						<p>{isVi ? 'Latest writing' : 'Latest writing'}</p>
+						<p>{isVi ? 'Bài viết mới' : 'Latest writing'}</p>
 						<h2>{isVi ? 'Góc blog & chia sẻ' : 'Blog & field notes'}</h2>
 					</div>
 					<a class="button-secondary compact" href={localizePath('/blog', locale)}>{isVi ? 'Xem tất cả' : 'View all'}</a>
@@ -194,12 +238,10 @@ const stats = [
 
 			<section class="section-block stats-section surface-card">
 				<div class="section-title narrow">
-					<p>{isVi ? 'Statistics' : 'Statistics'}</p>
+					<p>{isVi ? 'Con số thực tế' : 'Statistics'}</p>
 					<h2>{isVi ? 'Những con số đã chạy ngoài đời thật' : 'Numbers from real systems'}</h2>
 				</div>
-				<div class="stats-grid">
-					{stats.map((stat) => <div class="stat-card"><strong>{stat.value}</strong><span>{stat.label}</span></div>)}
-				</div>
+				<MotionStatsGrid stats={stats} client:visible />
 			</section>
 		</main>
 		<Footer />
@@ -246,6 +288,62 @@ const stats = [
 		letter-spacing: -0.07em;
 	}
 
+	.hero h1 > span {
+		display: block;
+	}
+
+	.motion-hero-copy > .kicker,
+	.motion-hero-copy h1 > span,
+	.motion-hero-copy .hero-lead,
+	.motion-hero-copy .hero-actions,
+	.motion-hero-copy .proof-strip {
+		animation: hero-rise 720ms cubic-bezier(0.16, 1, 0.3, 1) both;
+	}
+
+	.motion-hero-copy h1 > span:nth-child(1) { animation-delay: 80ms; }
+	.motion-hero-copy h1 > span:nth-child(2) { animation-delay: 150ms; }
+	.motion-hero-copy h1 > span:nth-child(3) { animation-delay: 220ms; }
+	.motion-hero-copy h1 > span:nth-child(4) { animation-delay: 290ms; }
+	.motion-hero-copy .hero-lead { animation-delay: 360ms; }
+	.motion-hero-copy .hero-actions { animation-delay: 430ms; }
+	.motion-hero-copy .proof-strip { animation-delay: 500ms; }
+
+	@keyframes hero-rise {
+		from { opacity: 0; transform: translateY(24px); }
+		to { opacity: 1; transform: translateY(0); }
+	}
+
+	.x10-wrap {
+		display: inline-flex;
+		position: relative;
+		isolation: isolate;
+	}
+
+	.x10-mark {
+		display: inline-block;
+		min-width: 1.55em;
+		color: rgb(var(--primary));
+	}
+
+	.x10-wrap::after {
+		content: "";
+		position: absolute;
+		left: 0.04em;
+		right: 0.08em;
+		bottom: 0.02em;
+		z-index: -1;
+		height: 0.12em;
+		border-radius: 999px;
+		background: rgb(var(--primary) / 0.22);
+		transform-origin: left;
+		animation: x10-sweep 820ms cubic-bezier(0.16, 1, 0.3, 1) 700ms both;
+	}
+
+	@keyframes x10-sweep {
+		from { transform: scaleX(0); }
+		to { transform: scaleX(1); }
+	}
+
 	.hero-lead {
 		max-width: 58ch;
 		margin-top: 1.25rem;
@@ -261,18 +359,90 @@ const stats = [
 		margin-top: 1.8rem;
 	}
 
+	.proof-strip {
+		display: grid;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		gap: 0.5rem;
+		margin-top: 1.35rem;
+		padding: 0.7rem;
+		background: rgb(255 255 255 / 0.78);
+	}
+
+	.proof-strip div {
+		padding: 0.55rem 0.6rem;
+		border-radius: 0.9rem;
+		background: rgb(255 247 237 / 0.72);
+	}
+
+	.proof-strip strong,
+	.proof-strip span {
+		display: block;
+	}
+
+	.proof-strip strong {
+		color: rgb(var(--foreground));
+		font-size: clamp(1rem, 1.9vw, 1.32rem);
+		line-height: 1;
+		letter-spacing: -0.04em;
+	}
+
+	.proof-strip span {
+		margin-top: 0.32rem;
+		color: rgb(var(--muted-foreground));
+		font-size: 0.76rem;
+		font-weight: 800;
+		line-height: 1.22;
+	}
+
 	.profile-card {
+		position: relative;
+		overflow: hidden;
 		padding: clamp(1.25rem, 3vw, 2rem);
 		background: rgb(10 10 10);
 		color: white;
 		border-color: rgb(10 10 10);
+		transform-style: preserve-3d;
 	}
 
-	.profile-card p {
-		margin-bottom: 1.8rem;
+	.profile-glow {
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+	}
+
+	.profile-topline,
+	.profile-card h2,
+	.profile-focus,
+	.profile-meta {
+		position: relative;
+		z-index: 1;
+	}
+
+	.profile-topline {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem;
+		margin-bottom: 1.6rem;
+	}
+
+	.profile-topline p {
+		margin: 0;
 		color: rgb(251 146 60);
 		font-size: 0.95rem;
 		font-weight: 850;
+	}
+
+	.profile-topline span {
+		padding: 0.34rem 0.58rem;
+		border: 1px solid rgb(255 255 255 / 0.14);
+		border-radius: 999px;
+		background: rgb(255 255 255 / 0.06);
+		color: rgb(245 245 245);
+		font-size: 0.72rem;
+		font-weight: 800;
+		line-height: 1;
+		white-space: nowrap;
 	}
 
 	.profile-card h2 {
@@ -282,10 +452,21 @@ const stats = [
 		line-height: 0.98;
 	}
 
-	.profile-card div {
-		display: grid;
+	.profile-focus {
+		max-width: 31ch;
+		margin: 1.1rem 0 0;
+		color: rgb(229 229 229);
+		font-size: 0.98rem;
+		font-weight: 700;
+		line-height: 1.45;
+	}
+
+	.profile-meta {
+		display: flex;
 		gap: 0.55rem;
-		margin-top: 2.5rem;
+		align-items: center;
+		flex-wrap: wrap;
+		margin-top: 2rem;
 		color: rgb(212 212 212);
 		font-size: 0.95rem;
 	}
@@ -317,13 +498,19 @@ const stats = [
 	}
 
 	.project-card:hover {
-		transform: translateY(-3px);
+		transform: translateY(-5px);
 		border-color: rgb(var(--primary) / 0.42);
+		box-shadow: 0 18px 58px rgb(15 23 42 / 0.12);
+	}
+
+	.project-card:hover .thumb img {
+		transform: scale(1.035);
 	}
 
 	.thumb {
 		padding: 0.45rem;
 		background: rgb(10 10 10);
+		overflow: hidden;
 	}
 
 	.thumb img {
@@ -332,27 +519,90 @@ const stats = [
 		aspect-ratio: 16 / 9;
 		object-fit: cover;
 		border-radius: 0.8rem;
+		transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1);
 	}
 
 	.project-body {
+		display: grid;
+		gap: 0.95rem;
 		padding: clamp(1rem, 2.4vw, 1.5rem);
 	}
 
-	.project-body span {
+	.project-kicker-row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.45rem;
+	}
+
+	.project-kicker-row span {
+		display: inline-flex;
+		align-items: center;
+		min-height: 1.7rem;
+		padding: 0.28rem 0.58rem;
+		border: 1px solid rgb(var(--border));
+		border-radius: 999px;
+		background: rgb(255 247 237 / 0.72);
 		color: rgb(var(--primary));
-		font-size: 0.8rem;
+		font-size: 0.72rem;
 		font-weight: 850;
+		line-height: 1;
 	}
 
 	.project-body h3 {
-		margin-top: 0.45rem;
+		margin: 0;
 		font-size: clamp(1.25rem, 3vw, 2rem);
 	}
 
 	.project-body p {
+		margin: 0;
 		color: rgb(var(--muted-foreground));
 		font-size: 0.98rem;
 		line-height: 1.56;
+	}
+
+	.project-proof {
+		display: grid;
+		grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+		gap: 0.55rem;
+		padding: 0.75rem;
+		border-radius: 0.9rem;
+		background: rgb(245 245 245 / 0.78);
+	}
+
+	.project-proof strong,
+	.project-proof span {
+		display: block;
+		line-height: 1.2;
+	}
+
+	.project-proof strong {
+		color: rgb(var(--foreground));
+		font-size: 1rem;
+		letter-spacing: -0.035em;
+	}
+
+	.project-proof span {
+		color: rgb(var(--muted-foreground));
+		font-size: 0.82rem;
+		font-weight: 800;
+	}
+
+	.project-cta {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.42rem;
+		width: fit-content;
+		color: rgb(var(--primary));
+		font-size: 0.9rem;
+		font-weight: 900;
+	}
+
+	.project-cta span {
+		transition: transform 180ms ease;
+	}
+
+	.project-card:hover .project-cta span {
+		transform: translateX(3px);
 	}
 
 	.doing-section {
@@ -500,7 +750,15 @@ const stats = [
 		letter-spacing: -0.06em;
 	}
 
-	.stat-card span {
+	.stat-card strong > span {
+		display: inline;
+		margin: 0;
+		color: inherit;
+		font: inherit;
+		line-height: inherit;
+	}
+
+	.stat-card > span {
 		display: block;
 		margin-top: 0.65rem;
 		color: rgb(229 229 229);
@@ -531,9 +789,60 @@ const stats = [
 			padding: 2.25rem 0;
 		}
 
+		.hero {
+			gap: 1rem;
+		}
+
 		.hero h1 {
-			font-size: clamp(2.62rem, 13.5vw, 4.25rem);
-			letter-spacing: -0.06em;
+			font-size: clamp(2.34rem, 11.8vw, 3.72rem);
+			line-height: 0.96;
+			letter-spacing: -0.058em;
+		}
+
+		.hero-lead {
+			margin-top: 0.95rem;
+			font-size: 1rem;
+			line-height: 1.52;
+		}
+
+		.hero-actions {
+			margin-top: 1.25rem;
+		}
+
+		.proof-strip {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 0.42rem;
+			margin-top: 0.95rem;
+			padding: 0.5rem;
+		}
+
+		.proof-strip div {
+			padding: 0.55rem;
+		}
+
+		.profile-card {
+			padding: 1.1rem;
+		}
+
+		.profile-topline {
+			align-items: start;
+			flex-direction: column;
+			margin-bottom: 1rem;
+		}
+
+		.profile-card h2 {
+			font-size: clamp(1.85rem, 10.5vw, 3rem);
+			line-height: 1;
+		}
+
+		.profile-focus {
+			margin-top: 0.85rem;
+			font-size: 0.9rem;
+		}
+
+		.profile-meta {
+			margin-top: 1.25rem;
+			font-size: 0.86rem;
 		}
 
 		.hero-actions,
@@ -571,7 +880,7 @@ const stats = [
 			letter-spacing: -0.055em;
 		}
 
-		.stat-card span {
+		.stat-card > span {
 			margin-top: 0.45rem;
 			font-size: 0.78rem;
 			line-height: 1.25;
@@ -618,6 +927,118 @@ const stats = [
 		.service-item {
 			grid-template-columns: 1fr;
 			gap: 0.45rem;
+		}
+	}
+	:global(.profile-card) {
+		position: relative;
+		overflow: hidden;
+		padding: clamp(1.35rem, 3vw, 2.1rem) !important;
+		background: rgb(10 10 10) !important;
+		color: white !important;
+		border-color: rgb(10 10 10) !important;
+		transform-style: preserve-3d;
+	}
+
+	:global(.profile-glow) {
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+	}
+
+	:global(.profile-topline),
+	:global(.profile-card h2),
+	:global(.profile-focus),
+	:global(.profile-meta) {
+		position: relative;
+		z-index: 1;
+	}
+
+	:global(.profile-topline) {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem;
+		margin-bottom: 1.6rem;
+	}
+
+	:global(.profile-topline p) {
+		margin: 0;
+		color: rgb(251 146 60);
+		font-size: 0.95rem;
+		font-weight: 850;
+	}
+
+	:global(.profile-topline span) {
+		padding: 0.34rem 0.58rem;
+		border: 1px solid rgb(255 255 255 / 0.14);
+		border-radius: 999px;
+		background: rgb(255 255 255 / 0.06);
+		color: rgb(245 245 245);
+		font-size: 0.72rem;
+		font-weight: 800;
+		line-height: 1;
+		white-space: nowrap;
+	}
+
+	:global(.profile-card h2) {
+		max-width: 12ch;
+		color: white;
+		font-size: clamp(2rem, 5vw, 4.25rem);
+		line-height: 0.98;
+	}
+
+	:global(.profile-focus) {
+		max-width: 31ch;
+		margin: 1.1rem 0 0;
+		color: rgb(229 229 229);
+		font-size: 0.98rem;
+		font-weight: 700;
+		line-height: 1.45;
+	}
+
+	:global(.profile-meta) {
+		display: block;
+		margin-top: 2rem;
+		color: rgb(212 212 212);
+		font-size: 0.95rem;
+		line-height: 1.45;
+	}
+
+	@media (max-width: 640px) {
+		:global(.profile-card) {
+			padding: 1.1rem !important;
+		}
+
+		:global(.profile-topline) {
+			align-items: start;
+			flex-direction: column;
+			margin-bottom: 1rem;
+		}
+
+		:global(.profile-card h2) {
+			font-size: clamp(1.85rem, 10.5vw, 3rem);
+			line-height: 1;
+		}
+
+		:global(.profile-focus) {
+			margin-top: 0.85rem;
+			font-size: 0.9rem;
+		}
+
+		:global(.profile-meta) {
+			margin-top: 1.25rem;
+			font-size: 0.86rem;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.motion-hero-copy > .kicker,
+		.motion-hero-copy h1 > span,
+		.motion-hero-copy .hero-lead,
+		.motion-hero-copy .hero-actions,
+		.motion-hero-copy .proof-strip,
+		.x10-wrap::after {
+			animation: none;
 		}
 	}
 </style>

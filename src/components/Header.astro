@@ -12,7 +12,7 @@ const alternateLinks = getAlternateLinks(Astro.url.pathname);
 <header class="site-header">
 	<nav class="site-nav" aria-label="Main navigation">
 		<a class="brand" href={localizePath('/', locale)} aria-label={`${SITE_TITLE} home`}>
-			<img class="brand-logo" src={DavidTungLogo.src} alt="" width="900" height="219" decoding="async" />
+			<img class="brand-logo" src={DavidTungLogo.src} decoding="async" />
 		</a>
 
 		<div class="nav-links">
@@ -63,8 +63,7 @@ const alternateLinks = getAlternateLinks(Astro.url.pathname);
 
 	.brand-logo {
 		display: block;
-		width: clamp(9.6rem, 16vw, 14.75rem);
-		height: auto;
+		height: 30px;
 		border-radius: 0 !important;
 		clip-path: none !important;
 		mask-image: none !important;

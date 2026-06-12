@@ -1,63 +1,79 @@
-# Astro Starter Kit: Blog
+# Thanhtung Astro Website
 
-```sh
-npm create astro@latest -- --template blog
-```
+Astro bilingual personal/business website for David Tung / Thanhtung content, projects, and blog articles.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Tech stack
 
-Features:
+- Astro
+- Markdown/MDX content collections
+- Tailwind CSS v4 via `@tailwindcss/vite`
+- shadcn-style semantic tokens and Astro UI primitives
 
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and Open Graph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
+## UI development rules
 
-## 🚀 Project Structure
+- **Always use Tailwind CSS utilities first** for layout, spacing, typography, color, responsive behavior, and visual polish.
+- Avoid new scoped CSS blocks or one-off CSS classes when Tailwind utilities can express the same result.
+- Repeated UI patterns should become reusable primitives under `src/components/ui/`.
+- Prioritize official **shadcn/ui** component patterns and translate them into Astro-first components with semantic tokens when React is not required.
+- Prioritize **Magic UI** patterns for premium motion/interaction. Add React islands only when client-side interaction is actually needed.
+- Keep shadcn-style tokens in `src/styles/global.css`, including `--background`, `--foreground`, `--card`, `--muted`, `--border`, `--primary`, `--ring`, `--radius`, and shadow variables.
+- Every multi-column or visual layout must include explicit mobile behavior with Tailwind responsive variants.
 
-Inside of your Astro project, you'll see the following folders and files:
+These rules are also captured for AI/editor tooling in:
+
+- `AGENTS.md`
+- `.cursor/rules/ui-development.mdc`
+
+## Project structure
 
 ```text
 ├── public/
 ├── src/
-│   ├── assets/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
+│   ├── assets/
+│   ├── components/
+│   │   └── ui/
+│   ├── content/
+│   │   └── blog/
+│   │       ├── vi/
+│   │       └── en/
+│   ├── layouts/
+│   ├── pages/
+│   └── styles/
 ├── astro.config.mjs
+├── AGENTS.md
 ├── README.md
 ├── package.json
 └── tsconfig.json
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Routes
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+- Vietnamese home: `/`
+- Vietnamese blog: `/blog/`
+- Vietnamese article: `/blog/<slug>/`
+- English home: `/en/`
+- English blog: `/en/blog/`
+- English article: `/en/blog/<slug>/`
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+Do not change route slugs, locale folders, or bilingual URL structure without explicit approval.
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Commands
 
-## 🧞 Commands
+Use Node 22 from the local toolchain when running this project:
 
-All commands are run from the root of the project, from a terminal:
+```bash
+PATH=/home/tungphan/.local/node22/bin:$PATH npm install
+PATH=/home/tungphan/.local/node22/bin:$PATH npm run dev
+PATH=/home/tungphan/.local/node22/bin:$PATH npm run build
+PATH=/home/tungphan/.local/node22/bin:$PATH npm run preview
+```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## Verification
 
-## 👀 Want to learn more?
+Before reporting completion for code changes, run:
 
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+```bash
+PATH=/home/tungphan/.local/node22/bin:$PATH npm run build
+```
 
-## Credit
-
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+For visual/UI changes, also inspect desktop and mobile routes where relevant.

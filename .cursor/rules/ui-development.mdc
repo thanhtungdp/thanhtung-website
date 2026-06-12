@@ -1,0 +1,18 @@
+---
+description: UI development rules for the Thanhtung Astro website
+globs:
+  - "src/**/*.{astro,tsx,ts,css,md,mdx}"
+alwaysApply: true
+---
+
+# UI Development Rules
+
+- Always use Tailwind CSS utilities as the default styling method in this project.
+- Do not introduce new scoped CSS blocks or custom CSS classes for layout, spacing, typography, cards, badges, buttons, grids, or responsive behavior when Tailwind utilities can express the requirement.
+- Prefer reusable Astro UI primitives in `src/components/ui/`.
+- Prioritize component structure and design patterns from official shadcn/ui docs.
+- Because this is Astro-first, translate shadcn components into Astro components with shadcn-style semantic tokens unless a React island is genuinely needed.
+- For polished motion or premium interaction patterns, prioritize Magic UI patterns and add client-side React/motion only for interactive pieces.
+- Keep semantic tokens in `src/styles/global.css` aligned with shadcn conventions: `--background`, `--foreground`, `--card`, `--muted`, `--border`, `--primary`, `--ring`, `--radius`.
+- Every responsive layout must include explicit mobile behavior using Tailwind responsive variants.
+- Verify with `PATH=/home/tungphan/.local/node22/bin:$PATH npm run build` before reporting done.

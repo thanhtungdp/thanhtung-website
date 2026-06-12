@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 import {
-	animate,
 	motion,
 	useInView,
 	useMotionTemplate,
@@ -40,21 +39,18 @@ const ease = [0.16, 1, 0.3, 1] as const;
 
 export function X10Mark({ label = 'X10', target = 10 }: { label?: string; target?: number }) {
 	const reduce = useReducedMotion();
-	const value = useMotionValue(1);
-	const text = useTransform(value, (latest) => `x${Math.round(latest)}`);
-
-	useEffect(() => {
-		if (reduce) {
-			value.set(target);
-			return;
-		}
-		const controls = animate(value, target, { duration: 0.9, ease, delay: 0.55 });
-		return () => controls.stop();
-	}, [reduce, target, value]);
+	void target;
 
 	return (
 		<span className="x10-wrap" aria-label={label}>
-			<motion.span className="x10-mark magic-gradient-text">{text}</motion.span>
+			<motion.span
+				className="x10-mark magic-gradient-text"
+				initial={reduce ? false : { opacity: 0, y: 12, scale: 0.96 }}
+				animate={reduce ? undefined : { opacity: 1, y: 0, scale: 1 }}
+				transition={{ duration: 0.55, ease, delay: 0.45 }}
+			>
+				{label}
+			</motion.span>
 		</span>
 	);
 }

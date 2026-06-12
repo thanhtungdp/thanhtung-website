@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
-import AiProgramImage from '../../assets/projects/ai-product-program.png';
 import ILotusLandImage from '../../assets/projects/ilotusland/software-feature.webp';
+import SaleAIImage from '../../assets/projects/sale-ai/quote-60s-feature.webp';
 import SimplamoImage from '../../assets/projects/simplamo/dashboard-feature.webp';
 import TeachingImage from '../../assets/projects/teaching-scale.png';
 import BaseHead from '../BaseHead.astro';
@@ -57,14 +57,15 @@ const projects = isVi
 				cta: 'Xem hành trình',
 			},
 			{
-				title: 'AI Product Training Program',
-				desc: 'Chương trình học theo nhịp mỗi ngày có sản phẩm chạy thật: web, mobile, backend và AI.',
-				image: AiProgramImage,
-				meta: 'Training System',
-				role: 'Program Designer',
-				impact: 'Build-first',
-				domain: 'AI / Web / Mobile',
-				cta: 'Khám phá chương trình',
+				title: 'ADG Sale AI',
+				desc: 'AI Agent cho mạng lưới 2.000 đại lý, giúp tư vấn từ hình ảnh, tạo báo giá và đơn hàng dưới 60 giây.',
+				image: SaleAIImage,
+				meta: 'AI Agent',
+				role: 'Product Architect',
+				impact: '<60s báo giá',
+				domain: 'Sales AI / Distribution',
+				cta: 'Xem case study',
+				href: localizePath('/projects/sale-ai', locale),
 			},
 		]
 	: [
@@ -101,14 +102,15 @@ const projects = isVi
 				cta: 'View journey',
 			},
 			{
-				title: 'AI Product Training Program',
-				desc: 'A build-first learning arc where every day ends with a product that runs.',
-				image: AiProgramImage,
-				meta: 'Training System',
-				role: 'Program Designer',
-				impact: 'Build-first',
-				domain: 'AI / Web / Mobile',
-				cta: 'Explore program',
+				title: 'ADG Sale AI',
+				desc: 'An AI Agent for a 2,000-dealer network, enabling image-based consultation, quotes, and orders in under 60 seconds.',
+				image: SaleAIImage,
+				meta: 'AI Agent',
+				role: 'Product Architect',
+				impact: '<60s quotes',
+				domain: 'Sales AI / Distribution',
+				cta: 'View case study',
+				href: localizePath('/projects/sale-ai', locale),
 			},
 		];
 

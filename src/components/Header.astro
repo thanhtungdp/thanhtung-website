@@ -1,6 +1,6 @@
 ---
 import { getAlternateLinks, getLocaleFromUrl, getTranslations, localizePath } from '../i18n';
-import DavidTungLogo from '../assets/david-tung-logo.svg';
+import DavidTungLogo from '../assets/david-tung-logo-upload.png';
 import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
 
@@ -12,7 +12,7 @@ const alternateLinks = getAlternateLinks(Astro.url.pathname);
 <header class="site-header">
 	<nav class="site-nav" aria-label="Main navigation">
 		<a class="brand" href={localizePath('/', locale)} aria-label={`${SITE_TITLE} home`}>
-			<img class="brand-logo" src={DavidTungLogo.src} alt="" width="300" height="99" decoding="async" />
+			<img class="brand-logo" src={DavidTungLogo.src} alt="" width="900" height="219" decoding="async" />
 		</a>
 
 		<div class="nav-links">
@@ -65,6 +65,9 @@ const alternateLinks = getAlternateLinks(Astro.url.pathname);
 		display: block;
 		width: clamp(9.6rem, 16vw, 14.75rem);
 		height: auto;
+		border-radius: 0 !important;
+		clip-path: none !important;
+		mask-image: none !important;
 	}
 
 	.nav-links {

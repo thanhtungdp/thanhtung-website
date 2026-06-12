@@ -62,13 +62,11 @@ export function X10Mark({ label = 'X10', target = 10 }: { label?: string; target
 export function SignalMarquee({ items }: { items: string[] }) {
 	return (
 		<div className="signal-marquee" aria-label="Focus areas">
-			{[0, 1].map((row) => (
-				<div className="signal-track" aria-hidden={row === 1} key={row}>
-					{items.map((item) => (
-						<span key={`${row}-${item}`}>{item}</span>
-					))}
-				</div>
-			))}
+			<div className="signal-track">
+				{items.map((item) => (
+					<span key={item}>{item}</span>
+				))}
+			</div>
 		</div>
 	);
 }

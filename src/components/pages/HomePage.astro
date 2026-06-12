@@ -417,21 +417,18 @@ const profileCard = {
 	:global(.signal-marquee) {
 		position: relative;
 		display: flex;
-		gap: 0.65rem;
 		width: min(100%, 620px);
 		min-width: 0;
 		max-width: 100%;
 		margin-top: 1rem;
-		overflow: hidden;
-		mask-image: linear-gradient(90deg, black 0%, black 88%, transparent);
+		overflow: visible;
 	}
 
 	:global(.signal-track) {
 		display: flex;
-		flex: 0 0 auto;
+		flex-wrap: wrap;
 		gap: 0.65rem;
-		min-width: max-content;
-		animation: magic-marquee 24s linear infinite;
+		min-width: 0;
 	}
 
 	:global(.signal-track span) {

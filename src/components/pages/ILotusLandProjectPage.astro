@@ -1,0 +1,589 @@
+---
+import { Image } from 'astro:assets';
+import BaseHead from '../BaseHead.astro';
+import Footer from '../Footer.astro';
+import Header from '../Header.astro';
+import { SITE_TITLE } from '../../consts';
+import { localizePath, type Locale } from '../../i18n';
+import HeroImage from '../../assets/projects/ilotusland.png';
+import SoftwareFeature from '../../assets/projects/ilotusland/software-feature.webp';
+import CompanyPage from '../../assets/projects/ilotusland/brochure-05.webp';
+import ArchitecturePage from '../../assets/projects/ilotusland/brochure-07.webp';
+import SolutionPage from '../../assets/projects/ilotusland/brochure-09.webp';
+import PublicPage from '../../assets/projects/ilotusland/brochure-16.webp';
+import NamDinhPage from '../../assets/projects/ilotusland/brochure-26.webp';
+import TraVinhPage from '../../assets/projects/ilotusland/brochure-27.webp';
+import TtcPage from '../../assets/projects/ilotusland/brochure-31.webp';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const isVi = locale === 'vi';
+
+const copy = isVi
+	? {
+			title: 'iLotusLand Industrial IoT',
+			description:
+				'Nền tảng IoT quan trắc môi trường kết nối hơn 1.000 trạm, hơn 600 nhà máy và 30+ Sở Tài nguyên & Môi trường.',
+			back: '← Về trang chủ',
+			brochure: 'Brochure 2025',
+			role: 'Founder / Architect',
+			heroTitle: 'IoT môi trường cho mọi thiết bị quan trắc.',
+			heroLead:
+				'Kết nối trạm quan trắc, camera, datalogger và API vào dashboard web/mobile để giám sát, cảnh báo và công khai dữ liệu.',
+			cta: 'Xem kiến trúc hệ thống',
+			statsTitle: 'Quy mô triển khai thật',
+			stats: [
+				{ value: '2014', label: 'thành lập và chính thức triển khai' },
+				{ value: '1,000+', label: 'trạm quan trắc môi trường tự động' },
+				{ value: '600+', label: 'khu công nghiệp và nhà máy FDI' },
+				{ value: '30+', label: 'Sở Tài nguyên & Môi trường' },
+				{ value: '20+', label: 'thị trường quốc tế' },
+				{ value: '24/7', label: 'hỗ trợ vận hành On Cloud' },
+			],
+			architectureTitle: 'Từ thiết bị đo tới dashboard điều hành',
+			architectureLead:
+				'Hệ thống được thiết kế như một lớp tích hợp trung tâm: nhận dữ liệu từ nhiều hãng thiết bị, chuẩn hóa luồng truyền và đưa lên ứng dụng web/mobile, LED, website công khai hoặc API bên thứ ba.',
+			flows: ['Thiết bị đo', 'Datalogger', 'Server', 'Web/Mobile'],
+			modulesTitle: 'Các lớp giải pháp',
+			modules: [
+				{ name: 'Environment On Premise', text: 'Cài đặt trên hạ tầng khách hàng, ưu tiên bảo mật, quyền kiểm soát dữ liệu và đầu tư một lần.' },
+				{ name: 'Environment On Cloud', text: 'Triển khai nhanh trên cloud, cập nhật liên tục, cảnh báo sự cố và hỗ trợ 24/7.' },
+				{ name: 'LED & Web Public', text: 'Công khai dữ liệu môi trường theo thời gian thực qua màn hình LED hoặc website hiện hữu.' },
+				{ name: 'Environment Portal', text: 'Cổng thông tin AQI/WQI, bản đồ quan trắc và kênh chia sẻ dữ liệu chính thức cho cộng đồng.' },
+			],
+			featuresTitle: 'Tính năng vận hành lõi',
+			features: ['Giám sát real-time', 'Cảnh báo vượt ngưỡng', 'Điều khiển từ xa', 'Kết nối camera', 'Báo cáo PDF/Excel', 'Phân quyền người dùng', 'Quản lý sự cố', 'Chia sẻ API'],
+			casesTitle: 'Dấu ấn triển khai',
+			cases: [
+				{ name: 'Sở TNMT Bình Dương', metric: '372 trạm', detail: 'Nước ngầm, nước thải, khí thải, nước mặt và khí tượng thủy văn.' },
+				{ name: 'Sở TNMT Quảng Ninh', metric: '163 trạm', detail: 'Giám sát đa lớp cho tỉnh công nghiệp ven biển.' },
+				{ name: 'Sở TNMT Nam Định', metric: '34 trạm', detail: 'Không khí xung quanh, khí thải, nước mặt, nước thải và nước ngầm.' },
+				{ name: 'Trà Vinh', metric: '25 trạm', detail: 'Nước mặt, nước ngầm, không khí xung quanh và công khai dữ liệu LED.' },
+				{ name: 'Formosa Hà Tĩnh', metric: '27 điểm', detail: '22 hệ thống ống khói và 5 trạm xử lý nước thải.' },
+				{ name: 'KCN TTC', metric: '10 trạm', detail: 'Khu công nghiệp, nước thải, nước mặt, nước cấp và LED.' },
+			],
+			galleryTitle: 'Gallery từ brochure',
+			galleryLead: 'Một vài khung hình dùng làm ngôn ngữ thị giác cho case study: công ty, kiến trúc, giải pháp, công khai dữ liệu và dự án thực tế.',
+			contactTitle: 'Từ platform tới năng lực xây sản phẩm',
+			contactLead:
+				'Case iLotusLand thể hiện cách tôi nhìn sản phẩm công nghệ: bắt đầu từ bài toán vận hành thật, kết nối phần cứng và phần mềm, rồi biến dữ liệu thành quyết định có thể hành động.',
+			contactCta: 'Trao đổi với tôi',
+		}
+	: {
+			title: 'iLotusLand Industrial IoT',
+			description:
+				'An environmental IoT platform connecting 1,000+ monitoring stations, 600+ factories, and 30+ government environmental agencies.',
+			back: '← Back home',
+			brochure: '2025 brochure',
+			role: 'Founder / Architect',
+			heroTitle: 'Environmental IoT for every monitoring instrument.',
+			heroLead:
+				'Connect monitoring stations, cameras, dataloggers, and APIs into web/mobile dashboards for alerts, reporting, and public data sharing.',
+			cta: 'View system architecture',
+			statsTitle: 'Real deployment scale',
+			stats: [
+				{ value: '2014', label: 'founded and deployed' },
+				{ value: '1,000+', label: 'automatic monitoring stations' },
+				{ value: '600+', label: 'industrial parks and FDI factories' },
+				{ value: '30+', label: 'environmental agencies' },
+				{ value: '20+', label: 'international markets' },
+				{ value: '24/7', label: 'On Cloud operations support' },
+			],
+			architectureTitle: 'From field instruments to operating dashboards',
+			architectureLead:
+				'The system works as a central integration layer: it receives data from many device brands, standardizes transmission, and sends it to web/mobile apps, LEDs, public websites, or third-party APIs.',
+			flows: ['Instruments', 'Datalogger', 'Server', 'Web/Mobile'],
+			modulesTitle: 'Solution layers',
+			modules: [
+				{ name: 'Environment On Premise', text: 'Installed on customer infrastructure for security, data ownership, and one-time investment.' },
+				{ name: 'Environment On Cloud', text: 'Fast cloud deployment, continuous updates, incident alerts, and 24/7 support.' },
+				{ name: 'LED & Web Public', text: 'Publishes real-time environmental data through LED screens or existing websites.' },
+				{ name: 'Environment Portal', text: 'AQI/WQI portal, monitoring map, and official public data channel.' },
+			],
+			featuresTitle: 'Core operating features',
+			features: ['Real-time monitoring', 'Threshold alerts', 'Remote control', 'Camera connection', 'PDF/Excel reports', 'User permissions', 'Incident management', 'API sharing'],
+			casesTitle: 'Deployment proof',
+			cases: [
+				{ name: 'Binh Duong DONRE', metric: '372 stations', detail: 'Groundwater, wastewater, emissions, surface water, and hydrometeorology.' },
+				{ name: 'Quang Ninh DONRE', metric: '163 stations', detail: 'Multi-layer monitoring for a coastal industrial province.' },
+				{ name: 'Nam Dinh DONRE', metric: '34 stations', detail: 'Ambient air, emissions, surface water, wastewater, and groundwater.' },
+				{ name: 'Tra Vinh', metric: '25 stations', detail: 'Surface water, groundwater, ambient air, and public LED data.' },
+				{ name: 'Formosa Ha Tinh', metric: '27 points', detail: '22 stack systems and 5 wastewater treatment stations.' },
+				{ name: 'TTC Industrial Zone', metric: '10 stations', detail: 'Industrial park monitoring for wastewater, surface water, water supply, and LED.' },
+			],
+			galleryTitle: 'Brochure gallery',
+			galleryLead: 'Selected frames shaping the case-study visual language: company proof, architecture, solution model, public data, and real deployments.',
+			contactTitle: 'From platform design to product capability',
+			contactLead:
+				'iLotusLand shows how I approach technology products: start with real operating pain, connect hardware and software, then turn data into decisions people can act on.',
+			contactCta: 'Talk with me',
+		};
+
+const gallery = [
+	{ image: CompanyPage, title: isVi ? 'Hồ sơ công ty' : 'Company profile' },
+	{ image: ArchitecturePage, title: isVi ? 'Kiến trúc hệ thống' : 'System architecture' },
+	{ image: SolutionPage, title: isVi ? 'On Premise và On Cloud' : 'On Premise and On Cloud' },
+	{ image: PublicPage, title: isVi ? 'LED & Web Public' : 'LED & Web Public' },
+	{ image: NamDinhPage, title: isVi ? 'Case Nam Định' : 'Nam Dinh case' },
+	{ image: TraVinhPage, title: isVi ? 'Case Trà Vinh' : 'Tra Vinh case' },
+	{ image: TtcPage, title: isVi ? 'Case KCN TTC' : 'TTC industrial zone case' },
+];
+
+const pageTitle = `${copy.title} | ${SITE_TITLE}`;
+---
+
+<!doctype html>
+<html lang={locale}>
+	<head>
+		<BaseHead title={pageTitle} description={copy.description} image={HeroImage} locale={locale} />
+	</head>
+	<body>
+		<Header />
+		<main class="project-detail">
+			<section class="project-hero">
+				<div class="hero-copy">
+					<a class="back-link" href={localizePath('/', locale)}>{copy.back}</a>
+					<div class="hero-meta">
+						<span>{copy.brochure}</span>
+						<span>{copy.role}</span>
+					</div>
+					<h1>{copy.heroTitle}</h1>
+					<p>{copy.heroLead}</p>
+					<a class="primary-link" href="#architecture">{copy.cta}</a>
+				</div>
+				<div class="hero-visual software-visual">
+					<Image src={SoftwareFeature} alt="iLotusLand software dashboard on laptop and mobile" widths={[520, 720, 900]} sizes="(max-width: 900px) 92vw, 38vw" loading="eager" />
+				</div>
+			</section>
+
+			<section class="stats-section" aria-labelledby="stats-title">
+				<h2 id="stats-title">{copy.statsTitle}</h2>
+				<div class="stats-grid">
+					{copy.stats.map((stat) => <div class="stat-tile"><strong>{stat.value}</strong><span>{stat.label}</span></div>)}
+				</div>
+			</section>
+
+			<section id="architecture" class="architecture-section">
+				<div class="section-copy">
+					<h2>{copy.architectureTitle}</h2>
+					<p>{copy.architectureLead}</p>
+				</div>
+				<div class="flow-card" aria-label={copy.architectureTitle}>
+					{copy.flows.map((item, index) => (
+						<div class="flow-step">
+							<span>{String(index + 1).padStart(2, '0')}</span>
+							<strong>{item}</strong>
+						</div>
+					))}
+				</div>
+				<Image class="architecture-image" src={ArchitecturePage} alt="iLotusLand system architecture brochure page" widths={[720, 960]} sizes="(max-width: 900px) 100vw, 54vw" />
+			</section>
+
+			<section class="modules-section">
+				<h2>{copy.modulesTitle}</h2>
+				<div class="module-grid">
+					{copy.modules.map((module) => <article><h3>{module.name}</h3><p>{module.text}</p></article>)}
+				</div>
+			</section>
+
+			<section class="features-section">
+				<div>
+					<h2>{copy.featuresTitle}</h2>
+					<div class="feature-cloud">
+						{copy.features.map((feature) => <span>{feature}</span>)}
+					</div>
+				</div>
+				<Image src={SoftwareFeature} alt="iLotusLand software dashboard and mobile app interface" widths={[520, 720, 900]} sizes="(max-width: 900px) 92vw, 38vw" />
+			</section>
+
+			<section class="cases-section">
+				<h2>{copy.casesTitle}</h2>
+				<div class="case-grid">
+					{copy.cases.map((item) => (
+						<article>
+							<span>{item.metric}</span>
+							<h3>{item.name}</h3>
+							<p>{item.detail}</p>
+						</article>
+					))}
+				</div>
+			</section>
+
+			<section class="gallery-section">
+				<div class="section-copy centered">
+					<h2>{copy.galleryTitle}</h2>
+					<p>{copy.galleryLead}</p>
+				</div>
+				<div class="gallery-grid">
+					{gallery.map((item, index) => (
+						<figure class={index === 1 ? 'wide' : ''}>
+							<Image src={item.image} alt={item.title} widths={[360, 540, 760]} sizes="(max-width: 760px) 100vw, 33vw" />
+							<figcaption>{item.title}</figcaption>
+						</figure>
+					))}
+				</div>
+			</section>
+
+			<section class="closing-section">
+				<h2>{copy.contactTitle}</h2>
+				<p>{copy.contactLead}</p>
+				<a class="primary-link" href="mailto:thanhtung@simplamo.com">{copy.contactCta}</a>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	:global(body) {
+		background:
+			radial-gradient(circle at 18% 8%, rgb(10 132 255 / 0.12), transparent 28rem),
+			linear-gradient(180deg, #f8fbff 0%, #eef6fb 44%, #f7fbff 100%);
+		color: #0b1720;
+	}
+
+	.project-detail {
+		--ilotus-blue: #0087cf;
+		--ilotus-deep: #062d46;
+		--ilotus-line: rgb(6 45 70 / 0.12);
+		max-width: 1180px;
+		margin: 0 auto;
+		padding: 3rem 1rem 5rem;
+	}
+
+	.project-hero {
+		display: grid;
+		grid-template-columns: minmax(0, 0.95fr) minmax(320px, 1.05fr);
+		gap: clamp(1.2rem, 4vw, 3.5rem);
+		align-items: center;
+		min-height: min(680px, calc(100dvh - 88px));
+		padding: clamp(0.8rem, 3vw, 2.4rem) 0 clamp(2rem, 5vw, 4rem);
+	}
+
+	.back-link {
+		display: inline-flex;
+		color: rgb(6 45 70 / 0.68);
+		font-size: 0.92rem;
+		font-weight: 700;
+		text-decoration: none;
+		margin-bottom: 1.5rem;
+	}
+
+	.hero-meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.6rem;
+		margin-bottom: 1.1rem;
+	}
+
+	.hero-meta span,
+	.feature-cloud span {
+		border: 1px solid rgb(0 135 207 / 0.18);
+		border-radius: 999px;
+		background: rgb(255 255 255 / 0.72);
+		color: var(--ilotus-deep);
+		font-size: 0.78rem;
+		font-weight: 800;
+		padding: 0.5rem 0.78rem;
+	}
+
+	h1 {
+		font-size: clamp(2.8rem, 5.4vw, 5.6rem);
+		letter-spacing: -0.072em;
+		line-height: 0.92;
+		max-width: 11.5ch;
+		margin: 0;
+	}
+
+	.hero-copy p,
+	.section-copy p,
+	.closing-section p {
+		max-width: 64ch;
+		color: rgb(6 45 70 / 0.7);
+		font-size: clamp(1.02rem, 1.6vw, 1.2rem);
+		line-height: 1.75;
+	}
+
+	.primary-link {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		margin-top: 1rem;
+		border-radius: 999px;
+		background: var(--ilotus-blue);
+		color: white;
+		font-weight: 850;
+		padding: 0.9rem 1.2rem;
+		text-decoration: none;
+		box-shadow: 0 18px 40px rgb(0 135 207 / 0.24);
+		transition: transform 160ms ease, box-shadow 160ms ease;
+	}
+
+	.primary-link:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 24px 58px rgb(0 135 207 / 0.28);
+	}
+
+	.hero-visual,
+	.architecture-image,
+	.features-section img,
+	.gallery-grid figure,
+	.module-grid article,
+	.case-grid article,
+	.stat-tile,
+	.flow-card,
+	.closing-section {
+		border: 1px solid var(--ilotus-line);
+		border-radius: 28px;
+		background: rgb(255 255 255 / 0.78);
+		box-shadow: 0 24px 70px rgb(6 45 70 / 0.08);
+	}
+
+	.hero-visual {
+		padding: 0.75rem;
+		transform: rotate(1.3deg);
+	}
+
+	.hero-visual img,
+	.architecture-image,
+	.features-section img,
+	.gallery-grid img {
+		display: block;
+		width: 100%;
+		height: auto;
+		border-radius: 22px;
+	}
+
+	.stats-section,
+	.modules-section,
+	.cases-section,
+	.gallery-section,
+	.closing-section {
+		margin-top: clamp(3rem, 8vw, 6.5rem);
+	}
+
+	.stats-section h2,
+	.modules-section h2,
+	.features-section h2,
+	.cases-section h2,
+	.gallery-section h2,
+	.closing-section h2,
+	.section-copy h2 {
+		font-size: clamp(2.2rem, 4vw, 4.2rem);
+		letter-spacing: -0.055em;
+		line-height: 0.95;
+		margin: 0 0 1.3rem;
+		color: var(--ilotus-deep);
+	}
+
+	.stats-grid {
+		display: grid;
+		grid-template-columns: repeat(6, minmax(0, 1fr));
+		gap: 0.9rem;
+	}
+
+	.stat-tile {
+		padding: 1.2rem;
+		min-height: 140px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+
+	.stat-tile strong {
+		color: var(--ilotus-blue);
+		font-size: clamp(1.8rem, 3vw, 2.8rem);
+		letter-spacing: -0.06em;
+		line-height: 1;
+	}
+
+	.stat-tile span,
+	.case-grid p,
+	.module-grid p,
+	figcaption {
+		color: rgb(6 45 70 / 0.68);
+		line-height: 1.55;
+	}
+
+	.architecture-section {
+		display: grid;
+		grid-template-columns: minmax(0, 0.82fr) minmax(340px, 1.18fr);
+		gap: clamp(1.2rem, 4vw, 3rem);
+		align-items: start;
+		margin-top: clamp(3.5rem, 9vw, 7rem);
+	}
+
+	.flow-card {
+		display: grid;
+		gap: 0.75rem;
+		padding: 1rem;
+		margin-top: 1.2rem;
+	}
+
+	.flow-step {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		align-items: center;
+		gap: 0.8rem;
+		padding: 0.9rem;
+		border-radius: 18px;
+		background: rgb(0 135 207 / 0.07);
+	}
+
+	.flow-step span {
+		color: var(--ilotus-blue);
+		font-weight: 900;
+	}
+
+	.module-grid,
+	.case-grid {
+		display: grid;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		gap: 1rem;
+	}
+
+	.module-grid article,
+	.case-grid article {
+		padding: clamp(1.1rem, 2vw, 1.5rem);
+	}
+
+	.module-grid h3,
+	.case-grid h3 {
+		margin: 0 0 0.75rem;
+		font-size: 1.08rem;
+		letter-spacing: -0.02em;
+		color: var(--ilotus-deep);
+	}
+
+	.features-section {
+		display: grid;
+		grid-template-columns: minmax(0, 0.95fr) minmax(320px, 1.05fr);
+		gap: clamp(1.2rem, 4vw, 3rem);
+		align-items: center;
+		margin-top: clamp(3rem, 8vw, 6rem);
+	}
+
+	.feature-cloud {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.7rem;
+		max-width: 620px;
+	}
+
+	.case-grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	.case-grid span {
+		display: inline-flex;
+		margin-bottom: 1.5rem;
+		color: var(--ilotus-blue);
+		font-size: 2.2rem;
+		font-weight: 900;
+		letter-spacing: -0.06em;
+	}
+
+	.centered {
+		text-align: center;
+		max-width: 760px;
+		margin: 0 auto 2rem;
+	}
+
+	.centered p {
+		margin-inline: auto;
+	}
+
+	.gallery-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1rem;
+	}
+
+	.gallery-grid figure {
+		margin: 0;
+		padding: 0.7rem;
+	}
+
+	.gallery-grid figure.wide {
+		grid-column: span 2;
+		grid-row: span 2;
+	}
+
+	.gallery-grid figure.wide img {
+		height: 100%;
+		object-fit: cover;
+	}
+
+	figcaption {
+		font-size: 0.88rem;
+		font-weight: 800;
+		padding: 0.8rem 0.3rem 0.2rem;
+	}
+
+	.closing-section {
+		padding: clamp(1.5rem, 4vw, 3rem);
+		text-align: center;
+	}
+
+	.closing-section p {
+		margin-inline: auto;
+	}
+
+	@media (max-width: 980px) {
+		.project-hero,
+		.architecture-section,
+		.features-section {
+			grid-template-columns: 1fr;
+			min-height: auto;
+		}
+
+		h1 {
+			max-width: 12ch;
+		}
+
+		.hero-visual {
+			transform: none;
+		}
+
+		.stats-grid,
+		.module-grid,
+		.case-grid,
+		.gallery-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (max-width: 640px) {
+		.project-detail {
+			padding-inline: 0.85rem;
+		}
+
+		.project-hero {
+			padding-top: 1.3rem;
+		}
+
+		h1 {
+			font-size: clamp(2.35rem, 12vw, 3.6rem);
+			max-width: 12ch;
+		}
+
+		.stats-grid,
+		.module-grid,
+		.case-grid,
+		.gallery-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.stat-tile {
+			min-height: 112px;
+		}
+
+		.gallery-grid figure.wide {
+			grid-column: auto;
+			grid-row: auto;
+		}
+	}
+</style>

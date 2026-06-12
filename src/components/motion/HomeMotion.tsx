@@ -27,6 +27,7 @@ type Project = {
 	impact: string;
 	domain: string;
 	cta: string;
+	href?: string;
 };
 
 type Stat = {
@@ -122,33 +123,41 @@ export function MotionProjectGrid({ projects }: { projects: Project[] }) {
 	const reduce = useReducedMotion();
 	return (
 		<div className="project-grid">
-			{projects.map((project, index) => (
-				<motion.article
-					className="project-card surface-card"
-					key={project.title}
-					initial={reduce ? false : { opacity: 0, y: 30 }}
-					whileInView={{ opacity: 1, y: 0 }}
-					viewport={{ once: true, amount: 0.24 }}
-					transition={{ duration: 0.6, delay: index * 0.07, ease }}
-				>
-					<div className="thumb">
-						<img src={project.imageSrc} width="640" height="360" alt={project.title} loading="lazy" />
-					</div>
-					<div className="project-body">
-						<div className="project-kicker-row">
-							<span>{project.meta}</span>
-							<span>{project.role}</span>
+			{projects.map((project, index) => {
+				const content = (
+					<>
+						<div className="thumb">
+							<img src={project.imageSrc} width="640" height="360" alt={project.title} loading="lazy" />
 						</div>
-						<h3>{project.title}</h3>
-						<p>{project.desc}</p>
-						<div className="project-proof">
-							<strong>{project.impact}</strong>
-							<span>{project.domain}</span>
+						<div className="project-body">
+							<div className="project-kicker-row">
+								<span>{project.meta}</span>
+								<span>{project.role}</span>
+							</div>
+							<h3>{project.title}</h3>
+							<p>{project.desc}</p>
+							<div className="project-proof">
+								<strong>{project.impact}</strong>
+								<span>{project.domain}</span>
+							</div>
+							<div className="project-cta">{project.cta}<span aria-hidden="true">→</span></div>
 						</div>
-						<div className="project-cta">{project.cta}<span aria-hidden="true">→</span></div>
-					</div>
-				</motion.article>
-			))}
+					</>
+				);
+
+				return (
+					<motion.article
+						className="project-card surface-card"
+						key={project.title}
+						initial={reduce ? false : { opacity: 0, y: 30 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						viewport={{ once: true, amount: 0.24 }}
+						transition={{ duration: 0.6, delay: index * 0.07, ease }}
+					>
+						{project.href ? <a className="project-link" href={project.href}>{content}</a> : content}
+					</motion.article>
+				);
+			})}
 		</div>
 	);
 }

@@ -1,8 +1,8 @@
 ---
 import { Image } from 'astro:assets';
-import AiAgentsImage from '../../assets/projects/ai-agents.png';
 import AiProgramImage from '../../assets/projects/ai-product-program.png';
-import ILotusLandImage from '../../assets/projects/ilotusland.png';
+import ILotusLandImage from '../../assets/projects/ilotusland/software-feature.webp';
+import SimplamoImage from '../../assets/projects/simplamo/dashboard-feature.webp';
 import TeachingImage from '../../assets/projects/teaching-scale.png';
 import BaseHead from '../BaseHead.astro';
 import Footer from '../Footer.astro';
@@ -33,16 +33,18 @@ const projects = isVi
 				impact: '1,000+ trạm',
 				domain: 'Industrial IoT',
 				cta: 'Xem case study',
+				href: localizePath('/projects/ilotusland', locale),
 			},
 			{
-				title: 'Simplamo Strategy AI',
-				desc: 'AI tạo OKRs, KPIs và mục tiêu quý từ ngữ cảnh quản trị thật, đang dùng trong nền tảng Simplamo.',
-				image: AiAgentsImage,
-				meta: 'AI Agent',
-				role: 'Product Architect',
-				impact: '100+ tổ chức',
-				domain: 'OKR / KPI / 4DX',
-				cta: 'Đọc câu chuyện',
+				title: 'Simplamo Management OS',
+				desc: 'Hệ điều hành quản trị giúp HĐQT và Ban điều hành đồng bộ OGSM/BSC/KPI/OKRs, dashboard, nhịp họp và AI.',
+				image: SimplamoImage,
+				meta: 'SaaS Platform',
+				role: 'Founder / CEO / Product Architect',
+				impact: '200K users',
+				domain: 'Strategy Execution',
+				cta: 'Xem case study',
+				href: localizePath('/projects/simplamo', locale),
 			},
 			{
 				title: 'Pascal tới 1 triệu học sinh',
@@ -75,16 +77,18 @@ const projects = isVi
 				impact: '1,000+ stations',
 				domain: 'Industrial IoT',
 				cta: 'View case study',
+				href: localizePath('/projects/ilotusland', locale),
 			},
 			{
-				title: 'Simplamo Strategy AI',
-				desc: 'AI that generates OKRs, KPIs, and quarterly goals from real business context inside Simplamo.',
-				image: AiAgentsImage,
-				meta: 'AI Agent',
-				role: 'Product Architect',
-				impact: '100+ organizations',
-				domain: 'OKR / KPI / 4DX',
-				cta: 'Read story',
+				title: 'Simplamo Management OS',
+				desc: 'A management operating system for boards and executives to align OGSM/BSC/KPI/OKRs, dashboards, meeting rhythm, and AI.',
+				image: SimplamoImage,
+				meta: 'SaaS Platform',
+				role: 'Founder / CEO / Product Architect',
+				impact: '200K users',
+				domain: 'Strategy Execution',
+				cta: 'View case study',
+				href: localizePath('/projects/simplamo', locale),
 			},
 			{
 				title: 'Pascal to 1M learners',
@@ -495,6 +499,13 @@ const profileCard = {
 		overflow: hidden;
 		background: rgb(255 255 255 / 0.88);
 		transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+	}
+
+	:global(.project-link) {
+		display: block;
+		height: 100%;
+		color: inherit;
+		text-decoration: none;
 	}
 
 	.project-card:hover {

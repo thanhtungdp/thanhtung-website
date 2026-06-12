@@ -1,0 +1,571 @@
+---
+import { Image } from 'astro:assets';
+import BaseHead from '../BaseHead.astro';
+import Footer from '../Footer.astro';
+import Header from '../Header.astro';
+import { SITE_TITLE } from '../../consts';
+import { localizePath, type Locale } from '../../i18n';
+import DashboardFeature from '../../assets/projects/simplamo/dashboard-feature.webp';
+import AiFeature from '../../assets/projects/simplamo/ai-feature.webp';
+import ScaleSlide from '../../assets/projects/simplamo/slide-03.webp';
+import OperatingModelSlide from '../../assets/projects/simplamo/slide-06.webp';
+import IntegrationSlide from '../../assets/projects/simplamo/slide-04.webp';
+import DashboardSlide from '../../assets/projects/simplamo/slide-07.webp';
+import AiSlide from '../../assets/projects/simplamo/slide-11.webp';
+import ImplementationSlide from '../../assets/projects/simplamo/slide-14.webp';
+import CaseSlide from '../../assets/projects/simplamo/slide-22.webp';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const isVi = locale === 'vi';
+
+const copy = isVi
+	? {
+			title: 'Simplamo - Hệ điều hành quản trị & thực thi chiến lược',
+			description:
+				'Trang project detail về Simplamo: nền tảng giúp HĐQT và Ban điều hành đồng bộ mục tiêu, đo lường KPI/OKR/BSC/OGSM và duy trì nhịp thực thi bằng dashboard, cuộc họp và AI.',
+			back: '← Về trang chủ',
+			badge: 'Simplamo deck 2025',
+			role: 'Founder / CEO / Product Architect',
+			heroTitle: 'Hệ điều hành quản trị, đo lường & thực thi chiến lược.',
+			heroLead:
+				'Simplamo giúp HĐQT và Ban điều hành biến chiến lược thành mục tiêu, KPI, hành động, nhịp họp và dashboard để đội ngũ tập trung vào kết quả.',
+			cta: 'Xem mô hình vận hành',
+			statsTitle: 'Từ deck Simplamo',
+			stats: [
+				{ value: '60+', label: 'quốc gia / thị trường được nhắc trong deck' },
+				{ value: '200K', label: 'khách hàng / người dùng theo slide giới thiệu' },
+				{ value: '500', label: 'đối tác trong hệ sinh thái' },
+				{ value: '100%', label: 'hiện diện ở lớp lãnh đạo khi triển khai' },
+				{ value: '4+2', label: 'buổi review nền tảng & chuyển giao' },
+				{ value: '>30%', label: 'tăng trưởng doanh thu trong case 5 công ty con' },
+			],
+			modelTitle: 'Từ chiến lược tới nhịp thực thi hằng tuần',
+			modelLead:
+				'Deck mô tả Simplamo như một hệ điều hành quản trị: kết nối sơ đồ trách nhiệm, kế hoạch năm, kế hoạch 90 ngày, KPI số, OKR hành động, nhịp họp và hệ thống giải quyết vấn đề.',
+			layers: [
+				{ title: 'Mục tiêu trọng yếu', text: 'Theo dõi mục tiêu chiến lược, KPI và hành động quan trọng trên dashboard trực quan cho công ty, phòng ban và cá nhân.' },
+				{ title: 'Phân rã mục tiêu & hành động', text: 'Đồng bộ hóa mục tiêu xuyên suốt các cấp, giúp đội ngũ tập trung vào ưu tiên then chốt nhất.' },
+				{ title: 'KPIs tuần / tháng / quý', text: 'Kiểm soát các chỉ số trọng yếu định kỳ, nhận diện điểm nghẽn sớm và tăng trách nhiệm sở hữu.' },
+				{ title: 'Sơ đồ trách nhiệm', text: 'Làm rõ vai trò, tránh chồng chéo, giúp lãnh đạo biết ai chịu trách nhiệm cho từng mục tiêu.' },
+				{ title: 'Trợ lý AI mục tiêu', text: 'AI hỗ trợ kiến tạo kế hoạch, cảnh báo rủi ro và đề xuất hành động tiếp theo cho nhà quản lý.' },
+				{ title: 'Tích hợp mở rộng', text: 'Kết nối Simplamo với các nguồn nghiệp vụ như Odoo, Excel, HubSpot, Teams, Slack, ClickUp và nhiều ứng dụng khác.' },
+			],
+			implementationTitle: 'Phương pháp triển khai',
+			implementationLead:
+				'Không chỉ là phần mềm. Simplamo đi cùng phương pháp: ưu tiên thực hành, đón nhận cởi mở, hiện diện 100%, huấn luyện cấp công ty và chuyển giao để trưởng bộ phận tự triển khai xuống đội ngũ.',
+			proofTitle: 'Deployment proof',
+			cases: [
+				{ value: '5', label: 'công ty con', text: 'Khung quản lý đồng bộ 5 công ty, tái cấu trúc Base/Odoo/BSC/OKR/KPI.' },
+				{ value: '>30%', label: 'tăng trưởng doanh thu', text: 'Case áp dụng Simplamo từ 2021, tăng trưởng doanh thu năm 2022.' },
+				{ value: '40%', label: 'giảm thời gian họp', text: 'Khung cuộc họp hiệu suất giúp giảm thời gian họp lãng phí.' },
+				{ value: '6 SBUs', label: 'kết nối vận hành', text: 'Phân rã mục tiêu đến phòng ban, kết nối từng SBU và từng thành viên.' },
+			],
+			featureTitle: 'Core capabilities',
+			features: ['OGSM', 'BSC', 'KPI', 'OKRs', '4DX', 'Dashboard mục tiêu', 'Cuộc họp tuần', 'IDS', 'AI Assistant', 'Odoo / Excel / Teams integrations'],
+			galleryTitle: 'Gallery từ deck',
+			closing: 'Simplamo là ví dụ rõ nhất cho hướng tôi xây sản phẩm: kết hợp phương pháp quản trị, dữ liệu vận hành, AI và trải nghiệm phần mềm để biến mục tiêu thành nhịp thực thi thật.',
+			contact: 'Trao đổi về Simplamo / hệ điều hành quản trị',
+			gallery: [
+				{ title: 'Quy mô & định vị Simplamo', image: ScaleSlide },
+				{ title: 'Mô hình thực thi mục tiêu', image: OperatingModelSlide },
+				{ title: 'Tích hợp mục tiêu & hệ thống', image: IntegrationSlide },
+				{ title: 'Dashboard mục tiêu', image: DashboardSlide },
+				{ title: 'Trợ lý AI mục tiêu', image: AiSlide },
+				{ title: 'Triển khai nền tảng', image: ImplementationSlide },
+				{ title: 'Case triển khai doanh nghiệp', image: CaseSlide },
+			],
+		}
+	: {
+			title: 'Simplamo - Strategy execution operating system',
+			description:
+				'Simplamo project detail: a management operating system for boards and executive teams to align goals, measure KPI/OKR/BSC/OGSM, and sustain execution rhythm with dashboards, meetings, and AI.',
+			back: '← Back home',
+			badge: 'Simplamo 2025 deck',
+			role: 'Founder / CEO / Product Architect',
+			heroTitle: 'A management operating system for strategy execution.',
+			heroLead:
+				'Simplamo helps boards and executive teams turn strategy into goals, KPIs, actions, meeting rhythm, and dashboards so teams stay focused on outcomes.',
+			cta: 'View operating model',
+			statsTitle: 'From the Simplamo deck',
+			stats: [
+				{ value: '60+', label: 'countries / markets referenced in the deck' },
+				{ value: '200K', label: 'customers / users shown in the intro slide' },
+				{ value: '500', label: 'partners in the ecosystem' },
+				{ value: '100%', label: 'leadership presence during rollout' },
+				{ value: '4+2', label: 'foundation sessions and review handoff' },
+				{ value: '>30%', label: 'revenue growth in a five-company case' },
+			],
+			modelTitle: 'From strategy to weekly execution rhythm',
+			modelLead:
+				'The deck frames Simplamo as a management OS: responsibility chart, annual plan, 90-day plan, KPI numbers, OKR actions, meeting rhythm, and issue-solving system.',
+			layers: [
+				{ title: 'Critical goals', text: 'Track strategic goals, KPIs, and key actions through dashboards for company, department, and individual levels.' },
+				{ title: 'Goal & action cascade', text: 'Align goals across management layers so teams focus on the most important priorities.' },
+				{ title: 'Weekly / monthly / quarterly KPIs', text: 'Monitor key numbers regularly, detect bottlenecks early, and increase ownership.' },
+				{ title: 'Responsibility chart', text: 'Clarify roles, reduce overlap, and help leaders know who owns each goal.' },
+				{ title: 'AI goal assistant', text: 'AI supports planning, early risk alerts, and recommended next actions for managers.' },
+				{ title: 'Expandable integrations', text: 'Connect Simplamo with operating sources such as Odoo, Excel, HubSpot, Teams, Slack, ClickUp, and more.' },
+			],
+			implementationTitle: 'Implementation method',
+			implementationLead:
+				'Not just software. Simplamo ships with a method: practice-first rollout, open adoption, 100% leadership presence, company-level coaching, and handoff so department heads can cascade the system.',
+			proofTitle: 'Deployment proof',
+			cases: [
+				{ value: '5', label: 'subsidiaries', text: 'A synchronized management framework across five companies, restructuring Base/Odoo/BSC/OKR/KPI.' },
+				{ value: '>30%', label: 'revenue growth', text: 'A 2021 Simplamo rollout case with revenue growth in 2022.' },
+				{ value: '40%', label: 'less wasted meeting time', text: 'A performance meeting rhythm reduced unproductive meeting time.' },
+				{ value: '6 SBUs', label: 'operating connection', text: 'Goals cascaded to departments, connecting each SBU and team member.' },
+			],
+			featureTitle: 'Core capabilities',
+			features: ['OGSM', 'BSC', 'KPI', 'OKRs', '4DX', 'Goal dashboards', 'Weekly meetings', 'IDS', 'AI Assistant', 'Odoo / Excel / Teams integrations'],
+			galleryTitle: 'Deck gallery',
+			closing: 'Simplamo is the clearest example of how I build products: management method, operating data, AI, and software experience working together to turn goals into real execution rhythm.',
+			contact: 'Discuss Simplamo / management operating systems',
+			gallery: [
+				{ title: 'Scale & positioning', image: ScaleSlide },
+				{ title: 'Goal execution model', image: OperatingModelSlide },
+				{ title: 'Goals and system integration', image: IntegrationSlide },
+				{ title: 'Goal dashboard', image: DashboardSlide },
+				{ title: 'AI goal assistant', image: AiSlide },
+				{ title: 'Foundation rollout', image: ImplementationSlide },
+				{ title: 'Enterprise rollout case', image: CaseSlide },
+			],
+		};
+---
+
+<BaseHead title={`${copy.title} | ${SITE_TITLE}`} description={copy.description} />
+
+<body class="simplamo-project-shell">
+	<Header locale={locale} />
+	<main>
+		<div class="page-wrap">
+			<section class="hero-section">
+				<div class="hero-copy">
+					<a class="back-link" href={localizePath('/', locale)}>{copy.back}</a>
+					<div class="eyebrow"><span>{copy.badge}</span><span>{copy.role}</span></div>
+					<h1>{copy.heroTitle}</h1>
+					<p>{copy.heroLead}</p>
+					<a class="primary-link" href="#model">{copy.cta}</a>
+				</div>
+				<div class="hero-visual">
+					<Image src={DashboardFeature} alt="Simplamo goal dashboard software interface" widths={[640, 900, 1200]} sizes="(max-width: 900px) 92vw, 45vw" loading="eager" />
+				</div>
+			</section>
+
+			<section class="stats-section" aria-labelledby="stats-title">
+				<div>
+					<p class="section-kicker">Numbers</p>
+					<h2 id="stats-title">{copy.statsTitle}</h2>
+				</div>
+				<div class="stats-grid">
+					{copy.stats.map((stat) => (
+						<article>
+							<strong>{stat.value}</strong>
+							<span>{stat.label}</span>
+						</article>
+					))}
+				</div>
+			</section>
+
+			<section class="model-section" id="model">
+				<div class="section-heading">
+					<p class="section-kicker">Operating system</p>
+					<h2>{copy.modelTitle}</h2>
+					<p>{copy.modelLead}</p>
+				</div>
+				<div class="layer-grid">
+					{copy.layers.map((layer, index) => (
+						<article>
+							<span>{String(index + 1).padStart(2, '0')}</span>
+							<h3>{layer.title}</h3>
+							<p>{layer.text}</p>
+						</article>
+					))}
+				</div>
+			</section>
+
+			<section class="feature-section">
+				<div class="feature-copy">
+					<p class="section-kicker">AI + dashboards</p>
+					<h2>{copy.implementationTitle}</h2>
+					<p>{copy.implementationLead}</p>
+					<div class="feature-cloud">
+						{copy.features.map((feature) => <span>{feature}</span>)}
+					</div>
+				</div>
+				<Image src={AiFeature} alt="Simplamo AI goal assistant interface" widths={[640, 900, 1150]} sizes="(max-width: 900px) 92vw, 42vw" />
+			</section>
+
+			<section class="proof-section">
+				<div class="section-heading compact">
+					<p class="section-kicker">Proof</p>
+					<h2>{copy.proofTitle}</h2>
+				</div>
+				<div class="proof-grid">
+					{copy.cases.map((item) => (
+						<article>
+							<strong>{item.value}</strong>
+							<span>{item.label}</span>
+							<p>{item.text}</p>
+						</article>
+					))}
+				</div>
+			</section>
+
+			<section class="gallery-section">
+				<div class="section-heading compact">
+					<p class="section-kicker">Source material</p>
+					<h2>{copy.galleryTitle}</h2>
+				</div>
+				<div class="gallery-grid">
+					{copy.gallery.map((item) => (
+						<figure>
+							<Image src={item.image} alt={item.title} widths={[480, 720, 1100]} sizes="(max-width: 900px) 92vw, 31vw" />
+							<figcaption>{item.title}</figcaption>
+						</figure>
+					))}
+				</div>
+			</section>
+
+			<section class="closing-section">
+				<p>{copy.closing}</p>
+				<a class="primary-link" href="mailto:hello@thanhtung.com">{copy.contact}</a>
+			</section>
+		</div>
+	</main>
+	<Footer />
+</body>
+
+<style>
+	:global(body.simplamo-project-shell) {
+		margin: 0;
+		background:
+			radial-gradient(circle at top left, rgb(255 128 0 / 0.14), transparent 34rem),
+			linear-gradient(180deg, #fffaf5 0%, #fff 36%, #f6f2ec 100%);
+		color: #17120d;
+		font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+	}
+
+	:global(.simplamo-project-shell main) {
+		min-height: 100vh;
+	}
+
+	.page-wrap {
+		width: min(1180px, calc(100% - 2rem));
+		margin: 0 auto;
+	}
+
+	.hero-section {
+		display: grid;
+		grid-template-columns: minmax(0, 0.92fr) minmax(340px, 1.08fr);
+		gap: clamp(1.25rem, 4vw, 3.8rem);
+		align-items: center;
+		min-height: min(690px, calc(100dvh - 88px));
+		padding: clamp(1rem, 3vw, 2.6rem) 0 clamp(2rem, 5vw, 4rem);
+	}
+
+	.back-link {
+		color: #8a4f17;
+		font-weight: 800;
+		font-size: 0.92rem;
+		text-decoration: none;
+	}
+
+	.hero-copy {
+		display: grid;
+		gap: 1.3rem;
+	}
+
+	.eyebrow {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.55rem;
+	}
+
+	.eyebrow span,
+	.feature-cloud span {
+		border: 1px solid rgb(236 115 21 / 0.24);
+		background: rgb(255 255 255 / 0.82);
+		color: #8f4e10;
+		font-weight: 850;
+		font-size: 0.78rem;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		padding: 0.52rem 0.78rem;
+		border-radius: 999px;
+	}
+
+	h1 {
+		font-size: clamp(2.65rem, 5.25vw, 5.45rem);
+		letter-spacing: -0.066em;
+		line-height: 0.96;
+		max-width: 11.8ch;
+		margin: 0;
+	}
+
+	.hero-copy p,
+	.section-heading p,
+	.feature-copy p,
+	.closing-section p {
+		font-size: clamp(1.02rem, 1.5vw, 1.22rem);
+		line-height: 1.7;
+		color: #5f5148;
+		margin: 0;
+	}
+
+	.primary-link {
+		display: inline-flex;
+		width: fit-content;
+		align-items: center;
+		justify-content: center;
+		border-radius: 999px;
+		background: #f58220;
+		color: #fff;
+		font-weight: 900;
+		padding: 0.92rem 1.18rem;
+		text-decoration: none;
+		box-shadow: 0 18px 45px rgb(245 130 32 / 0.24);
+	}
+
+	.hero-visual,
+	.feature-section,
+	.stats-section,
+	.closing-section {
+		border: 1px solid rgb(36 24 10 / 0.08);
+		border-radius: 34px;
+		background: rgb(255 255 255 / 0.76);
+		box-shadow: 0 28px 70px rgb(48 31 9 / 0.1);
+	}
+
+	.hero-visual {
+		padding: clamp(0.7rem, 1.8vw, 1.35rem);
+		transform: rotate(1.1deg);
+	}
+
+	.hero-visual img,
+	.feature-section img,
+	.gallery-grid img {
+		width: 100%;
+		height: auto;
+		border-radius: 24px;
+		display: block;
+	}
+
+	.stats-section,
+	.model-section,
+	.feature-section,
+	.proof-section,
+	.gallery-section,
+	.closing-section {
+		margin: clamp(2.5rem, 8vw, 6.4rem) 0;
+	}
+
+	.stats-section,
+	.feature-section,
+	.closing-section {
+		padding: clamp(1.4rem, 4vw, 3rem);
+	}
+
+	.stats-section {
+		display: grid;
+		grid-template-columns: 0.72fr 1.28fr;
+		gap: clamp(1.2rem, 4vw, 3rem);
+		align-items: start;
+	}
+
+	.section-kicker {
+		margin: 0 0 0.75rem;
+		font-size: 0.78rem;
+		font-weight: 900;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: #f58220;
+	}
+
+	h2 {
+		font-size: clamp(2rem, 4vw, 4.4rem);
+		letter-spacing: -0.055em;
+		line-height: 0.96;
+		margin: 0;
+	}
+
+	.stats-grid,
+	.layer-grid,
+	.proof-grid,
+	.gallery-grid {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.stats-grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	.stats-grid article,
+	.layer-grid article,
+	.proof-grid article,
+	.gallery-grid figure {
+		border: 1px solid rgb(36 24 10 / 0.08);
+		border-radius: 24px;
+		background: rgb(255 255 255 / 0.86);
+		padding: 1rem;
+		margin: 0;
+	}
+
+	.stats-grid strong,
+	.proof-grid strong {
+		display: block;
+		font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+		font-size: clamp(1.85rem, 3.55vw, 3.45rem);
+		font-variant-numeric: tabular-nums;
+		line-height: 0.98;
+		letter-spacing: -0.035em;
+		color: #f58220;
+	}
+
+	.stats-grid span,
+	.proof-grid span {
+		display: block;
+		margin-top: 0.6rem;
+		color: #5f5148;
+		font-weight: 750;
+		line-height: 1.35;
+	}
+
+	.section-heading {
+		max-width: 760px;
+		margin-bottom: clamp(1.3rem, 4vw, 2.4rem);
+	}
+
+	.section-heading.compact {
+		max-width: 620px;
+	}
+
+	.layer-grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	.layer-grid span {
+		color: #f58220;
+		font-weight: 950;
+		font-size: 0.84rem;
+	}
+
+	.layer-grid h3 {
+		font-size: 1.15rem;
+		margin: 0.8rem 0 0.55rem;
+	}
+
+	.layer-grid p,
+	.proof-grid p,
+	.gallery-grid figcaption {
+		color: #685a50;
+		line-height: 1.55;
+		margin: 0;
+	}
+
+	.feature-section {
+		display: grid;
+		grid-template-columns: minmax(0, 0.88fr) minmax(320px, 1.12fr);
+		gap: clamp(1rem, 4vw, 3rem);
+		align-items: center;
+	}
+
+	.feature-copy {
+		display: grid;
+		gap: 1.2rem;
+	}
+
+	.feature-cloud {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.55rem;
+	}
+
+	.proof-grid {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+
+	.gallery-grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	.gallery-grid figure {
+		padding: 0.65rem;
+	}
+
+	.gallery-grid figcaption {
+		padding: 0.8rem 0.35rem 0.2rem;
+		font-weight: 800;
+	}
+
+	.closing-section {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1.5rem;
+	}
+
+	.closing-section p {
+		max-width: 760px;
+		font-weight: 760;
+		color: #24180f;
+	}
+
+	@media (max-width: 980px) {
+		.hero-section,
+		.stats-section,
+		.feature-section {
+			grid-template-columns: 1fr;
+		}
+
+		.hero-section {
+			min-height: auto;
+		}
+
+		.hero-visual {
+			transform: none;
+		}
+
+		.layer-grid,
+		.proof-grid,
+		.gallery-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (max-width: 640px) {
+		.page-wrap {
+			width: min(100% - 1rem, 1180px);
+		}
+
+		h1 {
+			font-size: clamp(2.2rem, 10.5vw, 3.25rem);
+			max-width: 12.2ch;
+		}
+
+		.stats-grid,
+		.layer-grid,
+		.proof-grid,
+		.gallery-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.stats-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.closing-section {
+			align-items: stretch;
+			flex-direction: column;
+		}
+
+		.primary-link {
+			width: 100%;
+		}
+	}
+</style>

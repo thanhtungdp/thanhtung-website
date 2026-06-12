@@ -1,0 +1,13 @@
+---
+interface Props {
+	class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<div
+	class={`rounded-[calc(var(--radius)+0.5rem)] border border-[rgb(var(--border)/0.66)] bg-white/65 shadow-[var(--shadow-soft)] backdrop-blur ${className}`}
+>
+	<slot />
+</div>

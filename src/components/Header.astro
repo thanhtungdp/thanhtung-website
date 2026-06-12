@@ -1,5 +1,6 @@
 ---
 import { getAlternateLinks, getLocaleFromUrl, getTranslations, localizePath } from '../i18n';
+import DavidTungLogo from '../assets/david-tung-logo.svg';
 import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
 
@@ -11,8 +12,7 @@ const alternateLinks = getAlternateLinks(Astro.url.pathname);
 <header class="site-header">
 	<nav class="site-nav" aria-label="Main navigation">
 		<a class="brand" href={localizePath('/', locale)} aria-label={`${SITE_TITLE} home`}>
-			<span class="brand-mark">TT</span>
-			<span class="brand-text">{SITE_TITLE}</span>
+			<img class="brand-logo" src={DavidTungLogo.src} alt="" width="300" height="99" decoding="async" />
 		</a>
 
 		<div class="nav-links">
@@ -57,33 +57,14 @@ const alternateLinks = getAlternateLinks(Astro.url.pathname);
 	.brand {
 		display: inline-flex;
 		align-items: center;
-		gap: 0.7rem;
 		width: fit-content;
-		color: rgb(var(--foreground));
-		font-weight: 800;
-		letter-spacing: -0.04em;
 		text-decoration: none;
 	}
 
-	.brand:hover {
-		color: rgb(var(--primary));
-	}
-
-	.brand-mark {
-		display: grid;
-		place-items: center;
-		width: 2.45rem;
-		height: 2.45rem;
-		border-radius: 0.9rem;
-		background: rgb(var(--primary));
-		color: rgb(var(--primary-foreground));
-		box-shadow: 0 12px 30px rgb(var(--primary) / 0.22);
-		font-size: 0.92rem;
-		letter-spacing: -0.06em;
-	}
-
-	.brand-text {
-		font-size: 1.05rem;
+	.brand-logo {
+		display: block;
+		width: clamp(9.6rem, 16vw, 14.75rem);
+		height: auto;
 	}
 
 	.nav-links {
@@ -165,11 +146,8 @@ const alternateLinks = getAlternateLinks(Astro.url.pathname);
 			min-height: auto;
 		}
 
-		.brand-text {
-			max-width: 9rem;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			white-space: nowrap;
+		.brand-logo {
+			width: min(11rem, 48vw);
 		}
 
 		.nav-links {

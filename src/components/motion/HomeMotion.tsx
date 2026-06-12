@@ -5,6 +5,7 @@ import {
 	useInView,
 	useMotionTemplate,
 	useMotionValue,
+	useSpring,
 	useReducedMotion,
 	useTransform,
 } from 'motion/react';
@@ -37,24 +38,50 @@ type Stat = {
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
-export function X10Mark({ label = 'X10' }: { label?: string }) {
+export function X10Mark({ label = 'X10', target = 10 }: { label?: string; target?: number }) {
 	const reduce = useReducedMotion();
 	const value = useMotionValue(1);
-	const text = useTransform(value, (latest) => `X${Math.round(latest)}`);
+	const text = useTransform(value, (latest) => `x${Math.round(latest)}`);
 
 	useEffect(() => {
 		if (reduce) {
-			value.set(10);
+			value.set(target);
 			return;
 		}
-		const controls = animate(value, 10, { duration: 0.9, ease, delay: 0.55 });
+		const controls = animate(value, target, { duration: 0.9, ease, delay: 0.55 });
 		return () => controls.stop();
-	}, [reduce, value]);
+	}, [reduce, target, value]);
 
 	return (
 		<span className="x10-wrap" aria-label={label}>
-			<motion.span className="x10-mark">{text}</motion.span>
+			<motion.span className="x10-mark magic-gradient-text">{text}</motion.span>
 		</span>
+	);
+}
+
+export function SignalMarquee({ items }: { items: string[] }) {
+	return (
+		<div className="signal-marquee" aria-label="Focus areas">
+			{[0, 1].map((row) => (
+				<div className="signal-track" aria-hidden={row === 1} key={row}>
+					{items.map((item) => (
+						<span key={`${row}-${item}`}>{item}</span>
+					))}
+				</div>
+			))}
+		</div>
+	);
+}
+
+function BorderBeam({ delay = 0, reverse = false }: { delay?: number; reverse?: boolean }) {
+	return (
+		<motion.span
+			className="border-beam"
+			aria-hidden="true"
+			initial={{ offsetDistance: reverse ? '100%' : '0%' }}
+			animate={{ offsetDistance: reverse ? '0%' : '100%' }}
+			transition={{ duration: 7, delay, ease: 'linear', repeat: Infinity }}
+		/>
 	);
 }
 
@@ -100,6 +127,8 @@ export function TiltProfileCard({ name, title, location, email, focus, status }:
 			<div className="profile-meta">
 				<span>{location} · {email}</span>
 			</div>
+			<BorderBeam />
+			<BorderBeam delay={3.5} reverse />
 		</motion.aside>
 	);
 }
@@ -147,7 +176,7 @@ export function MotionProjectGrid({ projects }: { projects: Project[] }) {
 
 				return (
 					<motion.article
-						className="project-card surface-card"
+						className={`project-card surface-card bento-card bento-card-${index + 1}`}
 						key={project.title}
 						initial={reduce ? false : { opacity: 0, y: 30 }}
 						whileInView={{ opacity: 1, y: 0 }}
@@ -168,23 +197,29 @@ function CountUp({ value }: { value: string }) {
 	const reduce = useReducedMotion();
 	const numeric = Number(value.replace(/[^0-9.]/g, '')) || 0;
 	const suffix = value.replace(/[0-9.,]/g, '');
-	const mv = useMotionValue(reduce ? numeric : 0);
-	const display = useTransform(mv, (latest) => {
-		const rounded = Math.round(latest).toLocaleString('en-US');
-		return `${rounded}${suffix}`;
-	});
+	const motionValue = useMotionValue(reduce ? numeric : 0);
+	const springValue = useSpring(motionValue, { damping: 60, stiffness: 100 });
 
 	useEffect(() => {
 		if (!inView) return;
 		if (reduce) {
-			mv.set(numeric);
+			motionValue.set(numeric);
 			return;
 		}
-		const controls = animate(mv, numeric, { duration: 1.15, ease });
-		return () => controls.stop();
-	}, [inView, mv, numeric, reduce]);
+		motionValue.set(numeric);
+	}, [inView, motionValue, numeric, reduce]);
 
-	return <motion.span ref={ref}>{display}</motion.span>;
+	useEffect(
+		() =>
+			springValue.on('change', (latest) => {
+				if (!ref.current) return;
+				const rounded = Math.round(latest).toLocaleString('en-US');
+				ref.current.textContent = `${rounded}${suffix}`;
+			}),
+		[springValue, suffix],
+	);
+
+	return <span ref={ref}>{reduce ? value : `0${suffix}`}</span>;
 }
 
 export function MotionStatsGrid({ stats }: { stats: Stat[] }) {

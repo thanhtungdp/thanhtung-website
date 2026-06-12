@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 788 260" role="img" aria-labelledby="title desc">
+	<title id="title">David Tung</title>
+	<desc id="desc">David Tung Tech Entrepreneur logo</desc>
+	<defs>
+		<style>
+			.black { fill: #050505; }
+			.orange { fill: #f97316; }
+			.wordmark {
+				fill: #050505;
+				font-family: Impact, "Arial Black", Arial, sans-serif;
+				font-style: italic;
+				font-weight: 900;
+				letter-spacing: 3px;
+			}
+			.tagline {
+				fill: #f97316;
+				font-family: Arial, Helvetica, sans-serif;
+				font-size: 22px;
+				font-weight: 700;
+				letter-spacing: 13px;
+			}
+		</style>
+	</defs>
+
+	<g transform="translate(0 32)">
+		<path class="black" d="M73 7h112c29 0 45 18 36 43l-29 78c-8 23-33 40-62 40H0l36-42h89c12 0 21-6 25-17l15-40c4-11-3-19-17-19H37L73 7Z"/>
+		<path class="black" d="M237 7h151l-34 45h-51l-47 116h-64l48-116h-40l37-45Z"/>
+		<path class="orange" d="M0 183c78-61 180-99 356-123C213 95 105 141 0 217v-34Z"/>
+		<path class="orange" d="M62 193c65-45 148-75 269-97-106 35-184 74-249 121H0l62-24Z"/>
+		<path fill="#fff" d="M104 170c42-25 91-45 155-61-58 23-102 48-138 78l-17-17Z" opacity=".95"/>
+	</g>
+
+	<rect class="black" x="399" y="45" width="3.8" height="168" rx="1.9"/>
+
+	<g transform="skewX(-8)">
+		<text class="wordmark" x="486" y="104" font-size="78">DAVID</text>
+		<text class="wordmark" x="481" y="178" font-size="78">TUNG</text>
+	</g>
+	<text class="tagline" x="442" y="224">TECH ENTREPRENEUR</text>
+</svg>

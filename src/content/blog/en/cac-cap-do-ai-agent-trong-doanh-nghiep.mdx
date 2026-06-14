@@ -4,6 +4,8 @@ description: 'A practical executive framework for assessing AI Agent maturity, c
 pubDate: '2026-06-12'
 heroImage: '../../../assets/blog/cac-cap-do-ai-agent-trong-doanh-nghiep/hero.webp'
 ---
+import { AgentMaturityPlayground, AgentWorkflowSimulator, AgentQuoteAutomationSimulator, AgentUseCasePicker } from '../../../components/blog/AiAgentPlaygrounds';
+
 
 *AI is becoming broadly accessible. As tools become easier to use, competitive advantage no longer comes from “using AI”. It comes from turning AI into an operating capability connected to core workflows, enterprise data and customer experience.*
 
@@ -38,6 +40,8 @@ In other words, companies do not only need “AI users”. They need to become *
 > **Image direction:** a five-step maturity ladder from personal tools to an enterprise AI Agent platform, with increasing data, execution rights and governance. **Highlight:** each level must translate into measurable operating value. **Technology:** LLMs, AI Assistants, workflow orchestration, tool calling, enterprise agent platforms.
 
 A useful way for leaders to make decisions is to view AI Agent adoption across five maturity levels.
+
+<AgentMaturityPlayground locale="en" client:load />
 
 ### Level 1: AI as a personal productivity tool
 
@@ -96,6 +100,8 @@ For example, a sales AI Agent may be able to:
 However, critical points still require human approval: commercial terms, discount policies, implementation commitments or decisions involving strategic customers.
 
 This is the **human + AI** model: AI moves fast; humans ensure correctness.
+
+<AgentWorkflowSimulator locale="en" client:load />
 
 **Management question:** has the business clearly defined what AI can do autonomously and where human approval is mandatory?
 
@@ -202,6 +208,16 @@ AI can support dealers in situations such as:
 
 The important point is that AI should not operate as an isolated chatbot. It must connect to product data, sales policies, site survey processes, warranty workflows and the dealer/CRM system.
 
+#### Simulation: an AI Agent advising and drafting quotes automatically in 60 seconds
+
+> **Image direction:** an automated timeline from new lead, data retrieval, option recommendation, draft quote, sales approval and CRM follow-up. **Highlight:** the agent runs automatically while guardrails and human approval remain in place. **Technology:** CRM trigger, product catalog RAG, pricing rule engine, approval workflow, audit log.
+
+A quotation AI Agent should not merely “chat well”. It should run as an operating workflow with triggers, trusted data, pricing rules, approval points and audit logs.
+
+<AgentQuoteAutomationSimulator locale="en" client:load />
+
+A good operating pattern is: the customer submits a need, the agent gathers relevant data, recommends options, drafts a quote, routes risky points for human approval and records the full history in CRM. This lets the company respond faster without losing control over price, policy or accountability.
+
 ### Strategic value
 
 > **Image direction:** three outcome layers: faster response, standardized advisory quality and real-time market intelligence. **Highlight:** from sales support to competitive capability. **Technology:** analytics dashboard, conversion tracking, market intelligence, CRM sync.
@@ -221,6 +237,8 @@ This is the difference between “using AI to answer questions” and “using A
 > **Image direction:** a 90-day roadmap divided into choosing the battlefield, integrating and measuring, then standardizing for scale. **Highlight:** 90 days is enough to create the first operating capability. **Technology:** pilot backlog, KPI dashboard, workflow builder, governance checklist.
 
 Companies do not need to wait for a perfect system. A 90-day roadmap is enough to create a practical foundation.
+
+<AgentUseCasePicker locale="en" client:load />
 
 ### First 30 days: choose a focused battlefield
 

@@ -1,0 +1,27 @@
+---
+import Card from '../../ui/Card.astro';
+import SectionHeading from './SectionHeading.astro';
+import { MotionStatsGrid } from '../../motion/HomeMotion';
+
+interface Props {
+	isVi: boolean;
+	stats: {
+		value: string;
+		label: string;
+	}[];
+}
+
+const { isVi, stats } = Astro.props;
+---
+
+<section class="relative py-8 md:py-12 lg:py-14">
+	<Card class="bg-neutral-950 p-4 text-white sm:p-6 lg:p-8">
+		<SectionHeading
+			kicker={isVi ? 'Con số thực tế' : 'Statistics'}
+			title={isVi ? 'Những con số đã chạy ngoài đời thật' : 'Numbers from real systems'}
+			narrow
+			titleClass="text-white"
+		/>
+		<MotionStatsGrid stats={stats} client:visible />
+	</Card>
+</section>

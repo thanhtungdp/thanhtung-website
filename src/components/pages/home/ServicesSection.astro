@@ -1,0 +1,28 @@
+---
+import SectionHeading from './SectionHeading.astro';
+
+interface Props {
+	isVi: boolean;
+	services: string[];
+}
+
+const { isVi, services } = Astro.props;
+---
+
+<section class="relative grid grid-cols-1 items-start gap-8 py-8 md:py-12 lg:grid-cols-2 lg:gap-14 lg:py-14">
+	<SectionHeading
+		kicker={isVi ? 'Tôi làm gì' : 'What I do'}
+		title={isVi ? 'Tôi giúp đội ngũ học nhanh hơn và vận hành sắc hơn' : 'I help teams learn faster and operate sharper'}
+		narrow
+	/>
+	<div class="grid gap-3">
+		{
+			services.map((item, index) => (
+				<div class="flex flex-col items-start gap-2 rounded-2xl border border-neutral-200 bg-white/80 p-4 sm:flex-row sm:gap-4">
+					<span class="text-sm font-black text-orange-700">{`0${index + 1}`}</span>
+					<p class="m-0 text-base font-bold leading-7 text-neutral-950 sm:text-lg">{item}</p>
+				</div>
+			))
+		}
+	</div>
+</section>

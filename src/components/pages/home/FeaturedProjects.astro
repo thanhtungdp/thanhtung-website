@@ -1,0 +1,30 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { MotionProjectGrid } from '../../motion/HomeMotion';
+
+interface Props {
+	isVi: boolean;
+	projects: {
+		title: string;
+		desc: string;
+		imageSrc: string;
+		meta: string;
+		role: string;
+		impact: string;
+		domain: string;
+		cta: string;
+		href?: string;
+	}[];
+}
+
+const { isVi, projects } = Astro.props;
+---
+
+<section class="relative py-8 md:py-12 lg:py-14">
+	<SectionHeading
+		kicker={isVi ? 'Dự án nổi bật' : 'Featured projects'}
+		title={isVi ? 'Các hệ thống đã chạy thật' : 'Real systems shipped'}
+		titleClass="max-w-none whitespace-nowrap text-3xl sm:text-4xl lg:text-5xl"
+	/>
+	<MotionProjectGrid projects={projects} client:visible />
+</section>

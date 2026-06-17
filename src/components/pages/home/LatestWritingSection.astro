@@ -1,0 +1,51 @@
+---
+import { Image } from 'astro:assets';
+import ButtonLink from '../../ui/ButtonLink.astro';
+import Card from '../../ui/Card.astro';
+import FormattedDate from '../../FormattedDate.astro';
+import SectionHeading from './SectionHeading.astro';
+import { localizePath, type Locale } from '../../../i18n';
+import { getBlogPath, type BlogPost } from '../../../lib/blog';
+
+interface Props {
+	locale: Locale;
+	isVi: boolean;
+	posts: BlogPost[];
+}
+
+const { locale, isVi, posts } = Astro.props;
+---
+
+<section class="relative py-8 md:py-12 lg:py-14">
+	<div class="mb-5 flex items-end justify-between gap-4 max-sm:flex-col max-sm:items-start">
+		<SectionHeading kicker={isVi ? 'Bài viết mới' : 'Latest writing'} title={isVi ? 'Góc blog & chia sẻ' : 'Blog & field notes'} />
+		<ButtonLink class="max-sm:w-full" href={localizePath('/blog', locale)} variant="secondary" size="compact">
+			{isVi ? 'Xem tất cả' : 'View all'}
+		</ButtonLink>
+	</div>
+
+	<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+		{
+			posts.map((post) => (
+				<Card class="overflow-hidden bg-white/90 transition hover:-translate-y-1 hover:border-orange-200">
+					<article>
+						<a class="flex min-h-full flex-col text-inherit no-underline" href={getBlogPath(post, locale)}>
+							{post.data.heroImage && (
+								<div class="aspect-video overflow-hidden bg-orange-50">
+									<Image class="block h-full w-full rounded-none object-contain" src={post.data.heroImage} width={520} height={292} alt="" loading="lazy" />
+								</div>
+							)}
+							<div class="flex flex-1 flex-col p-4 max-sm:p-3.5">
+								<span class="text-xs font-extrabold text-orange-700">
+									<FormattedDate date={post.data.pubDate} locale={locale} />
+								</span>
+								<h3 class="mt-2 text-lg leading-snug tracking-tight sm:text-xl">{post.data.title}</h3>
+								<p class="mt-2 line-clamp-2 text-sm leading-6 text-neutral-500 sm:mt-3 sm:line-clamp-3 sm:text-base">{post.data.description}</p>
+							</div>
+						</a>
+					</article>
+				</Card>
+			))
+		}
+	</div>
+</section>

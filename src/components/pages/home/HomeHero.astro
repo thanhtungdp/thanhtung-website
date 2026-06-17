@@ -1,0 +1,86 @@
+---
+import ButtonLink from '../../ui/ButtonLink.astro';
+import { SignalMarquee, TiltProfileCard } from '../../motion/HomeMotion';
+import { localizePath, type Locale } from '../../../i18n';
+
+type ProofStat = {
+	value: string;
+	label: string;
+};
+
+type ProfileCard = {
+	name: string;
+	title: string;
+	location: string;
+	email: string;
+	focus: string;
+	status: string;
+};
+
+interface Props {
+	locale: Locale;
+	isVi: boolean;
+	focusSignals: string[];
+	proofStats: ProofStat[];
+	profileCard: ProfileCard;
+}
+
+const { locale, isVi, focusSignals, proofStats, profileCard } = Astro.props;
+---
+
+<section
+	class="relative grid grid-cols-1 items-center gap-6 overflow-hidden rounded-3xl bg-orange-50/30 py-6 md:grid-cols-2 md:gap-12 lg:py-10"
+>
+	<div class="min-w-0 max-w-full motion-hero-copy">
+		<h1
+			class="max-w-xl text-5xl leading-none tracking-tight sm:text-6xl lg:text-7xl"
+			aria-label="Simple & More X10"
+		>
+			<span class="block">Simple &amp; More</span>
+			<span class="block">
+				<span
+					class="inline-flex border-b-8 border-orange-200"
+					aria-label="X10"
+				>
+					<span class="inline-block bg-gradient-to-r from-orange-600 via-teal-700 to-orange-600 bg-clip-text text-transparent">X10</span>
+				</span>
+			</span>
+		</h1>
+
+		<p class="mt-4 max-w-2xl text-base leading-7 text-neutral-600 md:text-lg">
+			{
+				isVi
+					? 'Tôi xây sản phẩm AI thật, thắp lửa lớp học và giúp người học trở thành maker có sản phẩm với người dùng thật.'
+					: 'I build real AI products, ignite classrooms, and turn learners into makers with products used by real people.'
+			}
+		</p>
+
+		<div class="mt-5 flex w-full flex-wrap gap-3 max-sm:flex-col">
+			<ButtonLink href={localizePath('/blog', locale)}>{isVi ? 'Đọc bài viết' : 'Read writing'}</ButtonLink>
+			<ButtonLink href="mailto:thanhtung@simplamo.com" variant="secondary">{isVi ? 'Liên hệ' : 'Contact'}</ButtonLink>
+		</div>
+
+		<div>
+			<SignalMarquee items={focusSignals} client:load />
+		</div>
+	</div>
+
+	<div class="grid min-w-0 items-stretch gap-3" aria-label={isVi ? 'Tóm tắt năng lực' : 'Capability summary'}>
+		<div class="min-w-0">
+			<TiltProfileCard {...profileCard} client:load />
+		</div>
+		<div
+			class="surface-card grid grid-cols-2 gap-2 overflow-hidden bg-white/90 p-2 sm:grid-cols-4"
+			aria-label={isVi ? '4 chỉ số chính' : '4 key metrics'}
+		>
+			{
+				proofStats.map((item) => (
+					<div class="min-w-0 rounded-2xl bg-orange-50 p-3">
+						<strong class="block text-xl leading-none tracking-tight text-neutral-950">{item.value}</strong>
+						<span class="mt-2 block text-xs font-extrabold leading-tight text-neutral-500">{item.label}</span>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>

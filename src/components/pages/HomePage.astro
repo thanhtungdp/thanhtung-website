@@ -2,9 +2,8 @@
 import HomeOgImage from '../../assets/david-tung-og-x10.png';
 import BaseHead from '../BaseHead.astro';
 import Footer from '../Footer.astro';
-import Header from '../Header.astro';
 import FeaturedProjects from './home/FeaturedProjects.astro';
-import HomeHero from './home/HomeHero.astro';
+import HomeAnimatedBackground from './home/HomeAnimatedBackground.astro';
 import LatestWritingSection from './home/LatestWritingSection.astro';
 import ServicesSection from './home/ServicesSection.astro';
 import StatsSection from './home/StatsSection.astro';
@@ -29,15 +28,14 @@ const { isVi, focusSignals, profileCard, proofStats, projectCards, services, sta
 		<BaseHead title={SITE_TITLE} description={t.siteDescription} image={HomeOgImage} locale={locale} />
 	</head>
 	<body>
-		<Header />
-		<main class="pt-5 sm:pt-9">
-			<HomeHero
-				locale={locale}
-				isVi={isVi}
-				focusSignals={focusSignals}
-				profileCard={profileCard}
-				proofStats={proofStats}
-			/>
+		<HomeAnimatedBackground
+			locale={locale}
+			isVi={isVi}
+			focusSignals={focusSignals}
+			profileCard={profileCard}
+			proofStats={proofStats}
+		/>
+		<main class="container mx-auto">
 			<FeaturedProjects isVi={isVi} projects={projectCards} />
 			<ServicesSection isVi={isVi} services={services} />
 			<LatestWritingSection locale={locale} isVi={isVi} posts={latestPosts} />

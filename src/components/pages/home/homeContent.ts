@@ -1,7 +1,7 @@
 import ILotusLandImage from '../../../assets/projects/ilotusland/featured.webp';
 import SaleAIImage from '../../../assets/projects/sale-ai/sale-featured.png';
 import SimplamoImage from '../../../assets/projects/simplamo/featured.png';
-import TeachingImage from '../../../assets/projects/teaching-scale.png';
+import TeachingImage from '../../../assets/projects/teaching/featured.png';
 import { localizePath, type Locale } from '../../../i18n';
 
 type Project = {
@@ -142,10 +142,10 @@ export function getHomeContent(locale: Locale) {
 		] satisfies Stat[],
 		proofStats: isVi
 			? [
-					{ value: '1M+', label: 'học sinh tiếp cận' },
+					{ value: '1M+', label: 'học sinh' },
 					{ value: '1,000+', label: 'trạm IoT' },
-					{ value: '100+', label: 'tổ chức dùng Simplamo' },
-					{ value: 'AI/SaaS', label: 'sản phẩm thật' },
+					{ value: '100+', label: 'B2B' },
+					{ value: 'AI/SaaS', label: '2000 dai ly' },
 				]
 			: [
 					{ value: '1M+', label: 'learners reached' },
@@ -155,12 +155,12 @@ export function getHomeContent(locale: Locale) {
 				],
 		focusSignals: ['AI Agents', 'SaaS', 'Industrial IoT', 'OKRs', 'BSC/KPI', 'Education', 'Product Architecture', 'Strategy Execution'],
 		profileCard: {
-			name: 'Phan Thanh Tung',
-			title: isVi ? 'Tech Visionary' : 'Tech Visionary.',
+			name: 'Tech Visionary',
+			title: isVi ? 'David Tung Phan' : 'David Tung Phan',
 			location: 'Ho Chi Minh City',
 			email: 'thanhtung@simplamo.com',
-			focus: isVi ? 'Đang xây Simplamo, AI agents và chương trình đào tạo sản phẩm AI.' : 'Building Simplamo, AI agents, and practical AI product training.',
-			status: isVi ? 'Đang xây Simplamo' : 'Building Simplamo',
+			focus: isVi ? 'Đang xây AI Native, Agents, Business System' : 'AI Native, Agents, Business System',
+			status: isVi ? 'Online' : 'Online',
 		},
 	};
 }

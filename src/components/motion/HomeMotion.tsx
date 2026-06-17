@@ -126,7 +126,7 @@ export function TiltProfileCard({ name, title, location, email, focus, status }:
 				<p className="m-0 text-sm font-extrabold text-orange-400">{name}</p>
 				<span className="whitespace-nowrap rounded-full border border-white/15 bg-white/5 px-2.5 py-1.5 text-xs font-extrabold leading-none text-neutral-100">{status}</span>
 			</div>
-			<h2 className="relative z-10 max-w-sm text-3xl leading-tight tracking-tight sm:text-4xl lg:text-5xl">
+			<h2 className="relative z-10 max-w-sm !text-3xl leading-tight tracking-tight">
 				<span className="text-white">{title}</span>
 			</h2>
 			<p className="relative z-10 mt-3 max-w-sm text-sm font-bold leading-6 text-neutral-200 sm:mt-4 sm:text-base">{focus}</p>

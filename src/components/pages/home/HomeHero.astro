@@ -29,28 +29,26 @@ const { locale, isVi, focusSignals, proofStats, profileCard } = Astro.props;
 ---
 
 <section
-	class="relative grid grid-cols-1 items-center gap-6 overflow-hidden rounded-3xl bg-orange-50/30 py-6 md:grid-cols-2 md:gap-12 lg:py-10"
+	class="container mx-auto flex flex-col gap-6 px-4 py-7 md:flex-row md:justify-around md:px-6 lg:px-8"
 >
-	<div class="min-w-0 max-w-full motion-hero-copy">
+	<div class="relative z-10 w-full max-w-full motion-hero-copy md:w-2/5">
 		<h1
-			class="max-w-xl text-5xl leading-none tracking-tight sm:text-6xl lg:text-7xl"
+			class="max-w-full !whitespace-nowrap !text-nowrap !leading-none !tracking-normal sm:!text-6xl lg:!text-6xl"
 			aria-label="Simple & More X10"
 		>
-			<span class="block">Simple &amp; More</span>
-			<span class="block">
-				<span
-					class="inline-flex border-b-8 border-orange-200"
-					aria-label="X10"
-				>
-					<span class="inline-block bg-gradient-to-r from-orange-600 via-teal-700 to-orange-600 bg-clip-text text-transparent">X10</span>
-				</span>
+			<span class="!whitespace-nowrap !text-nowrap">Simple &amp; More</span>{' '}
+			<span
+				class="inline-flex border-b-8 border-orange-200"
+				aria-label="X10"
+			>
+				<span class="inline-block bg-gradient-to-r from-orange-600 via-teal-700 to-orange-600 bg-clip-text text-transparent">X10</span>
 			</span>
 		</h1>
 
 		<p class="mt-4 max-w-2xl text-base leading-7 text-neutral-600 md:text-lg">
 			{
 				isVi
-					? 'Tôi xây sản phẩm AI thật, thắp lửa lớp học và giúp người học trở thành maker có sản phẩm với người dùng thật.'
+					? 'Giúp các doanh nghiệp phát triển các nền tảng tích hợp dựa trên nền tảng có sẵn ERP, Sales kết hợp cùng AI để tạo ra lợi thế cạnh tranh vượt bật Data x AI x Coaching = x10'
 					: 'I build real AI products, ignite classrooms, and turn learners into makers with products used by real people.'
 			}
 		</p>
@@ -65,7 +63,7 @@ const { locale, isVi, focusSignals, proofStats, profileCard } = Astro.props;
 		</div>
 	</div>
 
-	<div class="grid min-w-0 items-stretch gap-3" aria-label={isVi ? 'Tóm tắt năng lực' : 'Capability summary'}>
+	<div class="relative z-10 grid w-full items-stretch gap-3 md:w-2/5" aria-label={isVi ? 'Tóm tắt năng lực' : 'Capability summary'}>
 		<div class="min-w-0">
 			<TiltProfileCard {...profileCard} client:load />
 		</div>

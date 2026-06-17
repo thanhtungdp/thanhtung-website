@@ -10,7 +10,7 @@ const { href, variant = 'primary', size = 'default', class: className = '' } = A
 
 const variantClass =
 	variant === 'primary'
-		? 'bg-orange-600 shadow-lg hover:bg-cyan-950'
+		? 'bg-orange-600 !text-white shadow-lg hover:bg-cyan-950 hover:!text-white'
 		: 'border border-neutral-200 bg-white/70 hover:border-orange-200 hover:bg-white';
 
 const textClass = variant === 'primary' ? 'text-white' : 'text-neutral-950 group-hover:text-orange-700';

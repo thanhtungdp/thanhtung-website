@@ -1,0 +1,210 @@
+---
+import Header from '../../Header.astro';
+import HomeHero from './HomeHero.astro';
+import type { Locale } from '../../../i18n';
+
+type ProofStat = {
+	value: string;
+	label: string;
+};
+
+type ProfileCard = {
+	name: string;
+	title: string;
+	location: string;
+	email: string;
+	focus: string;
+	status: string;
+};
+
+interface Props {
+	locale: Locale;
+	isVi: boolean;
+	focusSignals: string[];
+	proofStats: ProofStat[];
+	profileCard: ProfileCard;
+}
+
+const { locale, isVi, focusSignals, proofStats, profileCard } = Astro.props;
+const cells = Array.from({ length: 240 });
+---
+
+<div class="relative overflow-hidden bg-white">
+	<div class="absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
+		<div class="pointer-events-none absolute inset-0 bg-white"></div>
+		<div class="pointer-events-none absolute -left-16 top-16 h-64 w-64 rounded-full bg-orange-200/55 blur-3xl"></div>
+		<div class="pointer-events-none absolute right-0 top-24 h-72 w-72 rounded-full bg-teal-200/35 blur-3xl"></div>
+		<div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/70 via-white/10 to-white"></div>
+		<div class="hero-grid-mask absolute inset-0">
+			<div class="hero-cell-grid grid h-full w-full grid-cols-8 sm:grid-cols-12">
+				{cells.map(() => <span class="hero-grid-cell"></span>)}
+			</div>
+		</div>
+		<div class="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-white to-transparent"></div>
+	</div>
+
+	<div class="relative z-10">
+		<Header />
+		<div class="pt-5 sm:pt-9">
+			<HomeHero
+				locale={locale}
+				isVi={isVi}
+				focusSignals={focusSignals}
+				profileCard={profileCard}
+				proofStats={proofStats}
+			/>
+		</div>
+	</div>
+</div>
+
+<script>
+	const heroCellPalettes = [
+		{
+			bg: 'rgb(255 237 213 / 0.62)',
+			glow: 'rgb(234 88 12 / 0.24)',
+		},
+		{
+			bg: 'rgb(204 251 241 / 0.52)',
+			glow: 'rgb(20 184 166 / 0.24)',
+		},
+		{
+			bg: 'rgb(254 249 195 / 0.56)',
+			glow: 'rgb(202 138 4 / 0.22)',
+		},
+		{
+			bg: 'rgb(219 234 254 / 0.48)',
+			glow: 'rgb(37 99 235 / 0.18)',
+		},
+	];
+
+	let activeHeroGridCell: HTMLElement | null = null;
+	let lastHeroCellPalette = -1;
+	let pendingHeroPointer: { x: number; y: number } | null = null;
+	let heroPointerFrame = 0;
+	const heroCellFadeTimers = new WeakMap<HTMLElement, number>();
+
+	function getHeroCellPalette() {
+		let nextPalette = Math.floor(Math.random() * heroCellPalettes.length);
+		if (heroCellPalettes.length > 1 && nextPalette === lastHeroCellPalette) {
+			nextPalette = (nextPalette + 1) % heroCellPalettes.length;
+		}
+		lastHeroCellPalette = nextPalette;
+		return heroCellPalettes[nextPalette];
+	}
+
+	function paintHeroGridCell(cell: HTMLElement) {
+		const palette = getHeroCellPalette();
+		cell.style.setProperty('--hero-cell-bg', palette.bg);
+		cell.style.setProperty('--hero-cell-glow', palette.glow);
+	}
+
+	function fadeHeroGridCell(cell: HTMLElement | null) {
+		if (!cell) return;
+		cell.removeAttribute('data-active');
+		cell.setAttribute('data-fading', 'true');
+
+		const previousTimer = heroCellFadeTimers.get(cell);
+		if (previousTimer) window.clearTimeout(previousTimer);
+		const nextTimer = window.setTimeout(() => {
+			cell.removeAttribute('data-fading');
+			heroCellFadeTimers.delete(cell);
+		}, 1100);
+		heroCellFadeTimers.set(cell, nextTimer);
+	}
+
+	function activateHeroGridCell(cell: HTMLElement | null) {
+		if (activeHeroGridCell === cell) return;
+		fadeHeroGridCell(activeHeroGridCell);
+		activeHeroGridCell = cell;
+
+		if (!activeHeroGridCell) return;
+		const previousTimer = heroCellFadeTimers.get(activeHeroGridCell);
+		if (previousTimer) window.clearTimeout(previousTimer);
+		activeHeroGridCell.removeAttribute('data-fading');
+		paintHeroGridCell(activeHeroGridCell);
+		activeHeroGridCell.setAttribute('data-active', 'true');
+	}
+
+	function findHeroGridCellFromPoint(x: number, y: number) {
+		const grids = document.querySelectorAll<HTMLElement>('.hero-cell-grid');
+
+		for (const grid of grids) {
+			const gridRect = grid.getBoundingClientRect();
+			if (x < gridRect.left || x > gridRect.right || y < gridRect.top || y > gridRect.bottom) continue;
+
+			const cells = grid.querySelectorAll<HTMLElement>('.hero-grid-cell');
+			for (const cell of cells) {
+				const cellRect = cell.getBoundingClientRect();
+				if (x >= cellRect.left && x <= cellRect.right && y >= cellRect.top && y <= cellRect.bottom) {
+					return cell;
+				}
+			}
+		}
+
+		return null;
+	}
+
+	function scheduleHeroGridPointer(event: PointerEvent) {
+		pendingHeroPointer = { x: event.clientX, y: event.clientY };
+		if (heroPointerFrame) return;
+
+		heroPointerFrame = window.requestAnimationFrame(() => {
+			heroPointerFrame = 0;
+			if (!pendingHeroPointer) return;
+			activateHeroGridCell(findHeroGridCellFromPoint(pendingHeroPointer.x, pendingHeroPointer.y));
+		});
+	}
+
+	document.addEventListener('pointermove', scheduleHeroGridPointer);
+	document.addEventListener('pointerleave', () => {
+		pendingHeroPointer = null;
+		activateHeroGridCell(null);
+	});
+</script>
+
+<style>
+	.hero-grid-mask {
+		mask-image: radial-gradient(ellipse at top, black 38%, transparent 78%);
+	}
+
+	.hero-cell-grid {
+		grid-auto-rows: 3rem;
+		animation: hero-grid-drift 36s linear infinite;
+	}
+
+	.hero-grid-cell {
+		position: relative;
+		transition:
+			background-color 850ms ease,
+			box-shadow 1050ms ease;
+	}
+
+	.hero-grid-cell:hover,
+	.hero-grid-cell[data-active='true'],
+	.hero-grid-cell[data-fading='true'] {
+		background-color: var(--hero-cell-bg, rgb(255 237 213 / 0.55));
+		box-shadow: inset 0 0 30px var(--hero-cell-glow, rgb(20 184 166 / 0.16));
+	}
+
+	@media (max-width: 640px) {
+		.hero-cell-grid {
+			grid-auto-rows: 2.5rem;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.hero-cell-grid {
+			animation: none;
+		}
+	}
+
+	@keyframes hero-grid-drift {
+		from {
+			transform: translate3d(0, 0, 0);
+		}
+
+		to {
+			transform: translate3d(-3rem, -3rem, 0);
+		}
+	}
+</style>

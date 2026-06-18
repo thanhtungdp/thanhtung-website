@@ -80,25 +80,24 @@ h5,
 h6 {
 	margin: 0 0 0.65rem;
 	color: rgb(var(--foreground));
-	line-height: 1.08;
-	letter-spacing: -0.045em;
+	letter-spacing: 0;
 	text-wrap: balance;
 }
 
 h1 {
-	font-size: clamp(2.75rem, 8vw, 5.75rem);
+	@apply text-5xl leading-none md:text-6xl lg:text-5xl;
 }
 
 h2 {
-	font-size: clamp(2rem, 5vw, 3.75rem);
+	@apply text-4xl leading-tight md:text-4xl;
 }
 
 h3 {
-	font-size: clamp(1.45rem, 3vw, 2.2rem);
+	@apply text-2xl leading-tight md:text-2xl;
 }
 
 h4 {
-	font-size: clamp(1.15rem, 2vw, 1.45rem);
+	@apply text-xl leading-snug;
 }
 
 p {

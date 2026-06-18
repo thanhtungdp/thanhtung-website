@@ -1,0 +1,70 @@
+---
+import BaseHead from '../../BaseHead.astro';
+import Footer from '../../Footer.astro';
+import ButtonLink from '../../ui/ButtonLink.astro';
+import CustomerLogoCloud from './CustomerLogoCloud.astro';
+import ProjectAnimatedBackground from './ProjectAnimatedBackground.astro';
+import ProjectBentoGrid from './ProjectBentoGrid.astro';
+import ProjectDottedMap from './ProjectDottedMap';
+import ProjectGallery from './ProjectGallery.astro';
+import ProjectHero from './ProjectHero.astro';
+import RelatedProjectPosts from './RelatedProjectPosts.astro';
+import type { AchievementFirstProject } from './types';
+
+interface Props {
+	project: AchievementFirstProject;
+}
+
+const { project } = Astro.props;
+---
+
+<BaseHead title={project.seo.title} description={project.seo.description} image={project.seo.image} locale={project.locale} />
+
+<body>
+	<main class="!m-0 !w-full !max-w-none !p-0">
+		<ProjectAnimatedBackground>
+			<ProjectHero
+				hero={project.hero}
+				achievements={project.achievements}
+				statsLabel={project.locale === 'vi' ? '4 thành tựu chính' : '4 key achievements'}
+			/>
+		</ProjectAnimatedBackground>
+
+		<CustomerLogoCloud logos={project.logos} title={project.locale === 'vi' ? 'Được chứng minh qua khách hàng thật' : 'Proven through real customers'} />
+
+		<ProjectBentoGrid heading={project.bentoHeading} features={project.bentoFeatures} />
+
+		<section id="footprint" class="mx-auto flex w-full max-w-7xl flex-col gap-8 px-4 py-16 sm:px-6 lg:px-8">
+			<div class="flex flex-col gap-8">
+				<div class="flex flex-col gap-4">
+					<h2 class="text-4xl leading-tight tracking-normal text-neutral-950 sm:text-5xl">{project.map.title}</h2>
+					<p class="text-lg leading-8 text-neutral-600">{project.map.lead}</p>
+				</div>
+				<div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
+					{project.map.markers.map((marker) => (
+						<article class="flex flex-col gap-2 rounded-3xl border border-neutral-200 bg-white p-5 shadow-xl shadow-neutral-950/5">
+							<strong class="block text-base font-black leading-6 text-neutral-950">{marker.label}</strong>
+							<span class="block text-sm font-semibold leading-6 text-neutral-500">{marker.detail}</span>
+						</article>
+					))}
+				</div>
+			</div>
+			<ProjectDottedMap markers={project.map.markers} client:visible />
+		</section>
+
+		<ProjectGallery gallery={project.gallery} />
+
+		<RelatedProjectPosts relatedPosts={project.relatedPosts} />
+
+		<section class="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+			<div class="flex flex-col gap-8 rounded-3xl bg-neutral-950 p-8 text-white shadow-2xl shadow-neutral-950/20 md:p-12">
+				<div class="flex w-full flex-col gap-5">
+					<h2 class="text-4xl leading-tight tracking-normal text-white sm:text-5xl">{project.closing.title}</h2>
+					<p class="text-lg leading-8 text-neutral-300">{project.closing.lead}</p>
+				</div>
+				<ButtonLink href={project.closing.href}>{project.closing.cta}</ButtonLink>
+			</div>
+		</section>
+	</main>
+	<Footer />
+</body>

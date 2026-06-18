@@ -1,0 +1,70 @@
+---
+import { Image } from 'astro:assets';
+import type { AchievementFirstProject } from './types';
+
+interface Props {
+	heading: AchievementFirstProject['bentoHeading'];
+	features: AchievementFirstProject['bentoFeatures'];
+}
+
+const { heading, features } = Astro.props;
+
+const accentClass = {
+	orange: 'from-orange-50 to-white text-orange-700',
+	teal: 'from-teal-50 to-white text-teal-700',
+	blue: 'from-blue-50 to-white text-blue-700',
+	neutral: 'from-neutral-100 to-white text-neutral-800',
+};
+
+const sizeClass = {
+	wide: 'lg:col-span-4',
+	tall: 'lg:col-span-2',
+	default: 'lg:col-span-2',
+};
+
+const imageClass = {
+	wide: 'max-h-72',
+	tall: 'max-h-56',
+	default: 'max-h-56',
+};
+---
+
+<section id="capabilities" class="mx-auto flex w-full max-w-7xl flex-col gap-10 px-4 py-16 sm:px-6 lg:px-8">
+	<div class="flex w-full flex-col gap-4">
+		<h2 class="text-4xl leading-tight tracking-normal text-neutral-950 sm:text-5xl">{heading.title}</h2>
+		<p class="text-lg leading-8 text-neutral-600">{heading.lead}</p>
+	</div>
+	<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-6">
+		{features.map((feature) => (
+			<article class:list={[
+				'group relative overflow-hidden rounded-3xl border border-neutral-200 bg-gradient-to-br p-5 shadow-xl shadow-neutral-950/5 transition hover:-translate-y-1 hover:shadow-2xl hover:shadow-neutral-950/10',
+				accentClass[feature.accent],
+				sizeClass[feature.size ?? 'default'],
+			]}>
+				<div class="relative z-10 flex h-full flex-col justify-between gap-6">
+					<div class="flex flex-col gap-3">
+						<span class="inline-flex rounded-full bg-white/80 px-3 py-1.5 text-xs font-black uppercase leading-none tracking-normal shadow-sm">
+							{feature.outcome}
+						</span>
+						<h3 class="text-2xl leading-tight tracking-normal text-neutral-950">{feature.title}</h3>
+						<p class="text-base leading-7 text-neutral-600">{feature.description}</p>
+					</div>
+					{feature.image && (
+						<div class="overflow-hidden rounded-2xl border border-white/80 bg-white/70 p-2 shadow-lg shadow-neutral-950/5">
+							<Image
+								src={feature.image}
+								alt={feature.title}
+								widths={[420, 640, 900]}
+								sizes="(max-width: 768px) 88vw, 32vw"
+								class:list={[
+									'block aspect-video w-full rounded-xl object-cover transition duration-500 group-hover:scale-105',
+									imageClass[feature.size ?? 'default'],
+								]}
+							/>
+						</div>
+					)}
+				</div>
+			</article>
+		))}
+	</div>
+</section>

@@ -1,0 +1,66 @@
+---
+import { Image } from 'astro:assets';
+import ButtonLink from '../../ui/ButtonLink.astro';
+import ProofStatsStrip from '../../ui/ProofStatsStrip.astro';
+import type { AchievementFirstProject } from './types';
+
+interface Props {
+	hero: AchievementFirstProject['hero'];
+	achievements: AchievementFirstProject['achievements'];
+	statsLabel: string;
+}
+
+const { hero, achievements, statsLabel } = Astro.props;
+
+const stats = achievements.map((item) => ({
+	value: `${item.prefix ?? ''}${item.value.toLocaleString('en-US')}${item.suffix ?? ''}`,
+	label: item.label,
+}));
+---
+
+<section class="container mx-auto grid grid-cols-1 items-center gap-8 px-4 pb-14 pt-8 sm:px-6 md:grid-cols-2 md:gap-12 md:pb-20 md:pt-12 lg:px-8">
+	<div class="flex max-w-3xl flex-col gap-6">
+		<a href={hero.backHref} class="inline-flex text-sm font-bold text-neutral-500 no-underline transition hover:text-orange-700">
+			{hero.backLabel}
+		</a>
+		<div class="flex flex-col gap-4">
+			<p class="max-w-2xl text-sm font-black uppercase leading-6 tracking-normal text-orange-700 sm:text-base">
+				{hero.role}
+			</p>
+			<h1 class="max-w-4xl text-5xl leading-none tracking-normal text-neutral-950 sm:text-6xl lg:text-7xl">
+				{hero.title}
+			</h1>
+			<p class="max-w-2xl text-lg leading-8 text-neutral-600 sm:text-xl">
+				{hero.lead}
+			</p>
+		</div>
+		<div class="flex flex-col gap-3 sm:flex-row">
+			<ButtonLink href={hero.primaryHref}>{hero.primaryCta}</ButtonLink>
+			<ButtonLink href={hero.secondaryHref} variant="secondary">{hero.secondaryCta}</ButtonLink>
+		</div>
+		<div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
+			{hero.proof.map((item) => (
+				<div class="rounded-2xl border border-neutral-200 bg-white/70 p-4 shadow-sm backdrop-blur">
+					<span class="block text-sm font-extrabold leading-5 text-neutral-700">{item}</span>
+				</div>
+			))}
+		</div>
+	</div>
+
+	<div class="relative grid gap-3">
+		<div class="absolute -inset-4 -z-10 rounded-3xl bg-gradient-to-br from-orange-100 via-white to-teal-100 blur-2xl"></div>
+		<div class="rounded-3xl border border-neutral-200 bg-white/80 p-3 shadow-2xl shadow-orange-950/10 backdrop-blur">
+			<Image
+				src={hero.image}
+				alt={hero.imageAlt}
+				widths={[640, 900, 1200]}
+				sizes="(max-width: 768px) 92vw, 48vw"
+				loading="eager"
+				class="block w-full rounded-3xl"
+			/>
+		</div>
+		<div id="achievements">
+			<ProofStatsStrip stats={stats} label={statsLabel} />
+		</div>
+	</div>
+</section>

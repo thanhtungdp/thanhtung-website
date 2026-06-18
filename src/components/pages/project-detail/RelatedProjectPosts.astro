@@ -1,0 +1,50 @@
+---
+import { Image } from 'astro:assets';
+import type { AchievementFirstProject } from './types';
+
+interface Props {
+	relatedPosts: AchievementFirstProject['relatedPosts'];
+}
+
+const { relatedPosts } = Astro.props;
+const dateFormatter = new Intl.DateTimeFormat(relatedPosts.items[0]?.post.id.startsWith('en/') ? 'en-US' : 'vi-VN', {
+	month: 'short',
+	day: 'numeric',
+	year: 'numeric',
+});
+---
+
+{relatedPosts.items.length > 0 && (
+	<section id="related-writing" class="mx-auto flex w-full max-w-7xl flex-col gap-10 px-4 py-16 sm:px-6 lg:px-8">
+		<div class="flex w-full flex-col gap-4">
+			<h2 class="text-4xl leading-tight tracking-normal text-neutral-950 sm:text-5xl">{relatedPosts.title}</h2>
+			<p class="text-lg leading-8 text-neutral-600">{relatedPosts.lead}</p>
+		</div>
+
+		<div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+			{relatedPosts.items.map(({ post, path }) => (
+				<a href={path} class="group flex min-h-full flex-col overflow-hidden rounded-3xl border border-neutral-200 bg-white text-inherit no-underline shadow-xl shadow-neutral-950/5 transition hover:-translate-y-1 hover:shadow-2xl hover:shadow-neutral-950/10">
+					{post.data.heroImage && (
+						<Image
+							src={post.data.heroImage}
+							alt={post.data.title}
+							widths={[360, 520, 760]}
+							sizes="(max-width: 768px) 92vw, 30vw"
+							class="aspect-video w-full rounded-none object-cover transition duration-500 group-hover:scale-105"
+						/>
+					)}
+					<div class="flex flex-1 flex-col justify-between gap-6 p-5">
+						<div class="flex flex-col gap-3">
+							<span class="text-xs font-black uppercase leading-none tracking-normal text-orange-700">
+								{dateFormatter.format(post.data.pubDate)}
+							</span>
+							<h3 class="text-xl leading-tight tracking-normal text-neutral-950">{post.data.title}</h3>
+							<p class="line-clamp-3 text-sm font-semibold leading-6 text-neutral-500">{post.data.description}</p>
+						</div>
+						<span class="text-sm font-black text-orange-700">{relatedPosts.ctaLabel}</span>
+					</div>
+				</a>
+			))}
+		</div>
+	</section>
+)}

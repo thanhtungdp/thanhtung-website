@@ -1,0 +1,42 @@
+---
+import { Image } from 'astro:assets';
+import type { ProjectLogo } from './types';
+
+interface Props {
+	logos: ProjectLogo[];
+	title: string;
+}
+
+const { logos, title } = Astro.props;
+const shouldRender = logos.length > 0;
+const marqueeLogos = [...logos, ...logos];
+---
+
+{shouldRender && (
+	<section class="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+		<div class="flex flex-col gap-5 overflow-hidden rounded-3xl border border-neutral-200 bg-white py-6 shadow-xl shadow-neutral-950/5">
+			<p class="px-6 text-sm font-black uppercase leading-6 tracking-normal text-neutral-500">{title}</p>
+			<div class="flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
+				<div class="flex min-w-full shrink-0 animate-[logo-cloud_26s_linear_infinite] items-center gap-8 px-4">
+					{marqueeLogos.map((logo) => (
+						<div class="flex h-20 min-w-40 items-center justify-center rounded-2xl border border-neutral-100 bg-neutral-50 px-5">
+							<Image src={logo.image} alt={logo.name} widths={[160, 240, 320]} sizes="160px" class="max-h-12 w-auto rounded-none object-contain" />
+						</div>
+					))}
+				</div>
+			</div>
+		</div>
+	</section>
+)}
+
+<style>
+	@keyframes logo-cloud {
+		from {
+			transform: translateX(0);
+		}
+
+		to {
+			transform: translateX(-50%);
+		}
+	}
+</style>

@@ -1,0 +1,109 @@
+---
+import Header from '../../Header.astro';
+
+const cells = Array.from({ length: 216 });
+---
+
+<div class="relative isolate overflow-hidden bg-white">
+	<div class="absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+		<div class="absolute inset-0 bg-white"></div>
+		<div class="absolute inset-0 bg-gradient-to-b from-orange-50 via-white to-teal-50"></div>
+		<div class="absolute inset-0 bg-gradient-to-b from-white/80 via-white/20 to-white"></div>
+		<div class="absolute inset-0 [mask-image:radial-gradient(ellipse_at_top,black_36%,transparent_78%)]">
+			<div data-project-grid class="grid h-full w-full grid-cols-8 sm:grid-cols-12">
+				{cells.map(() => (
+					<span data-project-cell class="min-h-10 transition-colors duration-1000 ease-out sm:min-h-12"></span>
+				))}
+			</div>
+		</div>
+		<div class="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-white to-transparent"></div>
+	</div>
+
+	<div class="relative z-10">
+		<Header />
+		<slot />
+	</div>
+</div>
+
+<script>
+	const activeClasses = [
+		['bg-orange-100/70'],
+		['bg-teal-100/70'],
+		['bg-blue-100/70'],
+		['bg-yellow-100/70'],
+	];
+
+	let activeCell = null;
+	let lastPalette = -1;
+	let pointerFrame = 0;
+	let pendingPoint = null;
+	const fadeTimers = new WeakMap();
+	const allCellClasses = activeClasses.flat();
+
+	function nextClasses() {
+		let index = Math.floor(Math.random() * activeClasses.length);
+		if (activeClasses.length > 1 && index === lastPalette) {
+			index = (index + 1) % activeClasses.length;
+		}
+		lastPalette = index;
+		return activeClasses[index];
+	}
+
+	function clearCell(cell) {
+		if (!cell) return;
+		cell.classList.remove(...allCellClasses);
+	}
+
+	function fadeCell(cell) {
+		if (!cell) return;
+		const timer = fadeTimers.get(cell);
+		if (timer) window.clearTimeout(timer);
+		const nextTimer = window.setTimeout(() => {
+			clearCell(cell);
+			fadeTimers.delete(cell);
+		}, 1200);
+		fadeTimers.set(cell, nextTimer);
+	}
+
+	function activateCell(cell) {
+		if (activeCell === cell) return;
+		fadeCell(activeCell);
+		activeCell = cell;
+		if (!cell) return;
+		const timer = fadeTimers.get(cell);
+		if (timer) window.clearTimeout(timer);
+		clearCell(cell);
+		cell.classList.add(...nextClasses());
+	}
+
+	function findCell(x, y) {
+		const grids = document.querySelectorAll('[data-project-grid]');
+		for (const grid of grids) {
+			const rect = grid.getBoundingClientRect();
+			if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) continue;
+			for (const cell of grid.querySelectorAll('[data-project-cell]')) {
+				const cellRect = cell.getBoundingClientRect();
+				if (x >= cellRect.left && x <= cellRect.right && y >= cellRect.top && y <= cellRect.bottom) {
+					return cell;
+				}
+			}
+		}
+		return null;
+	}
+
+	function onPointerMove(event) {
+		pendingPoint = { x: event.clientX, y: event.clientY };
+		if (pointerFrame) return;
+		pointerFrame = window.requestAnimationFrame(() => {
+			pointerFrame = 0;
+			if (!pendingPoint) return;
+			activateCell(findCell(pendingPoint.x, pendingPoint.y));
+		});
+	}
+
+	document.addEventListener('pointermove', onPointerMove);
+	document.addEventListener('pointerleave', () => {
+		pendingPoint = null;
+		activateCell(null);
+	});
+</script>

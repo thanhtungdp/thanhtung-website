@@ -1,0 +1,131 @@
+---
+import { getImage, Image } from 'astro:assets';
+import type { AchievementFirstProject } from './types';
+
+interface Props {
+	gallery: AchievementFirstProject['gallery'];
+}
+
+const { gallery } = Astro.props;
+const lightboxImages = await Promise.all(
+	gallery.items.map((item) => getImage({
+		src: item.image,
+		width: 1600,
+		format: 'webp',
+	}))
+);
+---
+
+<section id="gallery" class="mx-auto flex w-full max-w-7xl flex-col gap-10 px-4 py-16 sm:px-6 lg:px-8">
+	<div class="flex w-full flex-col gap-4">
+			<h2 class="text-4xl leading-tight tracking-normal text-neutral-950 sm:text-5xl">{gallery.title}</h2>
+			<p class="text-lg leading-8 text-neutral-600">{gallery.lead}</p>
+	</div>
+
+	<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+		{gallery.items.map((item, index) => (
+			<figure class:list={['group flex flex-col gap-3', index === 0 ? 'lg:col-span-2 lg:row-span-2' : '']}>
+				<button
+					type="button"
+					class="overflow-hidden rounded-3xl border border-neutral-200 bg-white p-2 shadow-xl shadow-neutral-950/5 transition hover:-translate-y-1 hover:shadow-2xl hover:shadow-neutral-950/10"
+					data-gallery-open
+					data-gallery-index={index}
+					data-gallery-src={lightboxImages[index].src}
+					data-gallery-title={item.title}
+					data-gallery-description={item.description ?? ''}
+					aria-label={`Open gallery image: ${item.title}`}
+				>
+					<Image
+						src={item.image}
+						alt={item.title}
+						widths={[420, 720, 1100]}
+						sizes={index === 0 ? '(max-width: 1024px) 92vw, 58vw' : '(max-width: 768px) 92vw, 30vw'}
+						class="block aspect-video w-full rounded-2xl object-cover transition duration-500 group-hover:scale-105"
+					/>
+				</button>
+				<figcaption class="flex flex-col gap-1 px-2">
+					<strong class="block text-base font-black leading-6 text-neutral-950">{item.title}</strong>
+					{item.description && <span class="block text-sm font-semibold leading-6 text-neutral-500">{item.description}</span>}
+				</figcaption>
+			</figure>
+		))}
+	</div>
+
+	<dialog
+		id="project-gallery-lightbox"
+		class="fixed inset-0 z-50 m-auto w-11/12 max-w-6xl rounded-3xl bg-neutral-950 p-0 text-white shadow-2xl backdrop:bg-neutral-950/80"
+		aria-label={gallery.title}
+	>
+		<div class="flex flex-col gap-4 p-3 sm:p-4">
+			<div class="flex items-center justify-between gap-3">
+				<div class="min-w-0">
+					<strong data-gallery-lightbox-title class="block truncate text-base font-black leading-6 sm:text-lg"></strong>
+					<span data-gallery-lightbox-description class="block truncate text-sm font-semibold leading-6 text-neutral-400"></span>
+				</div>
+				<button type="button" data-gallery-close class="inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-white/10 text-xl leading-none text-white transition hover:bg-white/20" aria-label="Close gallery">
+					×
+				</button>
+			</div>
+			<div class="relative overflow-hidden rounded-2xl bg-black">
+				<img data-gallery-lightbox-image src="" alt="" class="block max-h-dvh w-full rounded-none object-contain" />
+				<button type="button" data-gallery-prev class="absolute left-3 top-1/2 inline-flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/15 text-3xl leading-none text-white backdrop-blur transition hover:bg-white/25" aria-label="Previous image">
+					‹
+				</button>
+				<button type="button" data-gallery-next class="absolute right-3 top-1/2 inline-flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/15 text-3xl leading-none text-white backdrop-blur transition hover:bg-white/25" aria-label="Next image">
+					›
+				</button>
+			</div>
+		</div>
+	</dialog>
+</section>
+
+<script>
+	const lightbox = document.querySelector<HTMLDialogElement>('#project-gallery-lightbox');
+	const openButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-gallery-open]'));
+	const image = lightbox?.querySelector<HTMLImageElement>('[data-gallery-lightbox-image]');
+	const title = lightbox?.querySelector<HTMLElement>('[data-gallery-lightbox-title]');
+	const description = lightbox?.querySelector<HTMLElement>('[data-gallery-lightbox-description]');
+	const closeButton = lightbox?.querySelector<HTMLButtonElement>('[data-gallery-close]');
+	const previousButton = lightbox?.querySelector<HTMLButtonElement>('[data-gallery-prev]');
+	const nextButton = lightbox?.querySelector<HTMLButtonElement>('[data-gallery-next]');
+	let activeIndex = 0;
+
+	const items = openButtons.map((button) => ({
+		src: button.dataset.gallerySrc ?? '',
+		title: button.dataset.galleryTitle ?? '',
+		description: button.dataset.galleryDescription ?? '',
+	}));
+
+	function renderGalleryItem(index: number) {
+		if (!image || !title || !description || items.length === 0) return;
+
+		activeIndex = (index + items.length) % items.length;
+		const item = items[activeIndex];
+		image.src = item.src;
+		image.alt = item.title;
+		title.textContent = item.title;
+		description.textContent = item.description;
+	}
+
+	openButtons.forEach((button, index) => {
+		button.addEventListener('click', () => {
+			renderGalleryItem(index);
+			lightbox?.showModal();
+		});
+	});
+
+	closeButton?.addEventListener('click', () => lightbox?.close());
+	previousButton?.addEventListener('click', () => renderGalleryItem(activeIndex - 1));
+	nextButton?.addEventListener('click', () => renderGalleryItem(activeIndex + 1));
+
+	lightbox?.addEventListener('click', (event) => {
+		if (event.target === lightbox) {
+			lightbox.close();
+		}
+	});
+
+	lightbox?.addEventListener('keydown', (event) => {
+		if (event.key === 'ArrowLeft') renderGalleryItem(activeIndex - 1);
+		if (event.key === 'ArrowRight') renderGalleryItem(activeIndex + 1);
+	});
+</script>

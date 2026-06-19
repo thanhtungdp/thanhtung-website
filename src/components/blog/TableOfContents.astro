@@ -1,0 +1,129 @@
+---
+import type { MarkdownHeading } from 'astro';
+import Card from '../ui/Card.astro';
+
+interface Props {
+	headings: MarkdownHeading[];
+	locale: 'vi' | 'en';
+	variant?: 'mobile' | 'desktop';
+}
+
+const { headings, locale, variant = 'mobile' } = Astro.props;
+const tocHeadings = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
+const label = locale === 'vi' ? 'Mục lục' : 'Contents';
+const desktopLabel = locale === 'vi' ? 'Trong bài này' : 'In this article';
+---
+
+{tocHeadings.length > 0 && (
+	<>
+		{variant === 'mobile' && (
+			<details class="mb-4 w-full min-w-0 rounded-lg border border-neutral-200 bg-white/80 p-3 shadow-sm backdrop-blur xl:hidden">
+				<summary class="cursor-pointer select-none text-base font-extrabold text-neutral-950 marker:text-neutral-500">
+					{label}
+				</summary>
+				<nav class="mt-3 min-w-0" aria-label={label}>
+					<ol class="space-y-1.5">
+						{tocHeadings.map((heading) => (
+							<li class:list={[heading.depth === 3 && 'pl-3']}>
+								<a
+									data-toc-link
+									data-toc-target={heading.slug}
+									class:list={[
+										'block whitespace-normal break-words rounded-md px-2 py-1.5 text-sm font-semibold leading-5 !text-neutral-500 no-underline transition hover:bg-neutral-50 hover:!text-neutral-800 data-[active=true]:bg-neutral-100 data-[active=true]:font-extrabold data-[active=true]:!text-neutral-950 data-[active=true]:shadow-sm',
+										heading.depth === 3 && 'text-[0.82rem] font-medium !text-neutral-500 data-[active=true]:font-bold data-[active=true]:!text-neutral-950',
+									]}
+									href={`#${heading.slug}`}
+								>
+									{heading.text}
+								</a>
+							</li>
+						))}
+					</ol>
+				</nav>
+			</details>
+		)}
+
+		{variant === 'desktop' && (
+			<aside class="hidden xl:block xl:self-stretch">
+				<Card class="sticky top-24 max-h-[calc(100dvh-7rem)] overflow-y-auto p-3">
+					<nav aria-label={desktopLabel}>
+						<p class="mb-2 text-xs font-extrabold uppercase tracking-wider text-neutral-800">{desktopLabel}</p>
+						<ol class="space-y-1">
+							{tocHeadings.map((heading) => (
+								<li class:list={[heading.depth === 3 && 'pl-2.5']}>
+									<a
+										data-toc-link
+										data-toc-target={heading.slug}
+										class:list={[
+											'block whitespace-normal break-words rounded-md px-2 py-1.5 text-sm font-semibold leading-5 !text-neutral-500 no-underline transition hover:bg-neutral-50 hover:!text-neutral-800 data-[active=true]:bg-neutral-100 data-[active=true]:font-extrabold data-[active=true]:!text-neutral-950 data-[active=true]:shadow-sm',
+											heading.depth === 3 && 'text-[0.82rem] font-medium !text-neutral-500 data-[active=true]:font-bold data-[active=true]:!text-neutral-950',
+										]}
+										href={`#${heading.slug}`}
+									>
+										{heading.text}
+									</a>
+								</li>
+							))}
+						</ol>
+					</nav>
+				</Card>
+			</aside>
+		)}
+
+		<script>
+			const tocLinks = Array.from(document.querySelectorAll('[data-toc-link]'));
+			const tocHeadings = tocLinks
+				.map((link) => {
+					if (!(link instanceof HTMLAnchorElement)) return null;
+					return document.getElementById(link.dataset.tocTarget ?? '');
+				})
+				.filter((heading) => heading instanceof HTMLElement);
+
+			const setActiveTocLink = (id) => {
+				tocLinks.forEach((link) => {
+					if (!(link instanceof HTMLElement)) return;
+					link.dataset.active = link.dataset.tocTarget === id ? 'true' : 'false';
+				});
+			};
+
+			const updateActiveTocLink = () => {
+				let activeHeading = tocHeadings[0];
+
+				tocHeadings.forEach((heading) => {
+					if (heading.getBoundingClientRect().top <= 128) {
+						activeHeading = heading;
+					}
+				});
+
+				if (activeHeading?.id) {
+					setActiveTocLink(activeHeading.id);
+				}
+			};
+
+			let tocFrame = 0;
+			const requestTocUpdate = () => {
+				cancelAnimationFrame(tocFrame);
+				tocFrame = requestAnimationFrame(updateActiveTocLink);
+			};
+
+			tocLinks.forEach((link) => {
+				link.addEventListener('click', () => {
+					if (link instanceof HTMLElement && link.dataset.tocTarget) {
+						setActiveTocLink(link.dataset.tocTarget);
+					}
+				});
+			});
+
+			tocHeadings.forEach((heading) => {
+				new IntersectionObserver(requestTocUpdate, {
+					rootMargin: '-112px 0px -60% 0px',
+					threshold: [0, 1],
+				}).observe(heading);
+			});
+
+			window.addEventListener('scroll', requestTocUpdate, { passive: true });
+			window.addEventListener('hashchange', requestTocUpdate);
+			updateActiveTocLink();
+		</script>
+	</>
+)}

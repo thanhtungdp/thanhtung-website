@@ -1,0 +1,173 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-20T16:58:00+07:00",
+  "title": "Design System: Thanh Tung Personal Website",
+  "extensions": {
+    "colorMeta": {
+      "signal-orange": {
+        "role": "primary",
+        "displayName": "Signal Orange",
+        "canonical": "#ea580c",
+        "tonalRamp": ["oklch(22% 0.08 45)", "oklch(35% 0.13 45)", "oklch(48% 0.17 45)", "oklch(60% 0.19 45)", "oklch(72% 0.15 45)", "oklch(84% 0.09 45)", "oklch(92% 0.05 45)", "oklch(97% 0.025 45)"]
+      },
+      "deep-operator-ink": {
+        "role": "neutral",
+        "displayName": "Deep Operator Ink",
+        "canonical": "#0a0a0a",
+        "tonalRamp": ["#0a0a0a", "#171717", "#262626", "#404040", "#737373", "#a3a3a3", "#d4d4d4", "#fafafa"]
+      },
+      "technical-teal": {
+        "role": "secondary",
+        "displayName": "Technical Teal",
+        "canonical": "#14b8a6",
+        "tonalRamp": ["oklch(20% 0.06 180)", "oklch(32% 0.09 180)", "oklch(45% 0.12 180)", "oklch(58% 0.13 180)", "oklch(70% 0.11 180)", "oklch(82% 0.07 180)", "oklch(91% 0.04 180)", "oklch(97% 0.02 180)"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero promises and large strategic statements."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Clear bilingual reading surfaces for leaders and learners."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Badges, navigation, metadata, and proof signals."
+      }
+    },
+    "shadows": [
+      {
+        "name": "soft-ambient",
+        "value": "0 18px 60px rgb(15 23 42 / 0.08)",
+        "purpose": "Large soft context around important surfaces."
+      },
+      {
+        "name": "card-lift",
+        "value": "0 1px 2px rgb(15 23 42 / 0.06), 0 14px 44px rgb(15 23 42 / 0.08)",
+        "purpose": "Default card elevation for repeated project and content surfaces."
+      },
+      {
+        "name": "signal-button-glow",
+        "value": "0 14px 34px rgb(234 88 12 / 0.22)",
+        "purpose": "Primary CTA emphasis only."
+      }
+    ],
+    "motion": [
+      {
+        "name": "operator-ease",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Premium reveal and card motion."
+      },
+      {
+        "name": "hero-grid-drift",
+        "value": "36s linear infinite",
+        "purpose": "Slow technical field motion behind the hero."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "prefers-reduced-motion: reduce",
+        "purpose": "Disable grid drift and simplify animated surfaces for users who request less motion."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Primary CTA for reading, contact, and conversion moments.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">Read writing</a>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 20px;border-radius:999px;background:#ea580c;color:#fff;font:700 14px/1 ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;text-decoration:none;white-space:nowrap;box-shadow:0 14px 34px rgb(234 88 12 / .22);transition:background-color .18s ease,transform .18s ease,box-shadow .18s ease}.ds-btn-primary:hover{background:#083344;color:#fff;transform:translateY(-1px)}.ds-btn-primary:focus-visible{outline:3px solid rgb(249 115 22 / .35);outline-offset:3px}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Alternative action for contact, about, or secondary navigation.",
+      "html": "<a class=\"ds-btn-secondary\" href=\"#\">Contact</a>",
+      "css": ".ds-btn-secondary{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 20px;border:1px solid #e5e5e5;border-radius:999px;background:rgb(255 255 255 / .72);color:#0a0a0a;font:700 14px/1 ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;text-decoration:none;white-space:nowrap;transition:background-color .18s ease,border-color .18s ease,transform .18s ease}.ds-btn-secondary:hover{border-color:#fed7aa;background:#fff;color:#c2410c;transform:translateY(-1px)}.ds-btn-secondary:focus-visible{outline:3px solid rgb(249 115 22 / .35);outline-offset:3px}"
+    },
+    {
+      "name": "Signal Badge",
+      "kind": "chip",
+      "refersTo": "badge",
+      "description": "Compact domain, service, or section signal.",
+      "html": "<span class=\"ds-signal-badge\">AI Agents</span>",
+      "css": ".ds-signal-badge{display:inline-flex;align-items:center;justify-content:center;border:1px solid #e5e5e5;border-radius:999px;background:rgb(255 255 255 / .75);padding:6px 12px;color:#ea580c;font:800 13px/1 ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;box-shadow:0 1px 2px rgb(15 23 42 / .06);backdrop-filter:blur(8px)}"
+    },
+    {
+      "name": "Surface Card",
+      "kind": "card",
+      "refersTo": "card-surface",
+      "description": "Default elevated white surface for project and content cards.",
+      "html": "<article class=\"ds-surface-card\"><h3>Real systems shipped</h3><p>Proof-led card content for projects, writing, or services.</p></article>",
+      "css": ".ds-surface-card{border:1px solid rgb(229 229 229 / .78);border-radius:20px;background:rgb(255 255 255 / .82);color:#0a0a0a;padding:20px;box-shadow:0 1px 2px rgb(15 23 42 / .06),0 14px 44px rgb(15 23 42 / .08);backdrop-filter:blur(18px);font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}.ds-surface-card h3{margin:0 0 8px;font-size:24px;line-height:1.25}.ds-surface-card p{margin:0;color:#525252;font-size:16px;line-height:1.7}"
+    },
+    {
+      "name": "Navigation Pill",
+      "kind": "nav",
+      "refersTo": "navigation",
+      "description": "Sticky translucent page navigation with active pill state.",
+      "html": "<nav class=\"ds-nav-pill\"><a class=\"is-active\" href=\"#\">Home</a><a href=\"#\">Writing</a><a href=\"#\">About</a></nav>",
+      "css": ".ds-nav-pill{display:inline-flex;align-items:center;gap:4px;padding:4px;border:1px solid rgb(229 229 229 / .84);border-radius:999px;background:rgb(255 255 255 / .7);box-shadow:0 1px 2px rgb(15 23 42 / .04);backdrop-filter:blur(18px)}.ds-nav-pill a{padding:9px 14px;border-radius:999px;color:#525252;font:700 15px/1 ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;text-decoration:none}.ds-nav-pill a:hover{background:#f5f5f5;color:#0a0a0a}.ds-nav-pill a.is-active{background:#fff;color:#0a0a0a;box-shadow:0 8px 22px rgb(15 23 42 / .08)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Operator Intelligence Field",
+    "overview": "This system should feel like a field of executive signals: personal enough to carry Thanh Tung's point of view, but structured like a modern agency that can advise, coach, and build. The interface combines quiet white surfaces, sharp black ink, orange signal accents, and technical grid motion to make strategy, AI, product, and operating rhythm feel connected.\n\nThe brand is not a pure personal blog. It should present writing, projects, services, and proof as parts of one operator-led practice. The visual language can be monochrome and restrained at the base, but it needs enough optical pattern, motion, and saturated orange to feel technologically alive.",
+    "keyCharacteristics": [
+      "Executive clarity with fast-scannable hierarchy.",
+      "Personal voice wrapped in agency-grade structure.",
+      "White and black as the field, orange as the signal.",
+      "Optical grid and hover motion as proof of technical fluency.",
+      "Real project imagery and metrics before abstract claims."
+    ],
+    "rules": [
+      {
+        "name": "The Orange Signal Rule",
+        "body": "Orange is the brand signal, not a wash. Use it for decisions, proof, and motion cues; do not flood entire pages with orange unless the section is intentionally campaign-like.",
+        "section": "colors"
+      },
+      {
+        "name": "The White Field Rule",
+        "body": "The site stays bright and precise. Do not drift into cream, sand, parchment, or warm blog-paper backgrounds.",
+        "section": "colors"
+      },
+      {
+        "name": "The No Blog Serif Rule",
+        "body": "Do not introduce an editorial serif or magazine typography just because the site has writing. The writing is part of an operator brand, not the whole brand.",
+        "section": "typography"
+      },
+      {
+        "name": "The Border-Or-Shadow Discipline",
+        "body": "Avoid decorative border plus large soft shadow on every element. Use hairline borders for structure, shadows for priority and state.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do lead with real systems, project imagery, metrics, and operating proof before abstract positioning.",
+      "Do keep pages bright, structured, and high-contrast so busy CEOs can scan them quickly.",
+      "Do use monochrome pattern, grid motion, and orange signal accents to make the brand feel modern, technological, and clear.",
+      "Do preserve bilingual Vietnamese and English routes, language switching, and mobile behavior.",
+      "Do use Tailwind utilities and shared Astro UI primitives when implementing new UI in this project.",
+      "Do test animated backgrounds so foreground wrappers do not block pointer movement."
+    ],
+    "donts": [
+      "Don't make this look like a pure personal blog. Writing is a proof channel, not the whole product.",
+      "Don't turn the brand into a generic corporate consultant site or a soft SaaS landing page filled with template cards and vague claims.",
+      "Don't drift into an only-editorial, only-minimal, or only-content-first design.",
+      "Don't use repeated tiny uppercase section eyebrows as automatic scaffolding. Badges are allowed when they behave like brand signals, not template grammar.",
+      "Don't add cream, sand, parchment, or beige blog-paper backgrounds.",
+      "Don't use gradient text as a default emphasis pattern. The current X10 mark is a legacy exception to audit, not a general rule to copy.",
+      "Don't hide real work behind decorative cards. If a section has projects, services, or coaching value, make the structure and proof visible."
+    ]
+  }
+}

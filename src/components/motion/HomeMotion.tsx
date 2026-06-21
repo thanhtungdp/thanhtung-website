@@ -1,10 +1,8 @@
-import { useEffect, useRef, type CSSProperties } from 'react';
+import { type CSSProperties } from 'react';
 import {
 	motion,
-	useInView,
 	useMotionTemplate,
 	useMotionValue,
-	useSpring,
 	useReducedMotion,
 	useTransform,
 } from 'motion/react';
@@ -45,8 +43,8 @@ export function X10Mark({ label = 'X10', target = 10 }: { label?: string; target
 		<span className="x10-wrap" aria-label={label}>
 			<motion.span
 				className="x10-mark magic-gradient-text"
-				initial={reduce ? false : { opacity: 0, y: 12, scale: 0.96 }}
-				animate={reduce ? undefined : { opacity: 1, y: 0, scale: 1 }}
+				initial={reduce ? false : { y: 12, scale: 0.96 }}
+				animate={reduce ? undefined : { y: 0, scale: 1 }}
 				transition={{ duration: 0.55, ease, delay: 0.45 }}
 			>
 				{label}
@@ -97,7 +95,7 @@ export function TiltProfileCard({ name, title, location, email, focus, status }:
 	const rotateY = useTransform(x, [-0.5, 0.5], [-5, 5]);
 	const glowX = useTransform(x, [-0.5, 0.5], ['12%', '88%']);
 	const glowY = useTransform(y, [-0.5, 0.5], ['10%', '90%']);
-	const glow = useMotionTemplate`radial-gradient(circle at ${glowX} ${glowY}, rgba(251, 146, 60, 0.28), transparent 34%)`;
+	const glow = useMotionTemplate`radial-gradient(circle at ${glowX} ${glowY}, rgb(var(--primary) / 0.24), transparent 34%)`;
 
 	function onPointerMove(event: React.PointerEvent<HTMLElement>) {
 		if (reduce) return;
@@ -114,8 +112,8 @@ export function TiltProfileCard({ name, title, location, email, focus, status }:
 	return (
 		<motion.aside
 			className="relative min-w-0 max-w-full overflow-hidden rounded-3xl border border-neutral-950 bg-neutral-950 p-5 text-white shadow-2xl shadow-neutral-950/20 backdrop-blur after:pointer-events-none after:absolute after:inset-px after:rounded-3xl after:border after:border-white/10 sm:p-8"
-			initial={reduce ? false : { opacity: 0, y: 28, scale: 0.98 }}
-			animate={{ opacity: 1, y: 0, scale: 1 }}
+			initial={reduce ? false : { y: 24, scale: 0.98 }}
+			animate={reduce ? undefined : { y: 0, scale: 1 }}
 			transition={{ duration: 0.75, delay: 0.35, ease }}
 			style={reduce ? undefined : { rotateX, rotateY, transformPerspective: 900 }}
 			onPointerMove={onPointerMove}
@@ -133,8 +131,12 @@ export function TiltProfileCard({ name, title, location, email, focus, status }:
 			<div className="relative z-10 mt-5 text-sm leading-6 text-neutral-300 sm:mt-8 sm:text-base">
 				<span className="break-words">{location} · {email}</span>
 			</div>
-			<BorderBeam />
-			<BorderBeam delay={3.5} reverse />
+			{!reduce && (
+				<>
+					<BorderBeam />
+					<BorderBeam delay={3.5} reverse />
+				</>
+			)}
 		</motion.aside>
 	);
 }
@@ -144,8 +146,8 @@ export function Reveal({ children, className = '' }: { children: React.ReactNode
 	return (
 		<motion.div
 			className={className}
-			initial={reduce ? false : { opacity: 0, y: 28 }}
-			whileInView={{ opacity: 1, y: 0 }}
+			initial={reduce ? false : { y: 20 }}
+			whileInView={{ y: 0 }}
 			viewport={{ once: true, amount: 0.18 }}
 			transition={{ duration: 0.65, ease }}
 		>
@@ -155,10 +157,9 @@ export function Reveal({ children, className = '' }: { children: React.ReactNode
 }
 
 export function MotionProjectGrid({ projects }: { projects: Project[] }) {
-	const reduce = useReducedMotion();
 	return (
 		<div className="grid grid-cols-1 items-stretch gap-4 md:grid-cols-2 xl:grid-cols-4">
-			{projects.map((project, index) => {
+			{projects.map((project) => {
 				const content = (
 					<>
 						<div className="aspect-video overflow-hidden bg-neutral-950 p-2">
@@ -191,10 +192,6 @@ export function MotionProjectGrid({ projects }: { projects: Project[] }) {
 					<motion.article
 						className="surface-card group relative h-full overflow-hidden bg-white/90 transition hover:-translate-y-1.5 hover:border-orange-200 hover:shadow-xl"
 						key={project.title}
-						initial={reduce ? false : { opacity: 0, y: 30 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						viewport={{ once: true, amount: 0.24 }}
-						transition={{ duration: 0.6, delay: index * 0.07, ease }}
 					>
 						{project.href ? <a className="flex h-full flex-col text-inherit no-underline" href={project.href}>{content}</a> : content}
 					</motion.article>
@@ -205,48 +202,16 @@ export function MotionProjectGrid({ projects }: { projects: Project[] }) {
 }
 
 function CountUp({ value }: { value: string }) {
-	const ref = useRef<HTMLSpanElement>(null);
-	const inView = useInView(ref, { once: true, amount: 0.8 });
-	const reduce = useReducedMotion();
-	const numeric = Number(value.replace(/[^0-9.]/g, '')) || 0;
-	const suffix = value.replace(/[0-9.,]/g, '');
-	const motionValue = useMotionValue(reduce ? numeric : 0);
-	const springValue = useSpring(motionValue, { damping: 60, stiffness: 100 });
-
-	useEffect(() => {
-		if (!inView) return;
-		if (reduce) {
-			motionValue.set(numeric);
-			return;
-		}
-		motionValue.set(numeric);
-	}, [inView, motionValue, numeric, reduce]);
-
-	useEffect(
-		() =>
-			springValue.on('change', (latest) => {
-				if (!ref.current) return;
-				const rounded = Math.round(latest).toLocaleString('en-US');
-				ref.current.textContent = `${rounded}${suffix}`;
-			}),
-		[springValue, suffix],
-	);
-
-	return <span ref={ref}>{reduce ? value : `0${suffix}`}</span>;
+	return <span>{value}</span>;
 }
 
 export function MotionStatsGrid({ stats }: { stats: Stat[] }) {
-	const reduce = useReducedMotion();
 	return (
 		<div className="mt-8 grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-4 max-sm:mt-5">
-			{stats.map((stat, index) => (
+			{stats.map((stat) => (
 				<motion.div
 					className="rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-5"
 					key={stat.label}
-					initial={reduce ? false : { opacity: 0, y: 18 }}
-					whileInView={{ opacity: 1, y: 0 }}
-					viewport={{ once: true, amount: 0.35 }}
-					transition={{ duration: 0.55, delay: index * 0.06, ease }}
 				>
 					<strong className="block text-3xl leading-none tracking-tight text-orange-400 sm:text-5xl lg:text-6xl"><CountUp value={stat.value} /></strong>
 					<span className="mt-2 block text-sm leading-tight text-neutral-200 sm:mt-3 sm:text-base sm:leading-6">{stat.label}</span>

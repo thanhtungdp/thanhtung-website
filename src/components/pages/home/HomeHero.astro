@@ -49,14 +49,14 @@ const { locale, isVi, focusSignals, proofStats, profileCard } = Astro.props;
 		<p class="max-w-2xl text-base leading-7 text-neutral-600 md:text-lg">
 			{
 				isVi
-					? 'Giúp các doanh nghiệp phát triển các nền tảng tích hợp dựa trên nền tảng có sẵn ERP, Sales kết hợp cùng AI để tạo ra lợi thế cạnh tranh vượt bật Data x AI x Coaching = x10'
-					: 'I build real AI products, ignite classrooms, and turn learners into makers with products used by real people.'
+					? 'Giúp đội ngũ lãnh đạo biến dữ liệu, quy trình bán hàng và AI agents thành hệ thống vận hành tăng trưởng. Từng xây SaaS, IoT và AI products dùng thật ở quy mô lớn.'
+					: 'I help leadership teams turn data, sales workflows, and AI agents into operating systems for growth. Built from real SaaS, IoT, and AI products at scale.'
 			}
 		</p>
 
 		<div class="flex w-full flex-wrap gap-3 max-sm:flex-col">
-			<ButtonLink href={localizePath('/blog', locale)}>{isVi ? 'Đọc bài viết' : 'Read writing'}</ButtonLink>
-			<ButtonLink href="mailto:thanhtung@simplamo.com" variant="secondary">{isVi ? 'Liên hệ' : 'Contact'}</ButtonLink>
+			<ButtonLink href="mailto:thanhtung@simplamo.com">{isVi ? 'Trao đổi về AI & vận hành' : 'Discuss AI & operations'}</ButtonLink>
+			<ButtonLink href={localizePath('/blog', locale)} variant="secondary">{isVi ? 'Đọc ghi chú thực thi' : 'Read execution notes'}</ButtonLink>
 		</div>
 
 		<div>

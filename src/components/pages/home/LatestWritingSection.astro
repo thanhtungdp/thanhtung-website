@@ -18,9 +18,9 @@ const { locale, isVi, posts } = Astro.props;
 
 <section class="relative py-8 md:py-12 lg:py-14">
 	<div class="mb-5 flex items-end justify-between gap-4 max-sm:flex-col max-sm:items-start">
-		<SectionHeading kicker={isVi ? 'Bài viết mới' : 'Latest writing'} title={isVi ? 'Góc blog & chia sẻ' : 'Blog & field notes'} />
+		<SectionHeading kicker={isVi ? 'Ghi chú thực thi' : 'Execution notes'} title={isVi ? 'Bài học từ AI, sản phẩm và vận hành' : 'Lessons from AI, product, and operations'} />
 		<ButtonLink class="max-sm:w-full" href={localizePath('/blog', locale)} variant="secondary" size="compact">
-			{isVi ? 'Xem tất cả' : 'View all'}
+			{isVi ? 'Xem tất cả ghi chú' : 'View all notes'}
 		</ButtonLink>
 	</div>
 

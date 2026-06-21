@@ -123,16 +123,16 @@ export function getHomeContent(locale: Locale) {
 		projectCards: projects.map((project) => ({ ...project, imageSrc: project.image.src })),
 		services: isVi
 			? [
-					'Tư vấn chiến lược, OKRs, BSC, KPI và 4DX cho doanh nghiệp đang tăng trưởng.',
-					'Thiết kế hệ thống AI agent từ bài toán kinh doanh tới sản phẩm chạy thật.',
-					'Đào tạo AI product, web, mobile, backend và tư duy sản phẩm cho đội ngũ.',
-					'Cố vấn vận hành để biến mục tiêu thành nhịp họp, dashboard và trách nhiệm rõ ràng.',
+					'Thiết kế nhịp vận hành tăng trưởng bằng OKRs, BSC, KPI, 4DX và dashboard điều hành.',
+					'Biến bài toán sales, vận hành và dữ liệu thành AI agents có thể chạy trong quy trình thật.',
+					'Coaching đội ngũ lãnh đạo và product/engineering để ra quyết định nhanh hơn với AI.',
+					'Đồng hành từ chiến lược đến triển khai: mục tiêu, nhịp họp, owner và chỉ số rõ ràng.',
 				]
 			: [
-					'Advise on strategy, OKRs, BSC, KPI, and 4DX for growing companies.',
-					'Design AI agent systems from business problem to working product.',
-					'Train teams in AI products, web, mobile, backend, and product thinking.',
-					'Help leaders turn goals into meeting rhythm, dashboards, and clear ownership.',
+					'Design growth operating rhythms with OKRs, BSC, KPI, 4DX, and executive dashboards.',
+					'Turn sales, operations, and data problems into AI agents that work inside real workflows.',
+					'Coach leadership, product, and engineering teams to make faster decisions with AI.',
+					'Move from strategy to execution with clear goals, meeting cadence, owners, and metrics.',
 				],
 		stats: [
 			{ value: '1M+', label: isVi ? 'học sinh đã tiếp cận' : 'learners reached' },
@@ -145,7 +145,7 @@ export function getHomeContent(locale: Locale) {
 					{ value: '1M+', label: 'học sinh' },
 					{ value: '1,000+', label: 'trạm IoT' },
 					{ value: '100+', label: 'B2B' },
-					{ value: 'AI/SaaS', label: '2000 dai ly' },
+					{ value: 'AI/SaaS', label: '2.000 đại lý' },
 				]
 			: [
 					{ value: '1M+', label: 'learners reached' },
@@ -155,12 +155,12 @@ export function getHomeContent(locale: Locale) {
 				],
 		focusSignals: ['AI Agents', 'SaaS', 'Industrial IoT', 'OKRs', 'BSC/KPI', 'Education', 'Product Architecture', 'Strategy Execution'],
 		profileCard: {
-			name: 'Tech Visionary',
+			name: isVi ? 'Operator / Builder' : 'Operator / Builder',
 			title: isVi ? 'David Tung Phan' : 'David Tung Phan',
 			location: 'Ho Chi Minh City',
 			email: 'thanhtung@simplamo.com',
-			focus: isVi ? 'Đang xây AI Native, Agents, Business System' : 'AI Native, Agents, Business System',
-			status: isVi ? 'Online' : 'Online',
+			focus: isVi ? 'AI, sản phẩm và hệ thống vận hành cho đội ngũ tăng trưởng' : 'AI, product, and operating systems for growth teams',
+			status: isVi ? 'Nhận trao đổi' : 'Open to advisory',
 		},
 	};
 }

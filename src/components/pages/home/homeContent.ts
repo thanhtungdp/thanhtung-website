@@ -27,17 +27,6 @@ export function getHomeContent(locale: Locale) {
 	const projects: Project[] = isVi
 		? [
 				{
-					title: 'iLotusLand IoT',
-					desc: 'Nền tảng quan trắc công nghiệp với hơn 1.000 trạm, phục vụ FDI, nhà máy và cơ quan nhà nước.',
-					image: ILotusLandImage,
-					meta: 'IoT Platform',
-					role: 'Founder',
-					impact: '1,000+ trạm',
-					domain: 'Industrial IoT',
-					cta: 'Xem case study',
-					href: localizePath('/projects/ilotusland', locale),
-				},
-				{
 					title: 'Simplamo OS',
 					desc: 'Hệ điều hành quản trị giúp HĐQT và Ban điều hành đồng bộ OGSM/BSC/KPI/OKRs, dashboard, nhịp họp và AI.',
 					image: SimplamoImage,
@@ -60,6 +49,17 @@ export function getHomeContent(locale: Locale) {
 					href: localizePath('/projects/sale-ai', locale),
 				},
 				{
+					title: 'iLotusLand IoT',
+					desc: 'Nền tảng quan trắc công nghiệp với hơn 1.000 trạm, phục vụ FDI, nhà máy và cơ quan nhà nước.',
+					image: ILotusLandImage,
+					meta: 'IoT Platform',
+					role: 'Founder',
+					impact: '1,000+ trạm',
+					domain: 'Industrial IoT',
+					cta: 'Xem case study',
+					href: localizePath('/projects/ilotusland', locale),
+				},
+				{
 					title: 'Đào tạo',
 					desc: 'Biến một chủ đề khô thành trải nghiệm học cuốn hút, đạt hơn 1 triệu lượt xem và tiếp cận học sinh quy mô lớn.',
 					image: TeachingImage,
@@ -68,21 +68,9 @@ export function getHomeContent(locale: Locale) {
 					impact: '1M+ lượt xem',
 					domain: 'Learning at scale',
 					cta: 'Xem hành trình',
-				}
-			,
+				},
 			]
 		: [
-				{
-					title: 'iLotusLand Industrial IoT',
-					desc: 'An industrial monitoring platform with 1,000+ stations serving FDI factories and public agencies.',
-					image: ILotusLandImage,
-					meta: 'IoT Platform',
-					role: 'Founder / Architect',
-					impact: '1,000+ stations',
-					domain: 'Industrial IoT',
-					cta: 'View case study',
-					href: localizePath('/projects/ilotusland', locale),
-				},
 				{
 					title: 'Simplamo Management OS',
 					desc: 'A management operating system for boards and executives to align OGSM/BSC/KPI/OKRs, dashboards, meeting rhythm, and AI.',
@@ -95,16 +83,6 @@ export function getHomeContent(locale: Locale) {
 					href: localizePath('/projects/simplamo', locale),
 				},
 				{
-					title: 'Pascal to 1M learners',
-					desc: 'Turned a dry technical subject into engaging lessons that reached more than one million views.',
-					image: TeachingImage,
-					meta: 'Education',
-					role: 'Educator',
-					impact: '1M+ views',
-					domain: 'Learning at scale',
-					cta: 'View journey',
-				},
-				{
 					title: 'ADG Sale AI',
 					desc: 'An AI Agent for a 2,000-dealer network, enabling image-based consultation, quotes, and orders in under 60 seconds.',
 					image: SaleAIImage,
@@ -114,6 +92,27 @@ export function getHomeContent(locale: Locale) {
 					domain: 'Sales AI / Distribution',
 					cta: 'View case study',
 					href: localizePath('/projects/sale-ai', locale),
+				},
+				{
+					title: 'iLotusLand Industrial IoT',
+					desc: 'An industrial monitoring platform with 1,000+ stations serving FDI factories and public agencies.',
+					image: ILotusLandImage,
+					meta: 'IoT Platform',
+					role: 'Founder / Architect',
+					impact: '1,000+ stations',
+					domain: 'Industrial IoT',
+					cta: 'View case study',
+					href: localizePath('/projects/ilotusland', locale),
+				},
+				{
+					title: 'Pascal to 1M learners',
+					desc: 'Turned a dry technical subject into engaging lessons that reached more than one million views.',
+					image: TeachingImage,
+					meta: 'Education',
+					role: 'Educator',
+					impact: '1M+ views',
+					domain: 'Learning at scale',
+					cta: 'View journey',
 				},
 			];
 

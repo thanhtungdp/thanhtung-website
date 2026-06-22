@@ -1,0 +1,478 @@
+---
+import BaseHead from '../../BaseHead.astro';
+import Footer from '../../Footer.astro';
+import ButtonLink from '../../ui/ButtonLink.astro';
+import HermesInteractiveLab from './HermesInteractiveLab';
+import DavidTungLogo from '../../../assets/david-tung-logo-upload.png';
+import { defaultLocale } from '../../../i18n';
+
+const title = 'Hermes Agent - Đội ngũ AI tự chủ cho Solo CEO Việt Nam';
+const description =
+	'Chương trình 8 tuần giúp Solo CEO triển khai 5 Hermes Agent tự chạy cho sales, pipeline, content, design/video và briefing mà không cần biết code.';
+const applyHref = '#apply';
+const contactHref =
+	'mailto:thanhtung@simplamo.com?subject=%E1%BB%A8ng%20tuy%E1%BB%83n%20Hermes%20Cohort%201&body=Anh%20mu%E1%BB%91n%20%E1%BB%A9ng%20tuy%E1%BB%83n%20Hermes%20Cohort%201.%0A%0A1.%20Business%20c%E1%BB%A7a%20anh%3A%0A2.%20Vi%E1%BB%87c%20l%E1%BA%B7p%20l%E1%BA%A1i%20mu%E1%BB%91n%20giao%20cho%20AI%3A%0A3.%20K%C3%AAnh%20%C4%91ang%20d%C3%B9ng%20%28Zalo%2C%20Messenger%2C%20Email%2C%20Sheets...%29%3A%0A4.%20Tier%20quan%20t%C3%A2m%3A%0A5.%20S%E1%BB%91%20%C4%91i%E1%BB%87n%20tho%E1%BA%A1i%20%2F%20Zalo%3A';
+
+const agents = [
+	{
+		name: 'Sale Agent',
+		role: 'Báo giá và tư vấn 24/7',
+		output: 'Xử lý tin nhắn lặp lại, tạo báo giá, xin duyệt khi vượt ngưỡng risk.',
+		risk: 'Semi-auto',
+	},
+	{
+		name: 'Pipeline Agent',
+		role: 'Follow-up lead',
+		output: 'Phân loại HOT / WARM / COLD, nhắc sale đúng kênh và đúng thời điểm.',
+		risk: 'Live',
+	},
+	{
+		name: 'Content Agent',
+		role: 'Marketing đều mỗi ngày',
+		output: 'Viết và lên lịch nội dung 7 ngày/tuần theo brand voice của CEO.',
+		risk: 'Auto',
+	},
+	{
+		name: 'Design / Video Agent',
+		role: 'Sản xuất social asset',
+		output: 'Tạo poster, banner, script video ngắn, caption và hàng đợi render.',
+		risk: 'Queue',
+	},
+	{
+		name: 'Briefing Agent',
+		role: 'Báo cáo 7h sáng',
+		output: 'Đọc inbox, dashboard, lead và gửi bản ưu tiên mỗi ngày cho CEO.',
+		risk: 'Daily',
+	},
+];
+
+const pains = [
+	'30-80 tin nhắn báo giá mỗi ngày trên Zalo, Messenger, Telegram.',
+	'50 lead/tuần bị quên follow-up vì CRM nằm trong Excel và trí nhớ.',
+	'3-4 giờ/ngày để viết caption, làm post, lên ý tưởng video.',
+	'Thuê freelance 5-15 triệu cho mỗi brochure, banner, POSM.',
+	'Cuối tuần vẫn phải tổng hợp báo cáo thay vì nghỉ với gia đình.',
+];
+
+const riskRows = [
+	{
+		type: 'Risk-Free',
+		auto: '100% auto',
+		examples: 'Viết draft, tóm tắt, phân loại nội bộ, calendar nội dung.',
+	},
+	{
+		type: 'Risk-Aware',
+		auto: 'AI sinh + human duyệt',
+		examples: 'Báo giá khách quen, hỏi đáp lead, lên lịch, ưu đãi.',
+	},
+	{
+		type: 'Risk-Heavy',
+		auto: 'AI chỉ tư vấn',
+		examples: 'Hợp đồng pháp lý, chuyển tiền, sa thải, y tế, cam kết lớn.',
+	},
+];
+
+const curriculum = [
+	{ week: '0', title: 'Warm-up', detail: 'AI căn bản cho người không biết code và setup tài khoản.' },
+	{ week: '1', title: 'COST AI Mindset', detail: 'Phân loại Risk-Free, Risk-Aware, Risk-Heavy trước khi build.' },
+	{ week: '2', title: 'Workspace', detail: 'Kết nối Hermes với Zalo, Messenger, Email, Sheets và brand kit.' },
+	{ week: '3', title: 'Sale Agent', detail: 'Catalog, bảng giá, chính sách và ngưỡng human approval.' },
+	{ week: '4', title: 'Pipeline Agent', detail: 'Lead enrichment, HOT/WARM/COLD, follow-up đúng lúc.' },
+	{ week: '5', title: 'Content Agent', detail: 'Calendar 30 bài/tháng, workflow auto hoặc semi-auto.' },
+	{ week: '6', title: 'Design + Briefing', detail: 'Social asset, video queue và briefing 7h sáng.' },
+	{ week: '7', title: 'Orchestration', detail: 'Quản 5 agent, KPI, routing rule và cơ chế AI hỏi human.' },
+	{ week: '8', title: 'Demo Day', detail: 'Trình bày agent đang chạy và đóng gói Operator Portfolio.' },
+];
+
+const pricing = [
+	{
+		name: 'Solo',
+		price: '4.9M',
+		note: 'Tự học có hướng dẫn',
+		features: ['Video bài giảng + tài liệu', 'AI Helper Bot 24/7', '3 năm updates', 'Lifetime archive'],
+		highlight: false,
+	},
+	{
+		name: 'Operator',
+		price: '12.9M',
+		note: 'Khuyến nghị cho Cohort 1',
+		features: ['Tất cả trong Solo', 'Office Hour TA 2 buổi/tuần', '4 group session với David', 'Tune-up 90 ngày sau khóa'],
+		highlight: true,
+	},
+	{
+		name: 'Done-for-you',
+		price: '49M',
+		note: '10 ghế, đóng nhanh',
+		features: ['Tất cả trong Operator', 'David build 1 AI Agent thật', '4 buổi coaching 1-1', '3 lần tune-up 90/180/270 ngày'],
+		highlight: false,
+	},
+];
+
+const proofArtifacts = [
+	{
+		label: 'Operating system',
+		title: 'Simplamo: hệ điều hành quản trị cho 100+ tổ chức',
+		detail: 'Tư duy Hermes lấy từ việc build sản phẩm, workflow, meeting rhythm và KPI thật cho đội ngũ điều hành.',
+	},
+	{
+		label: 'Industrial scale',
+		title: 'Austdoor: triển khai nền tảng cho 2.000+ đại lý',
+		detail: 'Kinh nghiệm từ hệ thống phân phối lớn giúp agent không chỉ đẹp ở demo mà phải chịu được dữ liệu và vận hành thật.',
+	},
+	{
+		label: 'Agent production',
+		title: 'AI agent, SaaS, IoT và training ở môi trường thật',
+		detail: 'Hermes tập trung vào output, approval gate và handoff cho người vận hành, không dạy tool rời rạc.',
+	},
+];
+
+const applicationSteps = [
+	{
+		step: 'Signal',
+		title: 'Gửi tín hiệu',
+		detail: 'Anh gửi business context, kênh đang dùng và 1-2 việc lặp lại muốn giao cho AI.',
+	},
+	{
+		step: 'Fit',
+		title: 'Fit check',
+		detail: 'David phản hồi hướng tier phù hợp và việc nào nên auto, semi-auto hoặc chưa nên đụng.',
+	},
+	{
+		step: 'Launch',
+		title: 'Chốt cohort',
+		detail: 'Nếu fit, anh nhận lịch onboarding, checklist setup và lộ trình triển khai agent đầu tiên.',
+	},
+];
+
+const faqs = [
+	{
+		q: 'Tôi không biết code có học được không?',
+		a: 'Được. Hermes không dạy anh học n8n, MCP hay LangGraph từ số 0. Anh deploy template Hermes và customize theo business của anh.',
+	},
+	{
+		q: 'Tôi chưa có Zalo Business thì sao?',
+		a: 'Vẫn học được. Tuần 0 sẽ giúp setup tài khoản và chọn kênh phù hợp: Zalo, Messenger, Email hoặc Google Sheets.',
+	},
+	{
+		q: 'Có nên tự động hóa 100% không?',
+		a: 'Không. Hermes dạy COST AI Mindset: việc risk-free thì auto, việc risk-aware thì AI làm và human duyệt.',
+	},
+	{
+		q: 'Nếu hết khóa tôi chưa có agent live?',
+		a: 'Anh được học lại cohort sau miễn phí nếu đã làm bài tập nhưng chưa build được một agent live.',
+	},
+];
+---
+
+<!doctype html>
+<html lang={defaultLocale}>
+	<head>
+		<BaseHead title={title} description={description} locale={defaultLocale} />
+	</head>
+	<body class="bg-white">
+		<header class="sticky top-0 z-50 border-b border-neutral-200 bg-white/85 px-4 py-3 backdrop-blur-xl">
+			<nav class="mx-auto flex max-w-7xl flex-col gap-3 lg:flex-row lg:items-center lg:justify-between" aria-label="Hermes navigation">
+				<a href="/" class="inline-flex min-h-11 w-fit items-center no-underline" aria-label="David Tung home">
+					<img src={DavidTungLogo.src} alt="" class="h-8 !rounded-none" decoding="async" />
+				</a>
+				<div class="flex w-full items-center gap-1 overflow-x-auto rounded-full border border-neutral-200 bg-white p-1 sm:w-fit">
+					<a href="#simulator" class="shrink-0 whitespace-nowrap rounded-full px-3 py-2 text-xs font-bold text-neutral-700 no-underline hover:bg-neutral-100 hover:text-neutral-950 sm:px-4 sm:text-sm">Simulator</a>
+					<a href="#program" class="shrink-0 whitespace-nowrap rounded-full px-3 py-2 text-xs font-bold text-neutral-700 no-underline hover:bg-neutral-100 hover:text-neutral-950 sm:px-4 sm:text-sm">Chương trình</a>
+					<a href="#pricing" class="shrink-0 whitespace-nowrap rounded-full px-3 py-2 text-xs font-bold text-neutral-700 no-underline hover:bg-neutral-100 hover:text-neutral-950 sm:px-4 sm:text-sm">Học phí</a>
+				</div>
+				<ButtonLink href={applyHref} size="compact" class="w-full font-black sm:w-fit">Ứng tuyển Cohort 1</ButtonLink>
+			</nav>
+		</header>
+
+		<main class="!m-0 !w-full !max-w-none !p-0">
+			<section class="relative overflow-hidden bg-white">
+				<div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgb(234_88_12_/_0.13),transparent_30rem),radial-gradient(circle_at_top_right,rgb(20_184_166_/_0.16),transparent_28rem)]" aria-hidden="true"></div>
+				<div class="pointer-events-none absolute inset-0 opacity-70 [background-image:radial-gradient(circle,rgb(10_10_10_/_0.14)_1px,transparent_1px)] [background-size:22px_22px] [mask-image:linear-gradient(to_bottom,black,transparent_82%)]" aria-hidden="true"></div>
+
+				<div class="relative mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-5 lg:px-8 lg:py-24">
+					<div class="flex flex-col justify-center lg:col-span-2">
+						<div class="mb-5 flex w-fit items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-3 py-2 text-sm font-black text-orange-800">
+							<span class="h-2 w-2 rounded-full bg-orange-700" aria-hidden="true"></span>
+							Hermes Agent Program · Cohort 1
+						</div>
+						<h1 class="!text-5xl !leading-none tracking-normal sm:!text-6xl lg:!text-7xl">
+							Hermes Agent: đội ngũ AI tự chủ cho Solo CEO.
+						</h1>
+						<p class="mt-6 max-w-2xl text-lg leading-8 text-neutral-700 sm:text-xl sm:leading-9">
+							8 tuần · 5 Hermes Agent tự chạy · thay 3-5 nhân viên admin/sales/marketing · không cần biết code.
+						</p>
+						<div class="mt-8 flex flex-col gap-3 sm:flex-row">
+							<ButtonLink href={applyHref} class="font-black">Ứng tuyển Cohort 1</ButtonLink>
+							<ButtonLink href="#simulator" variant="secondary" class="font-black">Xem agent đang chạy</ButtonLink>
+						</div>
+						<div class="mt-8 grid gap-2 text-sm font-bold text-neutral-700 sm:grid-cols-3">
+							<span class="rounded-full bg-white px-3 py-2">Không học tool rời rạc</span>
+							<span class="rounded-full bg-white px-3 py-2">Risk-aware automation</span>
+							<span class="rounded-full bg-white px-3 py-2">Template Hermes sẵn deploy</span>
+						</div>
+					</div>
+
+					<div class="relative rounded-2xl bg-neutral-950 p-4 text-white sm:p-6 lg:col-span-3">
+						<div class="absolute inset-0 rounded-2xl bg-[radial-gradient(circle_at_20%_20%,rgb(234_88_12_/_0.23),transparent_18rem),radial-gradient(circle_at_88%_12%,rgb(20_184_166_/_0.22),transparent_16rem)]" aria-hidden="true"></div>
+						<div class="relative">
+							<div class="mb-5 flex items-center justify-between gap-3">
+								<div>
+									<p class="m-0 text-xs font-black text-orange-300">Agent organization map</p>
+									<h2 class="mt-1 text-2xl leading-tight !text-white">CEO điều hành qua 5 agent.</h2>
+								</div>
+								<span class="rounded-full bg-teal-400 px-3 py-1 text-xs font-black text-black">Running</span>
+							</div>
+
+							<div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+								<div class="mx-auto w-fit rounded-2xl bg-orange-600 px-5 py-3 text-center text-black">
+									<p class="m-0 text-xs font-black">Root node</p>
+									<p class="m-0 text-lg font-black">Solo CEO</p>
+								</div>
+								<svg class="my-2 h-24 w-full text-white/20" viewBox="0 0 600 120" fill="none" aria-hidden="true">
+									<path class="hermes-flow-line" d="M300 0V42M300 42H75M300 42H525M75 42V105M188 42V105M300 42V105M412 42V105M525 42V105" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="6 10" />
+									<path class="hermes-flow-line hermes-flow-line--slow" d="M300 0V42M300 42H75M300 42H525M75 42V105M188 42V105M300 42V105M412 42V105M525 42V105" stroke="rgb(20 184 166 / 0.78)" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 18" />
+								</svg>
+								<div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+									{
+										agents.map((agent) => (
+											<article class="rounded-2xl bg-white p-3 text-neutral-950">
+												<div class="mb-3 flex items-center justify-between gap-2">
+													<span class="h-2.5 w-2.5 rounded-full bg-teal-500"></span>
+													<span class="rounded-full bg-neutral-100 px-2 py-1 text-xs font-black text-neutral-600">{agent.risk}</span>
+												</div>
+												<h3 class="m-0 text-base leading-tight">{agent.name}</h3>
+												<p class="m-0 mt-2 text-xs font-bold leading-5 text-neutral-600">{agent.role}</p>
+											</article>
+										))
+									}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="simulator" class="bg-neutral-100 px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
+				<div class="mx-auto max-w-7xl">
+					<div class="mb-8 max-w-3xl">
+						<p class="m-0 text-sm font-black text-orange-700">ROI + simulator</p>
+						<h2 class="mt-2 text-4xl leading-tight sm:text-5xl">Không chỉ học AI. Anh nhìn thấy hệ đang chạy.</h2>
+					</div>
+					<HermesInteractiveLab client:load />
+				</div>
+			</section>
+
+			<section class="px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
+				<div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-2">
+					<div>
+						<p class="m-0 text-sm font-black text-orange-700">Solo CEO đa vai</p>
+						<h2 class="mt-2 text-4xl leading-tight sm:text-5xl">Mỗi ngày anh đang làm việc của một đội nhỏ.</h2>
+						<p class="mt-4 max-w-xl text-lg leading-8 text-neutral-700">
+							Hermes không bán ảo tưởng tự động hóa toàn bộ. Hermes giúp anh chọn đúng việc để giao cho AI, đúng việc để giữ human-in-the-loop.
+						</p>
+					</div>
+					<div class="grid gap-3">
+						{pains.map((pain) => (
+							<div class="flex gap-4 rounded-2xl border border-neutral-200 bg-white p-4">
+								<span class="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-orange-700"></span>
+								<p class="m-0 text-lg font-bold leading-7 text-neutral-800">{pain}</p>
+							</div>
+						))}
+					</div>
+				</div>
+			</section>
+
+			<section class="bg-neutral-950 px-4 py-14 text-white sm:px-6 sm:py-20 lg:px-8">
+				<div class="mx-auto max-w-7xl">
+					<div class="grid gap-8 lg:grid-cols-2 lg:items-end">
+						<div>
+							<p class="m-0 text-sm font-black text-orange-300">COST AI Mindset</p>
+							<h2 class="mt-2 text-4xl leading-tight !text-white sm:text-5xl">AI là khuếch đại, không phải phép màu.</h2>
+						</div>
+						<p class="m-0 text-lg leading-8 text-neutral-300">
+							Trước khi build agent, học viên phải tính đủ 4 lớp cost: trực tiếp, sai sót, giám sát và cơ hội. Module 0 quyết định việc nào auto, việc nào semi-auto, việc nào không nên đụng.
+						</p>
+					</div>
+					<div class="mt-10 grid gap-4 lg:grid-cols-3">
+						{riskRows.map((row) => (
+							<article class="rounded-2xl bg-white p-5 text-neutral-950">
+								<p class="m-0 text-sm font-black text-orange-700">{row.type}</p>
+								<h3 class="mt-2 text-2xl leading-tight">{row.auto}</h3>
+								<p class="m-0 mt-4 text-base leading-7 text-neutral-700">{row.examples}</p>
+							</article>
+						))}
+					</div>
+				</div>
+			</section>
+
+			<section id="program" class="px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
+				<div class="mx-auto max-w-7xl">
+					<div class="mb-10 grid gap-6 lg:grid-cols-2">
+						<div>
+							<p class="m-0 text-sm font-black text-orange-700">Tuần 0 + 8 tuần triển khai</p>
+							<h2 class="mt-2 text-4xl leading-tight sm:text-5xl">Từ warm-up đến 5 agent live.</h2>
+						</div>
+						<p class="m-0 text-lg leading-8 text-neutral-700">
+							Tuần 0 lọc và setup. Tuần 1 khóa lại tư duy COST AI. Tuần 2-6 deploy agent. Tuần 7 orchestration. Tuần 8 demo hệ đang chạy.
+						</p>
+					</div>
+					<div class="grid gap-3 md:grid-cols-3">
+						{curriculum.map((item) => (
+							<article class="rounded-2xl bg-neutral-100 p-4">
+								<div class="mb-4 flex items-center justify-between">
+									<span class="grid h-10 w-10 place-items-center rounded-full bg-neutral-950 text-sm font-black text-white">{item.week}</span>
+									<span class="h-2 w-2 rounded-full bg-teal-500"></span>
+								</div>
+								<h3 class="m-0 text-xl leading-tight">{item.title}</h3>
+								<p class="m-0 mt-3 text-base leading-7 text-neutral-700">{item.detail}</p>
+							</article>
+						))}
+					</div>
+				</div>
+			</section>
+
+			<section class="bg-neutral-100 px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
+				<div class="mx-auto grid max-w-7xl gap-8 lg:grid-cols-5">
+					<div class="rounded-2xl bg-neutral-950 p-6 text-white lg:col-span-2">
+						<img src={DavidTungLogo.src} alt="" class="h-9 !rounded-none" loading="lazy" decoding="async" />
+						<p class="m-0 mt-8 text-sm font-black text-orange-300">Proof dossier</p>
+						<h2 class="mt-2 text-4xl leading-tight !text-white">David build agent từ production thật, không phải demo lớp học.</h2>
+						<p class="m-0 mt-4 text-lg leading-8 text-neutral-300">
+							Instructor đã xây AI Agent và hệ điều hành phục vụ 100+ tổ chức Simplamo, 2.000+ đại lý Austdoor, các hệ thống SaaS, IoT và đào tạo ở quy mô thật.
+						</p>
+					</div>
+					<div class="grid gap-3 lg:col-span-3">
+						{proofArtifacts.map((artifact) => (
+							<article class="grid gap-4 rounded-2xl bg-white p-5 sm:grid-cols-[11rem_1fr]">
+								<div class="flex items-start gap-3">
+									<span class="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-teal-500"></span>
+									<p class="m-0 text-sm font-black text-orange-700">{artifact.label}</p>
+								</div>
+								<div>
+									<h3 class="m-0 text-2xl leading-tight">{artifact.title}</h3>
+									<p class="m-0 mt-3 text-base leading-7 text-neutral-700">{artifact.detail}</p>
+								</div>
+							</article>
+						))}
+					</div>
+				</div>
+			</section>
+
+			<section id="pricing" class="px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
+				<div class="mx-auto max-w-7xl">
+					<div class="mb-10 max-w-3xl">
+						<p class="m-0 text-sm font-black text-orange-700">Pricing Cohort 1</p>
+						<h2 class="mt-2 text-4xl leading-tight sm:text-5xl">Chọn mức triển khai phù hợp với tốc độ anh muốn đi.</h2>
+					</div>
+					<div class="grid gap-4 lg:grid-cols-3">
+						{pricing.map((tier) => (
+							<article class:list={['rounded-2xl p-6', tier.highlight ? 'bg-neutral-950 text-white' : 'border border-neutral-200 bg-white text-neutral-950']}>
+								<div class="flex items-start justify-between gap-4">
+									<div>
+										<p class:list={['m-0 text-sm font-black', tier.highlight ? 'text-orange-300' : 'text-orange-700']}>{tier.name}</p>
+										<h3 class:list={['mt-2 text-5xl leading-none', tier.highlight ? '!text-white' : 'text-neutral-950']}>{tier.price}</h3>
+										<p class:list={['m-0 mt-2 text-sm font-bold', tier.highlight ? 'text-neutral-300' : 'text-neutral-500']}>{tier.note}</p>
+									</div>
+									{tier.highlight && <span class="rounded-full bg-orange-500 px-3 py-1 text-xs font-black text-black">Best fit</span>}
+								</div>
+								<ul class="mt-6 grid gap-3 p-0">
+									{tier.features.map((feature) => (
+										<li class:list={['flex gap-3 text-base font-bold leading-7', tier.highlight ? 'text-neutral-100' : 'text-neutral-700']}>
+											<span class:list={['mt-2 h-2 w-2 shrink-0 rounded-full', tier.highlight ? 'bg-teal-300' : 'bg-orange-700']}></span>
+											{feature}
+										</li>
+									))}
+								</ul>
+							</article>
+						))}
+					</div>
+					<div class="mt-8 flex flex-col gap-3 rounded-2xl bg-neutral-100 p-5 sm:flex-row sm:items-center sm:justify-between">
+						<p class="m-0 max-w-2xl text-base font-bold leading-7 text-neutral-800">
+							Nếu anh đang chọn tier, bắt đầu bằng fit check trước. Hermes nên được triển khai theo business thật, không mua vì FOMO.
+						</p>
+						<ButtonLink href={applyHref} class="shrink-0 font-black">Ứng tuyển Cohort 1</ButtonLink>
+					</div>
+				</div>
+			</section>
+
+			<section id="apply" class="bg-white px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
+				<div class="mx-auto grid max-w-7xl gap-8 lg:grid-cols-5">
+					<div class="lg:col-span-2">
+						<p class="m-0 text-sm font-black text-orange-700">Cohort 1 application</p>
+						<h2 class="mt-2 text-4xl leading-tight sm:text-5xl">Sau khi anh gửi tín hiệu, Hermes bắt đầu bằng fit check.</h2>
+						<p class="m-0 mt-5 text-lg leading-8 text-neutral-700">
+							Trang này không ép mua ngay. Mục tiêu là xác định business của anh có đủ workflow lặp lại để triển khai agent trong 8 tuần hay không.
+						</p>
+						<div class="mt-8 flex flex-col gap-3 sm:flex-row">
+							<ButtonLink href={contactHref} class="font-black">Gửi tín hiệu ứng tuyển</ButtonLink>
+							<ButtonLink href="mailto:thanhtung@simplamo.com" variant="secondary" class="font-black">Email trực tiếp</ButtonLink>
+						</div>
+					</div>
+					<div class="rounded-2xl bg-neutral-950 p-4 text-white sm:p-6 lg:col-span-3">
+						<div class="grid gap-3">
+							{applicationSteps.map((item) => (
+								<article class="grid gap-4 rounded-2xl bg-white/10 p-4 sm:grid-cols-[4rem_1fr]">
+									<span class="grid min-h-12 place-items-center rounded-full bg-orange-500 px-3 text-xs font-black text-black">{item.step}</span>
+									<div>
+										<h3 class="m-0 text-2xl leading-tight !text-white">{item.title}</h3>
+										<p class="m-0 mt-2 text-base leading-7 text-neutral-300">{item.detail}</p>
+									</div>
+								</article>
+							))}
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="bg-neutral-950 px-4 py-14 text-white sm:px-6 sm:py-20 lg:px-8">
+				<div class="mx-auto grid max-w-7xl gap-8 lg:grid-cols-2">
+					<div>
+						<p class="m-0 text-sm font-black text-orange-300">Guarantee + FAQ</p>
+						<h2 class="mt-2 text-4xl leading-tight !text-white sm:text-5xl">Không build được agent live, anh học lại cohort sau miễn phí.</h2>
+						<p class="m-0 mt-5 text-lg leading-8 text-neutral-300">
+							Hoàn 100% trong 14 ngày. Sau khóa có tune-up để kiểm tra agent còn chạy đúng không.
+						</p>
+						<ButtonLink href={applyHref} class="mt-8 font-black">Ứng tuyển Cohort 1</ButtonLink>
+					</div>
+					<div class="grid gap-3">
+						{faqs.map((faq) => (
+							<details class="rounded-2xl bg-white p-5 text-neutral-950">
+								<summary class="cursor-pointer text-lg font-black leading-tight">{faq.q}</summary>
+								<p class="m-0 mt-3 text-base leading-7 text-neutral-700">{faq.a}</p>
+							</details>
+						))}
+					</div>
+				</div>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.hermes-flow-line {
+		animation: hermes-line-flow 14s linear infinite;
+	}
+
+	.hermes-flow-line--slow {
+		animation-duration: 9s;
+		animation-direction: reverse;
+	}
+
+	@keyframes hermes-line-flow {
+		from {
+			stroke-dashoffset: 0;
+		}
+
+		to {
+			stroke-dashoffset: -160;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.hermes-flow-line,
+		.hermes-flow-line--slow {
+			animation: none;
+		}
+	}
+</style>

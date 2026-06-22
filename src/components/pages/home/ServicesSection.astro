@@ -7,6 +7,9 @@ interface Props {
 }
 
 const { isVi, services } = Astro.props;
+const serviceLabels = isVi
+	? ['Vận hành', 'AI agents', 'Coaching', 'Triển khai']
+	: ['Operating rhythm', 'AI agents', 'Coaching', 'Execution'];
 ---
 
 <section class="relative grid grid-cols-1 items-start gap-8 py-8 md:py-12 lg:grid-cols-2 lg:gap-14 lg:py-14">
@@ -19,7 +22,7 @@ const { isVi, services } = Astro.props;
 		{
 			services.map((item, index) => (
 				<div class="flex flex-col items-start gap-2 rounded-2xl border border-neutral-200 bg-white/80 p-4 sm:flex-row sm:gap-4">
-					<span class="text-sm font-black text-orange-700">{`0${index + 1}`}</span>
+					<span class="inline-flex min-h-7 items-center rounded-full bg-orange-50 px-2.5 py-1 text-xs font-black leading-none text-orange-700">{serviceLabels[index]}</span>
 					<p class="m-0 text-base font-bold leading-7 text-neutral-950 sm:text-lg">{item}</p>
 				</div>
 			))

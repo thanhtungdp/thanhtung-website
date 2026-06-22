@@ -12,7 +12,7 @@ const alternateLinks = getAlternateLinks(Astro.url.pathname);
 <header class="site-header">
 	<nav class="site-nav" aria-label="Main navigation">
 		<a class="brand" href={localizePath('/', locale)} aria-label={`${SITE_TITLE} home`}>
-			<img class="brand-logo" src={DavidTungLogo.src} decoding="async" />
+			<img class="brand-logo" src={DavidTungLogo.src} alt="" decoding="async" />
 		</a>
 
 		<div class="nav-links">
@@ -57,6 +57,7 @@ const alternateLinks = getAlternateLinks(Astro.url.pathname);
 	.brand {
 		display: inline-flex;
 		align-items: center;
+		min-height: 2.75rem;
 		width: fit-content;
 		text-decoration: none;
 	}
@@ -82,6 +83,10 @@ const alternateLinks = getAlternateLinks(Astro.url.pathname);
 	}
 
 	.nav-links :global(a) {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 2.75rem;
 		padding: 0.55rem 0.9rem;
 		border-radius: 999px;
 		color: rgb(var(--muted-foreground));
@@ -99,7 +104,6 @@ const alternateLinks = getAlternateLinks(Astro.url.pathname);
 	.nav-links :global(a.active) {
 		color: rgb(var(--foreground));
 		background: white;
-		box-shadow: 0 8px 22px rgb(15 23 42 / 0.08);
 	}
 
 	.language-links {
@@ -117,7 +121,8 @@ const alternateLinks = getAlternateLinks(Astro.url.pathname);
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		min-width: 2.45rem;
+		min-width: 2.75rem;
+		min-height: 2.75rem;
 		padding: 0.5rem 0.65rem;
 		border-radius: 999px;
 		color: rgb(var(--muted-foreground));
@@ -134,7 +139,7 @@ const alternateLinks = getAlternateLinks(Astro.url.pathname);
 
 	.language-links a.active {
 		background: rgb(var(--primary));
-		color: rgb(var(--primary-foreground));
+		color: rgb(var(--foreground));
 	}
 
 	@media (max-width: 760px) {

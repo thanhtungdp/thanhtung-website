@@ -158,11 +158,25 @@ export function Reveal({ children, className = '' }: { children: React.ReactNode
 
 export function MotionProjectGrid({ projects }: { projects: Project[] }) {
 	return (
-		<div className="grid grid-cols-1 items-stretch gap-4 md:grid-cols-2 xl:grid-cols-4">
-			{projects.map((project) => {
+		<div className="grid grid-cols-1 items-stretch gap-4 md:grid-cols-2 xl:grid-cols-3">
+			{projects.map((project, index) => {
+				const isFeatured = index === 0;
+				const articleClass = [
+					'surface-card group relative h-full overflow-hidden bg-white/90 transition hover:-translate-y-1 hover:border-orange-200',
+					isFeatured ? 'md:col-span-2 xl:col-span-3' : '',
+				].join(' ');
+				const linkClass = isFeatured
+					? 'grid h-full text-inherit no-underline md:grid-cols-2'
+					: 'flex h-full flex-col text-inherit no-underline';
+				const imageClass = isFeatured
+					? 'aspect-video overflow-hidden bg-neutral-950 p-2 md:aspect-auto md:min-h-72'
+					: 'aspect-video overflow-hidden bg-neutral-950 p-2';
+				const bodyClass = isFeatured ? 'grid content-center gap-4 p-5 sm:p-7' : 'grid content-between gap-3 p-4 sm:p-5';
+				const titleClass = isFeatured ? 'm-0 text-3xl leading-tight sm:text-4xl' : 'm-0';
+				const descClass = isFeatured ? 'm-0 max-w-2xl text-base leading-7 text-neutral-600 sm:text-lg' : 'm-0 line-clamp-3 text-base leading-7 text-neutral-600';
 				const content = (
 					<>
-						<div className="aspect-video overflow-hidden bg-neutral-950 p-2">
+						<div className={imageClass}>
 							<img
 								className="block h-full w-full rounded-xl object-cover transition duration-300 ease-out group-hover:scale-105"
 								src={project.imageSrc}
@@ -172,16 +186,16 @@ export function MotionProjectGrid({ projects }: { projects: Project[] }) {
 								loading="lazy"
 							/>
 						</div>
-						<div className="grid content-between gap-3 p-4 sm:p-5">
+						<div className={bodyClass}>
 							<div className="flex flex-wrap gap-2">
 								<span className="inline-flex min-h-7 items-center rounded-full border border-neutral-200 bg-orange-50 px-2.5 py-1 text-xs font-extrabold leading-none text-orange-700">{project.meta}</span>
 								<span className="inline-flex min-h-7 items-center rounded-full border border-neutral-200 bg-orange-50 px-2.5 py-1 text-xs font-extrabold leading-none text-orange-700">{project.role}</span>
 							</div>
-							<h3 className="m-0">{project.title}</h3>
-							<p className="m-0 line-clamp-3 text-base leading-7 text-neutral-500">{project.desc}</p>
+							<h3 className={titleClass}>{project.title}</h3>
+							<p className={descClass}>{project.desc}</p>
 							<div className="grid grid-cols-2 gap-2 rounded-2xl bg-neutral-100/80 p-3">
 								<strong className="block text-base leading-tight tracking-tight text-neutral-950">{project.impact}</strong>
-								<span className="block text-sm font-extrabold leading-tight text-neutral-500">{project.domain}</span>
+								<span className="block text-sm font-extrabold leading-tight text-neutral-600">{project.domain}</span>
 							</div>
 							<div className="inline-flex w-fit items-center gap-1.5 text-sm font-black text-orange-700">{project.cta}<span className="transition group-hover:translate-x-1" aria-hidden="true">→</span></div>
 						</div>
@@ -190,10 +204,10 @@ export function MotionProjectGrid({ projects }: { projects: Project[] }) {
 
 				return (
 					<motion.article
-						className="surface-card group relative h-full overflow-hidden bg-white/90 transition hover:-translate-y-1.5 hover:border-orange-200 hover:shadow-xl"
+						className={articleClass}
 						key={project.title}
 					>
-						{project.href ? <a className="flex h-full flex-col text-inherit no-underline" href={project.href}>{content}</a> : content}
+						{project.href ? <a className={linkClass} href={project.href}>{content}</a> : content}
 					</motion.article>
 				);
 			})}

@@ -35,11 +35,11 @@ const { isVi, focusSignals, profileCard, proofStats, projectCards, services, sta
 			profileCard={profileCard}
 			proofStats={proofStats}
 		/>
-		<main class="container mx-auto">
+		<main class="site-container">
 			<FeaturedProjects isVi={isVi} projects={projectCards} />
 			<ServicesSection isVi={isVi} services={services} />
 			<LatestWritingSection locale={locale} isVi={isVi} posts={latestPosts} />
-			<StatsSection isVi={isVi} stats={stats} />
+			<!-- <StatsSection isVi={isVi} stats={stats} /> -->
 		</main>
 		<Footer />
 	</body>

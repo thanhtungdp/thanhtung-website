@@ -16,8 +16,8 @@ interface Props {
 const { locale, isVi, posts } = Astro.props;
 ---
 
-<section class="relative py-8 md:py-12 lg:py-14">
-	<div class="mb-5 flex items-end justify-between gap-4 max-sm:flex-col max-sm:items-start">
+<section class="relative py-8">
+	<div class="flex items-center justify-between py-2">
 		<SectionHeading kicker={isVi ? 'Ghi chú thực thi' : 'Execution notes'} title={isVi ? 'Bài học từ AI, sản phẩm và vận hành' : 'Lessons from AI, product, and operations'} />
 		<ButtonLink class="max-sm:w-full" href={localizePath('/blog', locale)} variant="secondary" size="compact">
 			{isVi ? 'Xem tất cả ghi chú' : 'View all notes'}

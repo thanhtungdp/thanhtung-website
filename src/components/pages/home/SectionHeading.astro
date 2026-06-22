@@ -14,7 +14,7 @@ const { kicker, title, narrow = false, titleClass = '' } = Astro.props;
 		<span class="h-1.5 w-1.5 rounded-full bg-orange-600" aria-hidden="true"></span>
 		{kicker}
 	</span>
-	<h2 class:list={['max-w-md text-3xl leading-tight tracking-tight sm:text-4xl lg:text-5xl', titleClass]}>
+	<h2 class:list={['text-3xl leading-tight tracking-tight sm:text-4xl lg:text-5xl', titleClass]}>
 		{title}
 	</h2>
 </div>

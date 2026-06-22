@@ -25,12 +25,15 @@ const posts = await getBlogPosts(locale);
 	</head>
 	<body>
 		<ProjectAnimatedBackground>
-		<main class="mx-auto max-w-6xl !px-4 !py-5 sm:!px-5 sm:!py-6 lg:!px-6 lg:!py-8">
-			<section class="mb-5 max-w-3xl sm:mb-6">
-				<p class="mb-4 inline-flex rounded-full border border-neutral-200 bg-white/75 px-3 py-1.5 text-sm font-extrabold text-orange-600 shadow-sm backdrop-blur">
-					{posts.length} {locale === 'vi' ? 'bài viết' : 'articles'}
-				</p>
-				<h1 class="mb-4 text-5xl leading-none text-neutral-950 sm:text-6xl lg:text-7xl">{t.blog.title}</h1>
+		<main class="mx-auto site-container !py-8">
+			<section class="py-2">
+				<div class="flex align-center justify-between">
+					<h1 class="mb-4 text-5xl leading-none text-neutral-950 sm:text-6xl lg:text-7xl">{t.blog.title}</h1>
+					<p class="mb-4 inline-flex rounded-full border border-neutral-200 bg-white/75 px-3 py-1.5 text-sm font-extrabold text-orange-600 shadow-sm backdrop-blur">
+						{posts.length} {locale === 'vi' ? 'bài viết' : 'articles'}
+					</p>
+				</div>
+			
 				<p class="max-w-2xl text-lg leading-8 text-neutral-600 sm:text-xl">{t.blog.description}</p>
 			</section>
 

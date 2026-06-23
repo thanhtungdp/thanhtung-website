@@ -122,16 +122,16 @@ export function getHomeContent(locale: Locale) {
 		projectCards: projects.map((project) => ({ ...project, imageSrc: project.image.src })),
 		services: isVi
 			? [
-					'Thiết kế nhịp vận hành tăng trưởng bằng OKRs, BSC, KPI, 4DX và dashboard điều hành.',
-					'Biến bài toán sales, vận hành và dữ liệu thành AI agents có thể chạy trong quy trình thật.',
-					'Coaching đội ngũ lãnh đạo và product/engineering để ra quyết định nhanh hơn với AI.',
-					'Đồng hành từ chiến lược đến triển khai: mục tiêu, nhịp họp, owner và chỉ số rõ ràng.',
+					'Thiết kế nhịp vận hành bằng OKRs, BSC/KPI, 4DX và dashboard.',
+					'Biến sales, vận hành và dữ liệu thành AI agents chạy trong quy trình thật.',
+					'Coaching lãnh đạo và product team ra quyết định nhanh hơn với AI.',
+					'Đồng hành triển khai mục tiêu, nhịp họp, owner và chỉ số rõ ràng.',
 				]
 			: [
-					'Design growth operating rhythms with OKRs, BSC, KPI, 4DX, and executive dashboards.',
-					'Turn sales, operations, and data problems into AI agents that work inside real workflows.',
-					'Coach leadership, product, and engineering teams to make faster decisions with AI.',
-					'Move from strategy to execution with clear goals, meeting cadence, owners, and metrics.',
+					'Design operating rhythms with OKRs, BSC/KPI, 4DX, and dashboards.',
+					'Turn sales, operations, and data into AI agents inside real workflows.',
+					'Coach leaders and product teams to decide faster with AI.',
+					'Move from strategy to execution with clear goals, owners, and metrics.',
 				],
 		stats: [
 			{ value: '1M+', label: isVi ? 'học sinh đã tiếp cận' : 'learners reached' },

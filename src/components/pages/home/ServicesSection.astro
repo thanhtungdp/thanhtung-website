@@ -1,5 +1,6 @@
 ---
 import SectionHeading from './SectionHeading.astro';
+import ServicesOrbitingStack from './ServicesOrbitingStack';
 
 interface Props {
 	isVi: boolean;
@@ -10,19 +11,27 @@ const { isVi, services } = Astro.props;
 const serviceLabels = isVi
 	? ['Vận hành', 'AI agents', 'Coaching', 'Triển khai']
 	: ['Operating rhythm', 'AI agents', 'Coaching', 'Execution'];
+const labelSlotClass = isVi ? 'sm:w-28' : 'sm:w-40';
 ---
 
 <section class="relative grid grid-cols-1 items-start gap-8 py-8 lg:grid-cols-2 lg:gap-14">
-	<SectionHeading
-		kicker={isVi ? 'Cách hợp tác' : 'How we can work together'}
-		title={isVi ? 'Từ chiến lược đến AI agents chạy trong vận hành' : 'From strategy to AI agents inside real operations'}
-		narrow
-	/>
+	<div>
+		<SectionHeading
+			title={isVi ? 'Chiến lược đến AI vận hành' : 'Strategy to operational AI'}
+			titleClass="lg:!text-4xl"
+			narrow
+		/>
+		<ServicesOrbitingStack />
+	</div>
 	<div class="grid gap-3">
 		{
 			services.map((item, index) => (
-				<div class="flex flex-col items-start gap-2 rounded-2xl border border-neutral-200 bg-white/80 p-4 sm:flex-row sm:gap-4">
-					<span class="inline-flex min-h-7 items-center rounded-full bg-orange-50 px-2.5 py-1 text-xs font-black leading-none text-orange-700">{serviceLabels[index]}</span>
+				<div class="flex flex-col items-start gap-3 rounded-2xl border border-neutral-200 bg-white/80 p-4 sm:min-h-24 sm:flex-row sm:items-center sm:gap-5">
+					<div class:list={['shrink-0', labelSlotClass]}>
+						<span class="inline-flex min-h-7 max-w-full items-center rounded-full bg-orange-50 px-3 py-1 text-xs font-black leading-none whitespace-nowrap text-orange-700">
+							{serviceLabels[index]}
+						</span>
+					</div>
 					<p class="m-0 text-base font-bold leading-7 text-neutral-950 sm:text-lg">{item}</p>
 				</div>
 			))

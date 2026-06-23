@@ -161,19 +161,37 @@ export function MotionProjectGrid({ projects }: { projects: Project[] }) {
 		<div className="grid grid-cols-1 items-stretch gap-4 md:grid-cols-2 xl:grid-cols-3">
 			{projects.map((project, index) => {
 				const isFeatured = index === 0;
+				const isTabletWide = index === 3;
 				const articleClass = [
 					'surface-card group relative h-full overflow-hidden bg-white/90 transition hover:-translate-y-1 hover:border-orange-200',
 					isFeatured ? 'md:col-span-2 xl:col-span-3' : '',
+					isTabletWide ? 'md:col-span-2 xl:col-span-1' : '',
 				].join(' ');
-				const linkClass = isFeatured
+				const shellClass = isFeatured
 					? 'grid h-full text-inherit no-underline md:grid-cols-2'
-					: 'flex h-full flex-col text-inherit no-underline';
+					: isTabletWide
+						? 'grid h-full text-inherit no-underline md:grid-cols-2 xl:flex xl:flex-col'
+						: 'flex h-full flex-col text-inherit no-underline';
 				const imageClass = isFeatured
 					? 'aspect-video overflow-hidden bg-neutral-950 p-2 md:aspect-auto md:min-h-72'
+					: isTabletWide
+						? 'aspect-video overflow-hidden bg-neutral-950 p-2 md:aspect-auto md:min-h-72 xl:aspect-video xl:min-h-0'
 					: 'aspect-video overflow-hidden bg-neutral-950 p-2';
-				const bodyClass = isFeatured ? 'grid content-center gap-4 p-5 sm:p-7' : 'grid content-between gap-3 p-4 sm:p-5';
-				const titleClass = isFeatured ? 'm-0 text-3xl leading-tight sm:text-4xl' : 'm-0';
-				const descClass = isFeatured ? 'm-0 max-w-2xl text-base leading-7 text-neutral-600 sm:text-lg' : 'm-0 line-clamp-3 text-base leading-7 text-neutral-600';
+				const bodyClass = isFeatured
+					? 'grid content-center gap-4 p-5 sm:p-7'
+					: isTabletWide
+						? 'grid content-center gap-4 p-5 sm:p-7 xl:content-between xl:gap-3 xl:p-5'
+					: 'grid content-between gap-3 p-4 sm:p-5';
+				const titleClass = isFeatured
+					? 'm-0 text-3xl leading-tight sm:text-4xl'
+					: isTabletWide
+						? 'm-0 text-3xl leading-tight xl:text-2xl'
+					: 'm-0';
+				const descClass = isFeatured
+					? 'm-0 max-w-2xl text-base leading-7 text-neutral-600 sm:text-lg'
+					: isTabletWide
+						? 'm-0 max-w-2xl text-base leading-7 text-neutral-600 sm:text-lg xl:line-clamp-3 xl:text-base'
+					: 'm-0 line-clamp-3 text-base leading-7 text-neutral-600';
 				const content = (
 					<>
 						<div className={imageClass}>
@@ -207,7 +225,7 @@ export function MotionProjectGrid({ projects }: { projects: Project[] }) {
 						className={articleClass}
 						key={project.title}
 					>
-						{project.href ? <a className={linkClass} href={project.href}>{content}</a> : content}
+						{project.href ? <a className={shellClass} href={project.href}>{content}</a> : <div className={shellClass}>{content}</div>}
 					</motion.article>
 				);
 			})}

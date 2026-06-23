@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+@theme inline {
+	--animate-orbit: orbit calc(var(--duration) * 1s) linear infinite;
+
+	@keyframes orbit {
+		0% {
+			transform: translate(-50%, -50%) rotate(calc(var(--angle) * 1deg))
+				translateY(calc(var(--radius) * 1px)) rotate(calc(var(--angle) * -1deg));
+		}
+
+		100% {
+			transform: translate(-50%, -50%) rotate(calc(var(--angle) * 1deg + 360deg))
+				translateY(calc(var(--radius) * 1px)) rotate(calc((var(--angle) * -1deg) - 360deg));
+		}
+	}
+}
+
 :root {
 	color-scheme: light;
 	--background: 250 250 250;

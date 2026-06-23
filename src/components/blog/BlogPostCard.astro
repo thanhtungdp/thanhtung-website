@@ -1,0 +1,51 @@
+---
+import { Image } from 'astro:assets';
+import FormattedDate from '../FormattedDate.astro';
+import Card from '../ui/Card.astro';
+import { type Locale } from '../../i18n';
+import { getBlogPath, type BlogPost } from '../../lib/blog';
+
+interface Props {
+	post: BlogPost;
+	locale: Locale;
+	readMoreLabel: string;
+	headingLevel?: 'h2' | 'h3';
+	loading?: 'eager' | 'lazy';
+}
+
+const { post, locale, readMoreLabel, headingLevel = 'h2', loading = 'lazy' } = Astro.props;
+const Heading = headingLevel;
+---
+
+<Card class="group h-full overflow-hidden bg-white/85 transition hover:-translate-y-1 hover:border-orange-200 hover:shadow-xl">
+	<article class="h-full">
+		<a class="flex h-full flex-col text-inherit no-underline" href={getBlogPath(post, locale)}>
+			{
+				post.data.heroImage && (
+					<div class="aspect-video overflow-hidden bg-orange-50">
+						<Image
+							class="block h-full w-full rounded-none object-cover transition duration-300 group-hover:scale-105"
+							width={640}
+							height={360}
+							src={post.data.heroImage}
+							alt=""
+							loading={loading}
+						/>
+					</div>
+				)
+			}
+			<div class="flex flex-1 flex-col p-4 sm:p-5">
+				<p class="mb-3 text-sm font-extrabold text-orange-600">
+					<FormattedDate date={post.data.pubDate} locale={locale} />
+				</p>
+				<Heading class="mb-3 line-clamp-2 !text-2xl text-neutral-950 transition group-hover:text-orange-600">
+					{post.data.title}
+				</Heading>
+				<p class="mb-4 line-clamp-3 text-base leading-7 text-neutral-600">
+					{post.data.description}
+				</p>
+				<span class="mt-auto text-sm font-extrabold text-orange-600">{readMoreLabel}</span>
+			</div>
+		</a>
+	</article>
+</Card>

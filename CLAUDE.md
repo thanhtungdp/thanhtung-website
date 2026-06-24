@@ -1,74 +1,83 @@
-# CLAUDE.md
+# Project Rules for AI Agents
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+These rules apply to all work in this Astro website repository.
 
-## Commands
+## Repository architecture
 
-This is an Astro project. Use Node 22 from the local toolchain (the repo was built on this path):
+- This is an Astro-first website using Astro pages, Astro components, Tailwind CSS v4, MD/MDX content collections, and React only for interactive islands.
+- `src/pages/` owns routing. Route files should stay thin: import the right page component, pass `locale`, and avoid holding large UI or content blocks.
+- The default locale is Vietnamese at root routes such as `/`, `/blog`, and `/projects/simplamo`. English routes live under `/en`, such as `/en`, `/en/blog`, and `/en/projects/simplamo`.
+- Locale utilities live in `src/i18n.ts`. Use `defaultLocale`, `localizePath`, `getTranslations`, and locale types instead of hardcoding bilingual paths or labels.
+- Full page implementations live under `src/components/pages/`. Shared page sections should be grouped by page/domain, for example `src/components/pages/home/`, `src/components/pages/hermes/`, and `src/components/pages/project-detail/`.
+- Reusable UI primitives live under `src/components/ui/`. Prefer these before creating page-specific components.
+- Site-level shell components live under `src/components/`, including `BaseHead`, `Header`, `Footer`, analytics, dates, and common navigation helpers.
+- Blog content lives in `src/content/blog/{vi,en}/` and is typed by `src/content.config.ts`. Blog listing and filtering logic belongs in `src/lib/blog.ts`, not inside route files.
+- Visual assets live in `src/assets/`, with project assets under `src/assets/projects/` and blog assets under `src/assets/blog/`. Import assets through Astro/Vite when components need optimized image metadata.
+- Global styles and design tokens live in `src/styles/global.css`. Keep global CSS focused on tokens, base element behavior, and truly shared effects.
 
-```bash
-PATH=/home/tungphan/.local/node22/bin:$PATH npm install
-PATH=/home/tungphan/.local/node22/bin:$PATH npm run dev      # local dev server
-PATH=/home/tungphan/.local/node22/bin:$PATH npm run build    # production build — MUST pass before reporting done
-PATH=/home/tungphan/.local/node22/bin:$PATH npm run preview  # preview built site
-```
+## New page workflow
 
-There is no lint or test script. Verification = `npm run build` passes, plus visual inspection of desktop + mobile for rendered UI changes (check for unreadable text, broken animation, missing button text, overlapping layers, horizontal overflow).
+Before writing a new page, think in this order and keep the implementation shaped the same way:
 
-If the local Node 22 path above isn't available (e.g. on macOS), use any Node `>=22.12.0` — the `engines` field in `package.json` enforces the minimum.
+1. Reuse what already exists.
+   - Search for similar routes, page components, section components, UI primitives, content helpers, and asset patterns before creating anything new.
+   - Prefer `src/components/ui/` primitives and existing page-section patterns over new bespoke markup.
 
-## Architecture
+2. Package reusable pieces first.
+   - If a section, card, stat row, hero pattern, gallery, CTA, content block, or motion pattern could appear again, extract it into a named component.
+   - Put domain-specific sections beside the page that owns them, for example `src/components/pages/<page-name>/<SectionName>.astro`.
+   - Put truly shared primitives in `src/components/ui/` only when they are generic enough for multiple pages.
 
-Astro 6 + Tailwind v4 (via `@tailwindcss/vite`) + React 19 islands. Content collections for the blog. Deployed to Vercel.
+3. Compose sections into a page component.
+   - Build the real page in `src/components/pages/<PageName>.astro`.
+   - Keep data preparation, localized copy, and section ordering in the page component or a nearby helper such as `<page-name>Content.ts`.
+   - Keep the page component readable as a composition of named sections, not a long file of repeated markup.
 
-### Bilingual i18n (critical — do not break)
+4. Add the route last.
+   - Add or update files in `src/pages/` only after the reusable pieces and page component exist.
+   - Route files should normally do only this: import the page component, resolve/pass locale, and render the component.
+   - For bilingual pages, create both the default route and `/en` route unless the user explicitly asks for one locale only.
 
-Two locales: `vi` (default) and `en`. Configured in `astro.config.mjs` and `src/i18n.ts`.
+5. Verify the integration.
+   - Check navigation paths with `localizePath`.
+   - Check metadata through `BaseHead`.
+   - Check that content, imagery, and CTAs work in both locales when the page is bilingual.
 
-- Vietnamese lives at root paths: `/`, `/blog/`, `/blog/<slug>/`, `/about`, `/projects/<name>`
-- English lives under `/en/...`: `/en/`, `/en/blog/`, `/en/blog/<slug>/`, `/en/about`, `/en/projects/<name>`
-- `localizePath(path, locale)` from `src/i18n.ts` is the single source of truth for building locale-aware URLs. `vi` paths have no prefix; `en` paths are prefixed with `/en`.
-- `getAlternateLinks(pathname)` produces the locale switcher links for any page.
+## UI implementation
+
+- Always implement styling with Tailwind CSS utilities first. Do not add new scoped CSS blocks or plain CSS classes for layout, spacing, or typography unless Tailwind cannot express the requirement cleanly.
+- Use Tailwind's standard scale by default. Avoid arbitrary values such as `text-[clamp(...)]`, `w-[37px]`, or custom one-off spacing unless there is a clear design requirement and no standard utility fits.
+- Prefer shared UI primitives under `src/components/ui/` for repeated patterns such as `Button`, `Card`, `Badge`, `Input`, `Tabs`, `Accordion`, and `Dialog`.
+- Break large page components into smaller reusable Astro components when a section, visual pattern, content block, or interaction is likely to be reused.
+- Prioritize component patterns from the official shadcn/ui docs. This project is Astro-first, so translate shadcn patterns into Astro components with semantic tokens when a React island is not required.
+- For premium visual/motion components, prioritize Magic UI patterns. Add React islands only when the interaction/animation needs client-side JavaScript.
+- Use shadcn-style CSS variables and semantic tokens in `src/styles/global.css`: `--background`, `--foreground`, `--card`, `--muted`, `--border`, `--primary`, `--ring`, `--radius`, and shadows.
+- Keep mobile responsiveness explicit with Tailwind responsive variants. Avoid desktop-only layouts.
+- When global element styles such as `h1` override Tailwind utilities, prefer a scoped fix on the affected component. Use important Tailwind utilities only when needed to overcome existing global CSS, and keep that usage narrow.
+
+## Layout and motion
+
+- Preserve existing working interactions and animations when refactoring. If a component has hover, marquee, tilt, or animated-background behavior, verify that it still works after extracting or reorganizing components.
+- Interactive animated backgrounds must not be blocked by foreground text or layout wrappers. Use z-index, pointer-events, and layering intentionally so hover effects still receive pointer movement.
+- For mobile hero sections, make headings, buttons, cards, and animated elements fit within the viewport without horizontal overflow. If a heading is required to stay on one line, verify it at narrow mobile widths such as 320px and 390px.
+- Do not add visible instructional copy inside the UI to explain effects or controls unless the product design explicitly calls for it.
+
+## Avoid
+
+- Avoid new one-off CSS selectors like `.article-shell`, `.hero-card`, or `.custom-section` when Tailwind utilities or reusable UI primitives can do the job.
+- Avoid generic AI-purple gradients and unrelated UI kits.
+- Avoid custom CSS blocks for sizes, spacing, typography, and responsive behavior when Tailwind utilities can express the same result.
+- Avoid changing fonts, global heading styles, or typography tokens as a side effect of a component task unless explicitly requested.
 - Do not change route slugs, locale folders, or bilingual URL structure without explicit approval.
 
-### Blog content collection
+## Verification
 
-Defined in `src/content.config.ts`. Files live under `src/content/blog/{vi,en}/<slug>.{md,mdx}`. The locale is encoded by the **first path segment of the entry `id`**, not by frontmatter.
+Use the repo-compatible Node path when building:
 
-`src/lib/blog.ts` provides the helpers that make this work — use them instead of re-deriving:
-- `getBlogLocale(post)` — extracts locale from `post.id`
-- `getBlogSlug(post)` — strips the locale prefix to get the bare slug
-- `getBlogPath(post, locale?)` — full localized URL
-- `getBlogPosts(locale)` — all posts for a locale, sorted by `pubDate` desc
-- `getBlogStaticPaths(locale)` — feeds `getStaticPaths()` in `[...slug].astro` pages
+```bash
+PATH=/home/tungphan/.local/node22/bin:$PATH npm run build
+```
 
-The Vietnamese slug page is `src/pages/blog/[...slug].astro`; the English one is `src/pages/en/blog/[...slug].astro`. Both delegate to the shared `src/layouts/BlogPost.astro`.
+Before reporting completion, run the build and confirm it passes.
 
-Frontmatter schema: `title`, `description`, `pubDate` (coerced to Date), optional `updatedDate`, optional `heroImage` (Astro image() — processed by sharp).
-
-### Page composition
-
-Route files under `src/pages/` are thin wrappers that pull locale + props and hand them to shared page components under `src/components/pages/` (e.g. `HomePage.astro`, `BlogIndexPage.astro`, `AboutPage.astro`, `SimplamoProjectPage.astro`). When building a new route, add the shared page component under `src/components/pages/` and keep the `.astro` route file minimal — this is the existing pattern, not a place to inline page logic.
-
-### Styling rules (enforced — see AGENTS.md / .cursor/rules/ui-development.mdc)
-
-- **Tailwind utilities first.** Do not add scoped CSS blocks or one-off CSS classes for layout, spacing, typography, cards, badges, buttons, grids, or responsive behavior. If Tailwind can express it, use Tailwind.
-- Avoid arbitrary values (`text-[clamp(...)]`, `w-[37px]`) unless there's a clear design need and no standard utility fits.
-- Reusable primitives live in `src/components/ui/` (`ButtonLink`, `Card`, `Badge`, `ProofStatsStrip`). Add new shared patterns there rather than duplicating.
-- Prioritize **shadcn/ui** component patterns, translated to Astro with semantic tokens. Add React islands (in `src/components/motion/` and `src/components/blog/`) only when client-side JS is genuinely required — e.g. `HomeMotion.tsx`, `AiAgentPlaygrounds.tsx`.
-- For premium motion, prefer **Magic UI** patterns.
-- shadcn-style semantic tokens are defined in `src/styles/global.css`: `--background`, `--foreground`, `--card`, `--muted`, `--border`, `--primary`, `--ring`, `--radius`, plus `--accent`, `--shadow-soft`, `--shadow-card`, `--container`. The brand accent is orange (`--primary: 234 88 12`). The body has a radial accent gradient + a fixed dot-grid overlay — preserve this when refactoring layouts.
-- Every multi-column / visual layout must include explicit mobile behavior via Tailwind responsive variants. Verify mobile hero sections at 320px and 390px.
-- Don't change fonts, global heading styles, or typography tokens as a side effect of a component task.
-
-### Animation / layering
-
-When refactoring components with hover, marquee, tilt, or animated-background behavior, verify the interaction still works afterward. Animated backgrounds must not be blocked by foreground wrappers — use `z-index`, `pointer-events`, and layering intentionally so hover effects still receive pointer movement. Motion should respect `prefers-reduced-motion`.
-
-## Product context
-
-Thanh Tung / David Tung's personal business website (see `PRODUCT.md`, `DESIGN.md`, `DESIGN.json`). Audience: Vietnamese CEOs/founders + people learning AI/product/engineering. Brand voice: modern, technological, clear — agency + executive coaching, not a personal blog or generic consultant site. Success = a qualified visitor quickly sees the expertise, trusts the proof, and sees the path to advisory/coaching/implementation work.
-
-## Submodules
-
-`.impeccable` is a git submodule (https://github.com/pbakaus/impeccable). Run `git submodule update --init` on fresh clones if needed.
+For rendered UI changes, also verify the affected page in a browser at desktop and mobile widths. Check for unreadable text, broken animation, missing button text, overlapping layers, and horizontal overflow before reporting completion.

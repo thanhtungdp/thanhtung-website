@@ -1,0 +1,156 @@
+---
+// Interactive hover-lit grid background, adapted from the home page's
+// HomeAnimatedBackground. Cells light up following the pointer (via a global
+// pointermove listener + hit-testing, so the layer stays pointer-events-none
+// and never blocks the hero CTAs) with a slow ambient drift.
+// Themed to the Hermes palette (warm paper + orange/amber glows).
+const cells = Array.from({ length: 192 });
+---
+
+<div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+	<div class="absolute -left-16 top-10 h-64 w-64 rounded-full bg-hermes-orange/20 blur-3xl"></div>
+	<div class="absolute right-0 top-24 h-72 w-72 rounded-full bg-amber-200/40 blur-3xl"></div>
+	<div class="hermes-hero-mask absolute inset-0">
+		<div class="hermes-hero-grid grid h-full w-full grid-cols-8 sm:grid-cols-12">
+			{cells.map(() => <span class="hermes-hero-cell"></span>)}
+		</div>
+	</div>
+	<div
+		class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-hermes-paper to-transparent"
+	>
+	</div>
+</div>
+
+<script>
+	const heroCellPalettes = [
+		{ bg: 'rgb(242 108 44 / 0.16)', glow: 'rgb(242 108 44 / 0.26)' },
+		{ bg: 'rgb(255 237 213 / 0.65)', glow: 'rgb(234 88 12 / 0.22)' },
+		{ bg: 'rgb(254 243 199 / 0.6)', glow: 'rgb(202 138 4 / 0.2)' },
+		{ bg: 'rgb(216 210 198 / 0.5)', glow: 'rgb(22 20 15 / 0.1)' },
+	];
+
+	let activeHeroGridCell: HTMLElement | null = null;
+	let lastHeroCellPalette = -1;
+	let pendingHeroPointer: { x: number; y: number } | null = null;
+	let heroPointerFrame = 0;
+	const heroCellFadeTimers = new WeakMap<HTMLElement, number>();
+
+	function getHeroCellPalette() {
+		let nextPalette = Math.floor(Math.random() * heroCellPalettes.length);
+		if (heroCellPalettes.length > 1 && nextPalette === lastHeroCellPalette) {
+			nextPalette = (nextPalette + 1) % heroCellPalettes.length;
+		}
+		lastHeroCellPalette = nextPalette;
+		return heroCellPalettes[nextPalette];
+	}
+
+	function paintHeroGridCell(cell: HTMLElement) {
+		const palette = getHeroCellPalette();
+		cell.style.setProperty('--hermes-hero-cell-bg', palette.bg);
+		cell.style.setProperty('--hermes-hero-cell-glow', palette.glow);
+	}
+
+	function fadeHeroGridCell(cell: HTMLElement | null) {
+		if (!cell) return;
+		cell.removeAttribute('data-active');
+		cell.setAttribute('data-fading', 'true');
+		const previousTimer = heroCellFadeTimers.get(cell);
+		if (previousTimer) window.clearTimeout(previousTimer);
+		const nextTimer = window.setTimeout(() => {
+			cell.removeAttribute('data-fading');
+			heroCellFadeTimers.delete(cell);
+		}, 1100);
+		heroCellFadeTimers.set(cell, nextTimer);
+	}
+
+	function activateHeroGridCell(cell: HTMLElement | null) {
+		if (activeHeroGridCell === cell) return;
+		fadeHeroGridCell(activeHeroGridCell);
+		activeHeroGridCell = cell;
+		if (!activeHeroGridCell) return;
+		const previousTimer = heroCellFadeTimers.get(activeHeroGridCell);
+		if (previousTimer) window.clearTimeout(previousTimer);
+		activeHeroGridCell.removeAttribute('data-fading');
+		paintHeroGridCell(activeHeroGridCell);
+		activeHeroGridCell.setAttribute('data-active', 'true');
+	}
+
+	function findHeroGridCellFromPoint(x: number, y: number) {
+		const grids = document.querySelectorAll<HTMLElement>('.hermes-hero-grid');
+		for (const grid of grids) {
+			const gridRect = grid.getBoundingClientRect();
+			if (x < gridRect.left || x > gridRect.right || y < gridRect.top || y > gridRect.bottom)
+				continue;
+			const cells = grid.querySelectorAll<HTMLElement>('.hermes-hero-cell');
+			for (const cell of cells) {
+				const cellRect = cell.getBoundingClientRect();
+				if (x >= cellRect.left && x <= cellRect.right && y >= cellRect.top && y <= cellRect.bottom) {
+					return cell;
+				}
+			}
+		}
+		return null;
+	}
+
+	function scheduleHeroGridPointer(event: PointerEvent) {
+		pendingHeroPointer = { x: event.clientX, y: event.clientY };
+		if (heroPointerFrame) return;
+		heroPointerFrame = window.requestAnimationFrame(() => {
+			heroPointerFrame = 0;
+			if (!pendingHeroPointer) return;
+			activateHeroGridCell(findHeroGridCellFromPoint(pendingHeroPointer.x, pendingHeroPointer.y));
+		});
+	}
+
+	document.addEventListener('pointermove', scheduleHeroGridPointer);
+	document.addEventListener('pointerleave', () => {
+		pendingHeroPointer = null;
+		activateHeroGridCell(null);
+	});
+</script>
+
+<style>
+	.hermes-hero-mask {
+		mask-image: radial-gradient(ellipse at top, black 40%, transparent 80%);
+	}
+
+	.hermes-hero-grid {
+		grid-auto-rows: 3rem;
+		animation: hermes-hero-drift 36s linear infinite;
+	}
+
+	.hermes-hero-cell {
+		position: relative;
+		transition:
+			background-color 850ms ease,
+			box-shadow 1050ms ease;
+	}
+
+	.hermes-hero-cell:hover,
+	.hermes-hero-cell[data-active='true'],
+	.hermes-hero-cell[data-fading='true'] {
+		background-color: var(--hermes-hero-cell-bg, rgb(255 237 213 / 0.55));
+		box-shadow: inset 0 0 30px var(--hermes-hero-cell-glow, rgb(242 108 44 / 0.2));
+	}
+
+	@media (max-width: 640px) {
+		.hermes-hero-grid {
+			grid-auto-rows: 2.5rem;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.hermes-hero-grid {
+			animation: none;
+		}
+	}
+
+	@keyframes hermes-hero-drift {
+		from {
+			transform: translate3d(0, 0, 0);
+		}
+		to {
+			transform: translate3d(-3rem, -3rem, 0);
+		}
+	}
+</style>

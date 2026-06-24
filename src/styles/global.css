@@ -314,6 +314,117 @@ hr {
 	}
 }
 
+/* ============================================================
+   HERMES LANDING — scoped brutalist theme tokens + utilities
+   Additive only. Active under `.hermes-landing`; does not
+   change any other page's tokens, fonts, or element styles.
+   ============================================================ */
+@theme {
+	--color-hermes-orange: #f26c2c;
+	--color-hermes-ink: #16140f;
+	--color-hermes-paper: #f4f1ea;
+	--color-hermes-paper-alt: #efe9df;
+	--color-hermes-card: #fffefb;
+	--color-hermes-muted: #6f685d;
+	--color-hermes-hair: #d8d2c6;
+	--color-hermes-line-soft: #2c271f;
+
+	--font-hermes-sans: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+	--font-hermes-mono: 'Space Mono', ui-monospace, monospace;
+	--font-hermes-serif: 'Newsreader', ui-serif, Georgia, serif;
+}
+
+/* Suppress the global fixed dot-grid overlay on the landing page;
+   the landing draws its own grid background instead. */
+body.hermes-landing::before {
+	display: none;
+}
+
+body.hermes-landing {
+	background: var(--color-hermes-paper);
+	background-image: linear-gradient(#16140f0a 1px,transparent 1px),linear-gradient(90deg,#16140f0a 1px,transparent 1px);
+	color: var(--color-hermes-ink);
+	font-family: var(--font-hermes-sans);
+	font-size: 18px;
+	line-height: 1.55;
+}
+
+/* Reset the global element-level heading + link styles inside the
+   landing scope so Tailwind utilities on the sections win cleanly. */
+.hermes-landing :is(h1, h2, h3, h4, h5, h6) {
+	margin: 0;
+	color: inherit;
+	font-family: var(--font-hermes-sans);
+	font-weight: 700;
+	letter-spacing: -0.03em;
+	line-height: 1.02;
+	text-wrap: balance;
+}
+
+.hermes-landing :is(h1, h2, h3, h4, h5, h6) {
+	/* font-size: inherit; */
+}
+
+.hermes-landing a {
+	color: inherit;
+	text-decoration: none;
+	transition: color 150ms ease, background-color 150ms ease, transform 120ms ease,
+		box-shadow 150ms ease;
+}
+
+.hermes-landing p {
+	margin: 0;
+}
+
+/* Brutalist dot/line grid background. */
+.hermes-grid-bg {
+	background-image: linear-gradient(rgb(22 20 15 / 0.04) 1px, transparent 1px),
+		linear-gradient(90deg, rgb(22 20 15 / 0.04) 1px, transparent 1px);
+	background-size: 36px 36px;
+}
+
+/* Hard offset-shadow hover used on primary buttons + flow nodes. */
+.hermes-press {
+	transition: transform 120ms ease, box-shadow 150ms ease, background-color 150ms ease,
+		color 150ms ease;
+}
+
+.hermes-press:hover {
+	transform: translate(-2px, -2px);
+	box-shadow: 4px 4px 0 var(--color-hermes-ink);
+}
+
+@keyframes hermes-pulse {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.25;
+	}
+}
+
+.hermes-live-dot {
+	animation: hermes-pulse 1.4s infinite;
+}
+
+@keyframes hermes-blink {
+	0%,
+	100% {
+		opacity: 0.25;
+		transform: translateY(0);
+	}
+	50% {
+		opacity: 0.9;
+		transform: translateY(-3px);
+	}
+}
+
+.hermes-typing-dot {
+	opacity: 0.5;
+	animation: hermes-blink 1.2s infinite;
+}
+
 @media (max-width: 760px) {
 	body {
 		font-size: 16px;

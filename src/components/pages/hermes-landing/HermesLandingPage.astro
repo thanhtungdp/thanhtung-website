@@ -1,0 +1,972 @@
+---
+import BaseHead from '../../BaseHead.astro';
+import { Image } from 'astro:assets';
+import DavidTungLogo from '../../../assets/david-tung-logo-upload.png';
+import HermesIcon from '../../../assets/hermes-landing/icon.png';
+import HeroAnimatedBackground from './HeroAnimatedBackground.astro';
+import LiveChat from './LiveChat';
+import RadarChart from './RadarChart';
+import FlowDiagram from './FlowDiagram';
+import {
+	nav,
+	hero,
+	promises,
+	whatIs,
+	aware,
+	gallery,
+	painStats,
+	team,
+	connect,
+	radar,
+	story,
+	curriculum,
+	pricing,
+	testimonials,
+	faq,
+	cta,
+	footer,
+} from './hermesLandingContent';
+import { defaultLocale } from '../../../i18n';
+
+const title = 'Hermes Agent — Đội ngũ AI tự chủ cho Solo CEO';
+const description =
+	'Từ AI-aware đến AI-operator. Hermes coach Solo CEO xây đội AI tự chạy việc lặp lại: báo giá, email, content, briefing — không cần biết code.';
+
+// Shared container for every section — single source of truth.
+// `page`  = centred, capped width + responsive side gutters.
+// `wrap`  = vertical rhythm between sections (24px mobile / 32px desktop).
+const page = 'mx-auto w-full max-w-[1200px] px-[18px] sm:px-8';
+const wrap = 'py-6 sm:py-8';
+---
+
+<!doctype html>
+<html lang={defaultLocale}>
+	<head>
+		<BaseHead title={title} description={description} locale={defaultLocale} />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body class="hermes-landing hermes-grid-bg">
+		<!-- NAV -->
+		<nav class="sticky top-0 z-50 border-b-2 border-hermes-ink bg-hermes-paper">
+			<div class={`${page} flex h-[58px] items-center gap-3`}>
+				<div
+					class="flex h-full min-w-0 items-center gap-2 pr-3 font-hermes-mono text-[13px] font-bold uppercase tracking-[0.04em] sm:gap-2.5 sm:border-r-2 sm:border-hermes-ink sm:pr-[26px]"
+				>
+					<Image
+						src={DavidTungLogo}
+						alt="David Tung"
+						class="!h-5 w-auto !rounded-none sm:!h-6"
+					/>
+					<span class="text-hermes-hair">|</span>
+					<Image
+						src={HermesIcon}
+						alt="Hermes"
+						class="!h-[18px] w-auto !rounded-none sm:!h-[22px]"
+					/>
+					<span class="hidden whitespace-nowrap min-[420px]:inline"
+						>{nav.brandName} <b class="text-hermes-orange">{nav.brandAccent}</b></span
+					>
+				</div>
+				<div
+					class="hidden flex-1 gap-[26px] pl-[26px] font-hermes-mono text-xs tracking-[0.04em] lg:flex"
+				>
+					{
+						nav.links.map((link) => (
+							<a href={link.href} class="!text-hermes-muted hover:!text-hermes-orange">
+								{link.label}
+							</a>
+						))
+					}
+				</div>
+				<a
+					href={nav.cta.href}
+					class="ml-auto shrink-0 whitespace-nowrap bg-hermes-ink px-4 py-2.5 font-hermes-mono text-xs font-bold !text-hermes-paper lg:ml-0"
+				>
+					{nav.cta.label}
+				</a>
+			</div>
+		</nav>
+
+		<!-- HERO -->
+		<header class="relative overflow-hidden">
+			<HeroAnimatedBackground />
+			<div class={`${page} relative z-10`}>
+				<div class="grid grid-cols-1 border-2 border-dashed border-t-0 border-hermes-ink lg:grid-cols-[1.1fr_0.9fr]">
+					<div
+						class="flex flex-col gap-8 border-dashed border-hermes-ink px-6 py-12 sm:px-12 sm:py-16 lg:border-b-0"
+					>
+						<span class="hermes-eyebrow">{hero.eyebrow}</span>
+						<h1 class="my-6 text-5xl sm:text-6xl lg:text-7xl">
+							{hero.titleLead}{' '}
+							<span class="font-hermes-serif font-medium italic tracking-[-0.01em]">
+								{hero.titleAware}
+							</span><br />
+							{hero.titleMid}{' '}
+							<em class="not-italic text-hermes-orange">{hero.titleOperator}</em>
+						</h1>
+						<p class="text-hermes-muted">{hero.lede}</p>
+						<div class="mt-9 flex border-2 border-hermes-ink">
+							<a
+								href={hero.primaryCta.href}
+								class="hermes-press flex flex-1 items-center justify-center gap-2.5 border-r-2 border-hermes-orange bg-hermes-orange px-6 py-[15px] text-center font-hermes-sans text-sm font-bold !text-white"
+							>
+								{hero.primaryCta.label}
+							</a>
+							<a
+								href={hero.secondaryCta.href}
+								class="flex flex-1 items-center justify-center gap-2.5 bg-hermes-card px-6 py-[15px] text-center font-hermes-sans text-sm font-bold !text-hermes-ink hover:bg-hermes-ink hover:!text-hermes-paper"
+							>
+								{hero.secondaryCta.label}
+							</a>
+						</div>
+					</div>
+					<div id="demo" class="flex flex-col p-4 sm:p-8">
+						<div
+							class="flex h-[420px] flex-col border-2 border-dashed border-hermes-ink bg-hermes-ink sm:h-[460px]"
+						>
+							<div
+								class="flex items-center gap-2.5 border-b-2 border-hermes-line-soft bg-hermes-ink px-3.5 py-3 font-hermes-mono text-xs text-hermes-paper"
+							>
+								<span
+									class="grid h-[26px] w-[26px] place-items-center bg-hermes-orange font-hermes-sans font-bold text-white"
+								>
+									H
+								</span>
+								<span>{hero.chatBarLabel}</span>
+								<span
+									class="ml-auto inline-flex items-center gap-1.5 font-hermes-mono text-[10px] tracking-[0.1em] opacity-70"
+								>
+									<span class="hermes-live-dot h-[7px] w-[7px] rounded-full bg-hermes-orange"></span>
+									{hero.chatLiveLabel}
+								</span>
+							</div>
+							<LiveChat client:visible />
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<!-- PROMISES -->
+		<section>
+			<div class={`${page} ${wrap} pb-0`}>
+				<div class="grid grid-cols-1 md:grid-cols-3">
+					{
+						promises.map((p, i) => (
+							<div
+								class:list={[
+									'border-2 border-hermes-ink px-7 py-8 md:border-r-0 last:md:border-r-2 flex-col flex gap-4',
+									i > 0 && 'border-t-0 md:border-t-2',
+								]}
+							>
+								<div class="font-hermes-mono text-xs font-bold text-hermes-orange">{p.n}</div>
+								<h4 class="my-4 text-[22px]">{p.title}</h4>
+								<p class="text-[15px] leading-[1.55] text-hermes-muted">{p.body}</p>
+							</div>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<!-- WHAT IS HERMES -->
+		<section id="what-is">
+			<div class={`${page} ${wrap}`}>
+				<div class="grid grid-cols-1 border-2 border-hermes-ink lg:grid-cols-[1.15fr_0.85fr]">
+					<div class="flex flex-col gap-4 border-b-2 border-hermes-ink bg-hermes-card px-8 py-10 sm:px-10 lg:border-b-0 lg:border-r-2">
+						<span class="hermes-eyebrow">{whatIs.eyebrow}</span>
+						<h2 class="mt-4 mb-5 text-3xl sm:text-4xl lg:text-5xl">{whatIs.title}</h2>
+						<p class="mb-5 text-[17px] leading-[1.7] text-hermes-muted">{whatIs.body}</p>
+						<p class="text-[17px] leading-[1.7] text-hermes-muted">{whatIs.body2}</p>
+					</div>
+					<div class="grid grid-cols-1 bg-hermes-ink text-hermes-paper">
+						{
+							whatIs.stats.map((stat, i) => (
+								<div
+									class:list={[
+										'px-8 py-7 sm:px-10',
+										i < whatIs.stats.length - 1 && 'border-b-2 border-hermes-line-soft',
+									]}
+								>
+									<div class="text-4xl font-bold leading-none tracking-[-0.03em] text-hermes-orange sm:text-5xl">
+										{stat.big}
+									</div>
+									<div class="mt-2.5 text-[14px] leading-[1.5] opacity-80">{stat.lab}</div>
+								</div>
+							))
+						}
+					</div>
+				</div>
+
+				<div class="mt-0.5 flex flex-col gap-4 border-2 border-t-0 border-hermes-ink bg-hermes-orange px-8 py-10 text-white sm:px-10">
+					<h3 class="mb-6 text-2xl sm:text-3xl">{whatIs.whyTitle}</h3>
+					<ul class="grid gap-4 lg:grid-cols-3">
+						{
+							whatIs.whyItems.map((item, i) => (
+								<li class="flex flex-col gap-3 border-t-2 border-white/30 pt-4">
+									<span class="font-hermes-mono text-xs font-bold">{`0${i + 1}`}</span>
+									<span class="text-[15.5px] leading-[1.5]">{item}</span>
+								</li>
+							))
+						}
+					</ul>
+					<p class="mt-7 max-w-[68ch] text-[16px] leading-[1.6] opacity-90">{whatIs.whyClosing}</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- AWARE vs OPERATOR -->
+		<section id="aware">
+			<div class={`${page} ${wrap} flex flex-col gap-4`}>
+				<span class="hermes-eyebrow">{aware.eyebrow}</span>
+				<h2 class="my-5 max-w-[20ch] text-3xl sm:text-4xl lg:text-5xl">
+					Hai trạng thái. Một khoảng cách tên là{' '}
+					<span class="font-hermes-serif font-medium italic">{aware.titleEm}</span>
+				</h2>
+				<div class="grid grid-cols-1 border-2 border-hermes-ink md:grid-cols-2">
+					<div class="border-b-2 flex flex-col gap-4 border-hermes-ink bg-hermes-card px-8 py-9 md:border-b-0 md:border-r-2">
+						<h3 class="mb-6 font-hermes-mono text-[13px] uppercase tracking-[0.1em]">
+							{aware.left.heading}
+						</h3>
+						<ul class="flex flex-col gap-3.5">
+							{
+								aware.left.items.map((item) => (
+									<li class="relative pl-6 text-[15.5px] leading-[1.4] before:absolute before:left-0 before:opacity-60 before:content-['→']">
+										{item}
+									</li>
+								))
+							}
+						</ul>
+					</div>
+					<div class="bg-hermes-orange px-8 py-9 text-white">
+						<h3 class="mb-6 font-hermes-mono text-[13px] uppercase tracking-[0.1em]">
+							{aware.right.heading}
+						</h3>
+						<ul class="flex flex-col gap-3.5">
+							{
+								aware.right.items.map((item) => (
+									<li class="relative pl-6 text-[15.5px] leading-[1.4] before:absolute before:left-0 before:opacity-60 before:content-['→']">
+										{item}
+									</li>
+								))
+							}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- GALLERY -->
+		<section id="gallery">
+			<div class={`${page} ${wrap}`}>
+				<div class="mb-11 flex flex-wrap items-end justify-between gap-8">
+					<div>
+						<span class="hermes-eyebrow">{gallery.eyebrow}</span>
+						<h2 class="mt-4 max-w-[18ch] text-3xl sm:text-4xl lg:text-5xl">{gallery.title}</h2>
+					</div>
+					<p class="max-w-[56ch] text-[16px] leading-[1.6] text-hermes-muted">{gallery.lede}</p>
+				</div>
+				<div class="grid grid-cols-2 gap-0.5 border-2 border-hermes-ink bg-hermes-ink md:grid-cols-4">
+					{
+						gallery.slots.map((slot) => (
+							<div
+								class:list={[
+									'flex items-center justify-center bg-hermes-card p-4 text-center font-hermes-mono text-[10px] uppercase tracking-[0.08em] text-hermes-muted',
+									slot.wide
+										? 'col-span-2 aspect-[16/9] md:aspect-[16/9]'
+										: 'aspect-[4/3]',
+								]}
+							>
+								{slot.placeholder}
+							</div>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<!-- PAIN DASHBOARD -->
+		<section id="results" class="bg-hermes-ink text-hermes-paper">
+			<div class={`${page} ${wrap}  flex flex-col gap-4`}>
+				<span class="hermes-eyebrow">{painStats.eyebrow}</span>
+				<h2 class="my-5 max-w-[24ch] text-3xl leading-tight sm:text-4xl">{painStats.title}</h2>
+				<div class="grid grid-cols-1 border-2 border-hermes-line-soft md:grid-cols-3">
+					{
+						painStats.stats.map((stat, i) => (
+							<div
+								class:list={[
+									'px-7 py-10 md:border-r-2 md:border-hermes-line-soft last:md:border-r-0',
+									i > 0 && 'border-t-2 border-hermes-line-soft md:border-t-0',
+								]}
+							>
+								<div class="mb-5 font-hermes-mono text-[11px] uppercase tracking-[0.12em] opacity-50">
+									{stat.k}
+								</div>
+								<div class="text-6xl font-bold leading-[0.95] tracking-[-0.03em] text-hermes-orange sm:text-7xl lg:text-8xl">
+									{stat.big}
+								</div>
+								<div class="mt-3.5 max-w-[26ch] text-[15px] opacity-80">{stat.lab}</div>
+							</div>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<!-- TEAM -->
+		<section id="team">
+			<div class={`${page} ${wrap}`}>
+				<div class="mb-11 flex flex-wrap items-end justify-between gap-8">
+					<div>
+						<span class="hermes-eyebrow">{team.eyebrow}</span>
+						<h2 class="mt-4 max-w-[18ch] text-3xl sm:text-4xl lg:text-5xl">{team.title}</h2>
+					</div>
+					<p class="max-w-[56ch] text-[16px] leading-[1.6] text-hermes-muted">{team.lede}</p>
+				</div>
+				<div class="grid grid-cols-1 gap-0.5 border-2 border-hermes-ink bg-hermes-ink sm:grid-cols-2 lg:grid-cols-3">
+					{
+						team.agents.map((agent) => (
+							<div
+								class:list={[
+									'flex min-h-[200px] flex-col px-6 py-7',
+									agent.core ? 'bg-hermes-orange text-white' : 'bg-hermes-card',
+								]}
+							>
+								<div class="flex items-baseline justify-between">
+									<span
+										class:list={[
+											'font-hermes-mono text-[11px]',
+											agent.core ? 'text-white/90' : 'text-hermes-muted',
+										]}
+									>
+										{agent.num}
+									</span>
+									<span
+										class:list={[
+											'font-hermes-mono text-[10px] font-bold uppercase tracking-[0.08em]',
+											agent.core ? 'text-white/90' : 'text-hermes-orange',
+										]}
+									>
+										{agent.dept}
+									</span>
+								</div>
+								<h4 class="mb-1 mt-4 text-[25px]">{agent.name}</h4>
+								<span
+									class:list={[
+										'font-hermes-mono text-xs',
+										agent.core ? 'text-white/90' : 'text-hermes-muted',
+									]}
+								>
+									{agent.role}
+								</span>
+								<p
+									class:list={[
+										'mt-auto pt-4 text-[14.5px] leading-[1.5]',
+										agent.core ? 'text-white/90' : 'text-hermes-muted',
+									]}
+								>
+									{agent.body}
+								</p>
+							</div>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<!-- CONNECT / FLOW DIAGRAM -->
+		<section id="connect">
+			<div class={`${page} ${wrap}`}>
+				<div class="mb-11 flex flex-wrap items-end justify-between gap-8">
+					<div>
+						<span class="hermes-eyebrow">{connect.eyebrow}</span>
+						<h2 class="mt-4 max-w-[20ch] text-3xl sm:text-4xl lg:text-5xl">{connect.title}</h2>
+					</div>
+					<p class="max-w-[56ch] text-[16px] leading-[1.6] text-hermes-muted">{connect.lede}</p>
+				</div>
+				<FlowDiagram client:visible />
+			</div>
+		</section>
+
+		<!-- MOCKUPS -->
+		<section class="bg-hermes-paper-alt">
+			<div class={`${page} ${wrap}`}>
+				<div class="mb-7 flex flex-wrap items-end justify-between gap-8">
+					<div>
+						<span class="hermes-eyebrow">Output thật</span>
+						<h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl">5 agent làm ra gì mỗi ngày?</h2>
+					</div>
+					<p class="max-w-[56ch] text-[16px] leading-[1.6] text-hermes-muted">
+						Không phải lời hứa trừu tượng. Đây là những gì rơi vào hộp thư và bảng tính của anh.
+					</p>
+				</div>
+				<div
+					id="sceneBadge"
+					class="mb-[18px] inline-flex items-center gap-2 font-hermes-mono text-[11px] uppercase tracking-[0.08em] text-hermes-orange opacity-0 transition-opacity duration-300"
+				>
+					<span class="hermes-live-dot h-[7px] w-[7px] rounded-full bg-hermes-orange"></span>
+					<span data-scene-text>HERMES ĐANG CHẠY KỊCH BẢN…</span>
+				</div>
+				<div id="mocks" class="grid grid-cols-1 gap-[18px] md:grid-cols-2">
+					<!-- Pipeline sheet -->
+					<div class="hermes-mock border-2 border-hermes-ink bg-hermes-card">
+						<div
+							class="flex items-center gap-2 bg-hermes-ink px-3 py-2.5 font-hermes-mono text-[11px] text-hermes-paper"
+						>
+							<span class="h-2.5 w-2.5 rounded-full bg-[#3a352c]"></span>
+							<span class="h-2.5 w-2.5 rounded-full bg-[#3a352c]"></span>
+							<span class="ml-1.5 opacity-80">Hermès Funnel · Google Sheets — Pipeline</span>
+						</div>
+						<div class="font-hermes-mono text-[11px]">
+							{
+								[
+									{ a: 'Khách', b: 'Trạng thái', c: 'Giá trị', head: true },
+									{ a: 'Anh Minh · ACME', b: 'Đã báo giá', c: '32.4tr' },
+									{ a: 'Chị Hà · Bloom', b: 'Follow-up 3d', c: '12.0tr' },
+									{ a: 'Anh Sơn · Vela', b: 'Nóng', c: '48.5tr' },
+									{ a: 'Chị Lan · Koi', b: 'Mới', c: '—', last: true },
+								].map((row) => (
+									<div
+										class:list={[
+											'grid grid-cols-[1.4fr_1fr_0.8fr]',
+											!row.last && 'border-b border-hermes-hair',
+											row.head && 'bg-[#f0ece3] font-bold text-hermes-muted',
+										]}
+									>
+										<div class="border-r border-hermes-hair px-2 py-2">{row.a}</div>
+										<div
+											class:list={[
+												'border-r border-hermes-hair px-2 py-2',
+												!row.head && 'text-hermes-orange',
+											]}
+										>
+											{row.b}
+										</div>
+										<div class="px-2 py-2">{row.c}</div>
+									</div>
+								))
+							}
+						</div>
+					</div>
+					<!-- Gmail -->
+					<div class="hermes-mock border-2 border-hermes-ink bg-hermes-card">
+						<div
+							class="flex items-center gap-2 bg-hermes-ink px-3 py-2.5 font-hermes-mono text-[11px] text-hermes-paper"
+						>
+							<span class="h-2.5 w-2.5 rounded-full bg-[#3a352c]"></span>
+							<span class="h-2.5 w-2.5 rounded-full bg-[#3a352c]"></span>
+							<span class="ml-1.5 opacity-80">Hermès Sales · Gmail — Thư đi</span>
+						</div>
+						<div class="p-4 font-hermes-sans">
+							<div class="text-[13px] font-bold">Tới: minh@acme.vn</div>
+							<div class="my-1 text-[13px]">Báo giá gói Pro — Hợp đồng 12 tháng (#BG-204)</div>
+							<div class="text-[12.5px] leading-[1.5] text-hermes-muted">
+								Kính gửi anh Minh, cảm ơn anh đã quan tâm. Em xin gửi báo giá gói Pro cho 12 tháng,
+								tổng 32.400.000₫ đã gồm VAT. File chi tiết đính kèm…
+							</div>
+							<span class="mt-3 inline-block bg-hermes-orange px-3.5 py-1.5 font-hermes-mono text-[11px] text-white">
+								GỬI ✓
+							</span>
+						</div>
+					</div>
+					<!-- Facebook -->
+					<div class="hermes-mock border-2 border-hermes-ink bg-hermes-card">
+						<div
+							class="flex items-center gap-2 bg-hermes-ink px-3 py-2.5 font-hermes-mono text-[11px] text-hermes-paper"
+						>
+							<span class="h-2.5 w-2.5 rounded-full bg-[#3a352c]"></span>
+							<span class="h-2.5 w-2.5 rounded-full bg-[#3a352c]"></span>
+							<span class="ml-1.5 opacity-80">Hermès Voice + Visual · Facebook — Lên lịch</span>
+						</div>
+						<div class="p-4">
+							<div class="mb-2.5 flex items-center gap-2">
+								<div class="h-[30px] w-[30px] bg-hermes-orange"></div>
+								<div>
+									<div class="text-[13px] font-bold">Hermes Agent</div>
+									<div class="font-hermes-mono text-[10px] text-hermes-muted">
+										Lên lịch · 19:00 hôm nay
+									</div>
+								</div>
+							</div>
+							<div class="text-[13px] leading-[1.5]">
+								Anh còn copy-paste 30 tin báo giá mỗi sáng? Có một cách khác — để agent làm THAY,
+								không phải làm NHANH HƠN. 🧵
+							</div>
+							<div
+								class="mt-3 grid h-24 place-items-center border border-dashed border-hermes-hair bg-[repeating-linear-gradient(45deg,#f0ece3,#f0ece3_8px,#fbf9f4_8px,#fbf9f4_16px)] font-hermes-mono text-[10px] tracking-[0.08em] text-hermes-muted"
+							>
+								[ BANNER 1080×1080 · Hermès Visual ]
+							</div>
+						</div>
+					</div>
+					<!-- Briefing -->
+					<div class="hermes-mock border-2 border-hermes-ink bg-hermes-card">
+						<div
+							class="flex items-center gap-2 bg-hermes-ink px-3 py-2.5 font-hermes-mono text-[11px] text-hermes-paper"
+						>
+							<span class="h-2.5 w-2.5 rounded-full bg-[#3a352c]"></span>
+							<span class="h-2.5 w-2.5 rounded-full bg-[#3a352c]"></span>
+							<span class="ml-1.5 opacity-80">Hermès Daily · Email — Briefing 7:00</span>
+						</div>
+						<div class="p-4">
+							<div class="font-hermes-mono text-[11px] font-bold text-hermes-orange">
+								▸ Briefing sáng · Thứ Ba, 24/06
+							</div>
+							<ul class="mt-2.5 flex flex-col gap-2">
+								{
+									[
+										'3 lead nóng cần phản hồi trước trưa (Sơn, Hà, Minh).',
+										'2 báo giá quá hạn follow-up — Funnel đã nhắc.',
+										'Post Facebook 19h đã lên lịch, chờ anh duyệt.',
+										'Doanh thu tuần: 142tr (+18% so tuần trước).',
+									].map((line) => (
+										<li class="relative pl-[18px] text-[13px] before:absolute before:left-0 before:text-hermes-orange before:content-['▸']">
+											{line}
+										</li>
+									))
+								}
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- RADAR -->
+		<section>
+			<div class={`${page} ${wrap}`}>
+				<div class="mb-11">
+					<span class="hermes-eyebrow">{radar.eyebrow}</span>
+					<h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl">{radar.title}</h2>
+				</div>
+				<div
+					class="grid grid-cols-1 items-center gap-12 border-2 border-hermes-ink bg-hermes-card p-10 lg:grid-cols-[auto_1fr]"
+				>
+					<RadarChart client:visible />
+					<div class="flex flex-col gap-[18px]">
+						{
+							radar.legend.map((item, i) => (
+								<div class="flex items-start gap-3">
+									<span
+										class:list={[
+											'mt-0.5 h-[22px] w-[22px] shrink-0',
+											i === 0
+												? 'border-[1.5px] border-dashed border-hermes-muted bg-hermes-ink/[0.06]'
+												: 'border-[2.5px] border-hermes-orange bg-hermes-orange/[0.16]',
+										]}
+									/>
+									<div>
+										<h5 class="text-[17px]">{item.title}</h5>
+										<p class="mt-1 text-[13.5px] text-hermes-muted">{item.body}</p>
+									</div>
+								</div>
+							))
+						}
+						<p
+							class="mt-1.5 font-hermes-mono text-[11px] tracking-[0.04em] text-hermes-muted"
+						>
+							{radar.note}
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- STORY -->
+		<section class="bg-hermes-paper-alt">
+			<div class={`${page} ${wrap} `}>
+				<div class="mx-auto max-w-[760px] flex flex-col gap-4">
+					<span class="hermes-eyebrow">{story.eyebrow}</span>
+					<h2 class="my-5 text-3xl sm:text-4xl lg:text-5xl">{story.title}</h2>
+					{
+						story.paragraphs.map((para, i) => (
+							<p
+								class:list={[
+									'mb-5 text-[18.5px] leading-[1.72]',
+									i === 1 && 'text-hermes-muted',
+								]}
+							>
+								{para}
+							</p>
+						))
+					}
+					<div
+						class="my-10 font-hermes-serif text-3xl font-medium italic leading-[1.2] text-hermes-orange sm:text-4xl"
+					>
+						{story.pull}
+					</div>
+					<p class="text-[18.5px] leading-[1.72]">{story.closing}</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- CURRICULUM -->
+		<section id="curriculum">
+			<div class={`${page} ${wrap}`}>
+				<div class="mb-10 grid gap-6 lg:grid-cols-2">
+					<div>
+						<span class="hermes-eyebrow">{curriculum.eyebrow}</span>
+						<h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl">{curriculum.title}</h2>
+					</div>
+					<p class="text-[16px] leading-[1.6] text-hermes-muted">{curriculum.lede}</p>
+				</div>
+				<div class="border-2 border-hermes-ink">
+					{
+						curriculum.modules.map((mod, i) => (
+							<div
+								class:list={[
+									'grid grid-cols-[90px_1fr] border-hermes-ink bg-hermes-card border-b-2',
+									i === curriculum.modules.length - 1 && '!border-b-0',
+								]}
+							>
+								<div class="flex items-center border-r-2 border-hermes-ink px-5 py-6 font-hermes-mono text-[13px] font-bold text-hermes-orange">
+									{mod.n}
+								</div>
+								<div class="px-6 py-6">
+									<h4 class="mb-1.5 text-[20px]">{mod.title}</h4>
+									<p class="text-[14.5px] text-hermes-muted">{mod.body}</p>
+								</div>
+							</div>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<!-- PRICING -->
+		<section id="pricing" class="bg-hermes-paper-alt">
+			<div class={`${page} ${wrap}`}>
+				<div class="mb-10 max-w-3xl">
+					<span class="hermes-eyebrow">{pricing.eyebrow}</span>
+					<h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl">{pricing.title}</h2>
+					<p class="mt-3 text-[16px] leading-[1.6] text-hermes-muted">{pricing.lede}</p>
+				</div>
+				<div class="grid grid-cols-1 gap-0.5 border-2 border-hermes-ink bg-hermes-ink md:grid-cols-3">
+					{
+						pricing.tiers.map((tier) => (
+							<div
+								class:list={[
+									'flex flex-col px-6 py-8',
+									tier.feat ? 'bg-hermes-ink text-hermes-paper' : 'bg-hermes-card',
+								]}
+							>
+								<div class="flex items-start justify-between gap-4">
+									<div>
+										<p
+											class:list={[
+												'font-hermes-mono text-xs uppercase tracking-[0.1em]',
+												tier.feat ? 'text-hermes-paper' : 'text-hermes-muted',
+											]}
+										>
+											{tier.name}
+										</p>
+										{tier.tag && (
+											<span class="mt-2 inline-block font-hermes-mono text-[10px] font-bold text-hermes-orange">
+												{tier.tag}
+											</span>
+										)}
+									</div>
+								</div>
+								<div class="my-4 text-[38px] font-bold leading-none tracking-[-0.03em]">
+									{tier.price}{' '}
+									<span
+										class:list={[
+											'font-hermes-mono text-sm font-normal',
+											tier.feat ? 'text-[#a89c8c]' : 'text-hermes-muted',
+										]}
+									>
+										{tier.unit}
+									</span>
+								</div>
+								<ul class="mb-6 flex flex-1 flex-col gap-3">
+									{tier.features.map((feat) => (
+										<li
+											class:list={[
+												'relative pl-5 text-[14px] leading-[1.4] before:absolute before:left-0 before:font-bold before:text-hermes-orange before:content-["+"]',
+											]}
+										>
+											{feat}
+										</li>
+									))}
+								</ul>
+								<a
+									href={tier.cta.href}
+									class:list={[
+										'flex w-full items-center justify-center border-2 px-5 py-3.5 text-center text-sm font-bold',
+										tier.feat
+											? 'hermes-press border-hermes-orange bg-hermes-orange !text-white'
+											: 'border-hermes-ink bg-hermes-card !text-hermes-ink hover:bg-hermes-ink hover:!text-hermes-paper',
+									]}
+								>
+									{tier.cta.label}
+								</a>
+							</div>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<!-- TESTIMONIALS
+		<section id="reviews" class="bg-hermes-paper-alt">
+			<div class={`${page} ${wrap}`}>
+				<div class="mb-11 flex flex-wrap items-end justify-between gap-8">
+					<div>
+						<span class="hermes-eyebrow">{testimonials.eyebrow}</span>
+						<h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl">{testimonials.title}</h2>
+					</div>
+					<p class="max-w-[56ch] text-[16px] leading-[1.6] text-hermes-muted">
+						{testimonials.lede}{' '}
+						<span class="font-hermes-mono text-[13px] text-hermes-orange">
+							{testimonials.ledeNote}
+						</span>
+					</p>
+				</div>
+				<div
+					class="grid grid-cols-1 gap-0.5 border-2 border-hermes-ink bg-hermes-ink sm:grid-cols-2 lg:grid-cols-3"
+				>
+					{
+						testimonials.items.map((item) => (
+							<div class="flex flex-col gap-4 bg-hermes-card px-6 py-7">
+								<p class="flex-1 text-[15.5px] italic leading-[1.55] text-hermes-muted">
+									"{testimonials.placeholder}"
+								</p>
+								<div class="flex items-center gap-3">
+									<div class="h-[42px] w-[42px] shrink-0 bg-hermes-orange" />
+									<div>
+										<div class="text-sm font-bold">{item.name}</div>
+										<div class="mt-0.5 font-hermes-mono text-[11px] text-hermes-muted">
+											{item.role}
+										</div>
+									</div>
+								</div>
+							</div>
+						))
+					}
+				</div>
+			</div>
+		</section> -->
+
+		<!-- FAQ -->
+		<section>
+			<div class={`${page} ${wrap}`}>
+				<div class="mb-11">
+					<span class="hermes-eyebrow">{faq.eyebrow}</span>
+					<h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl">{faq.title}</h2>
+				</div>
+				<div class="border-2 border-hermes-ink">
+					{
+						faq.items.map((item, i) => (
+							<div
+								class:list={[
+									'hermes-faq-item border-hermes-ink bg-hermes-card',
+									i < faq.items.length - 1 && 'border-b-2',
+								]}
+							>
+								<div class="hermes-faq-q flex cursor-pointer select-none items-center justify-between gap-5 px-6 py-6 text-[17px] font-semibold">
+									<span>{item.q}</span>
+									<span class="hermes-faq-icon font-hermes-mono text-2xl text-hermes-orange transition-transform">
+										+
+									</span>
+								</div>
+								<div class="hermes-faq-a max-h-0 overflow-hidden text-hermes-muted transition-[max-height] duration-300 ease-in-out">
+									<p class="px-6 pb-6 text-[15px] leading-[1.6]">{item.a}</p>
+								</div>
+							</div>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<!-- CTA + FORM -->
+		<section id="signup-sec">
+			<div class={`${page} ${wrap}`}>
+				<div class="grid grid-cols-1 border-2 border-hermes-ink lg:grid-cols-[1.1fr_0.9fr]">
+					<div
+						class="border-b-2 border-hermes-ink bg-hermes-orange px-11 py-[52px] text-white lg:border-b-0 lg:border-r-2"
+					>
+						<span class="inline-flex items-center gap-2.5 font-hermes-mono text-[11px] font-bold uppercase tracking-[0.18em] text-white before:h-0.5 before:w-6 before:bg-white">
+							{cta.eyebrow}
+						</span>
+						<h2 class="my-5 text-4xl sm:text-5xl">
+							Việc lặp lại{' '}
+							<span class="font-hermes-serif font-medium italic">{cta.titleEm}</span> nữa.
+						</h2>
+						<p class="max-w-[32ch] text-[17px] leading-[1.6] opacity-90">{cta.body}</p>
+						<div
+							class="mt-6 inline-flex items-center gap-2 bg-white px-3.5 py-2 font-hermes-mono text-xs text-hermes-ink"
+						>
+							{cta.seats.split('·')[0]}·{' '}
+							<b class="text-hermes-orange">{cta.seatsAccent}</b>
+						</div>
+					</div>
+					<div class="bg-hermes-card px-11 py-11">
+						<div id="signupFormShell">
+							<h3 class="mb-1.5 text-[20px]">{cta.formTitle}</h3>
+							<div class="mb-6 text-sm text-hermes-muted">{cta.formSub}</div>
+							<form id="signup">
+								<div class="mb-3.5">
+									<label class="mb-1.5 block font-hermes-mono text-[11px] uppercase tracking-[0.06em] text-hermes-muted">
+										{cta.fields.name.label}
+									</label>
+									<input
+										type="text"
+										required
+										placeholder={cta.fields.name.placeholder}
+										class="w-full border-2 border-hermes-ink bg-hermes-paper px-3.5 py-3 font-hermes-sans text-[15px] focus:border-hermes-orange focus:outline-none"
+									/>
+								</div>
+								<div class="mb-3.5">
+									<label class="mb-1.5 block font-hermes-mono text-[11px] uppercase tracking-[0.06em] text-hermes-muted">
+										{cta.fields.email.label}
+									</label>
+									<input
+										type="email"
+										required
+										placeholder={cta.fields.email.placeholder}
+										class="w-full border-2 border-hermes-ink bg-hermes-paper px-3.5 py-3 font-hermes-sans text-[15px] focus:border-hermes-orange focus:outline-none"
+									/>
+								</div>
+								<div class="mb-3.5">
+									<label class="mb-1.5 block font-hermes-mono text-[11px] uppercase tracking-[0.06em] text-hermes-muted">
+										{cta.fields.plan.label}
+									</label>
+									<select class="w-full border-2 border-hermes-ink bg-hermes-paper px-3.5 py-3 font-hermes-sans text-[15px] focus:border-hermes-orange focus:outline-none">
+										{
+											cta.fields.plan.options.map((opt) => (
+												<option>{opt}</option>
+											))
+										}
+									</select>
+								</div>
+								<button
+									type="submit"
+									class="hermes-press w-full border-2 border-hermes-orange bg-hermes-orange px-5 py-3.5 text-center text-sm font-bold text-white"
+								>
+									{cta.submit}
+								</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- FOOTER -->
+		<footer class="border-t-2 border-hermes-ink bg-hermes-ink text-hermes-paper">
+			<div
+				class={`${page} flex flex-wrap items-center justify-between gap-5 py-9 font-hermes-mono text-xs tracking-[0.04em]`}
+			>
+				<span>
+					<span class="text-hermes-orange">{footer.left}</span>{footer.leftRest}
+				</span>
+				<span>{footer.right}</span>
+			</div>
+		</footer>
+
+		<script>
+			// Scene reveal for mockups: scroll into view triggers sequential reveal + active box shadow
+			const mocks = document.getElementById('mocks');
+			const badge = document.getElementById('sceneBadge');
+			const badgeText = badge?.querySelector('[data-scene-text]');
+			if (mocks && badge) {
+				const cards = Array.from(mocks.querySelectorAll('.hermes-mock'));
+				let played = false;
+				function play() {
+					if (played) return;
+					played = true;
+					badge.classList.add('opacity-100');
+					cards.forEach((c, i) => {
+						setTimeout(() => {
+							c.classList.add('opacity-100', 'translate-y-0');
+							c.classList.add('shadow-[0_0_0_2px_#f26c2c,_6px_6px_0_#f26c2c]');
+							setTimeout(() => c.classList.remove('shadow-[0_0_0_2px_#f26c2c,_6px_6px_0_#f26c2c]'), 900);
+							if (i === cards.length - 1 && badgeText) {
+								setTimeout(() => {
+									badge.classList.remove('opacity-100');
+									setTimeout(() => {
+										if (badgeText) badgeText.textContent = '✓ KỊCH BẢN HOÀN TẤT';
+										badge.classList.add('opacity-100');
+									}, 300);
+								}, 1000);
+							}
+						}, 500 + i * 750);
+					});
+				}
+				cards.forEach((c) => {
+					c.classList.add('opacity-30', 'translate-y-2.5', 'transition-all', 'duration-500');
+				});
+				const io = new IntersectionObserver(
+					(entries) => entries.forEach((e) => e.isIntersecting && play()),
+					{ threshold: 0.3 },
+				);
+				io.observe(mocks);
+			}
+
+			// FAQ accordion
+			document.querySelectorAll('.hermes-faq-q').forEach((q) => {
+				q.addEventListener('click', () => {
+					const item = q.closest('.hermes-faq-item');
+					const a = item?.querySelector('.hermes-faq-a') as HTMLElement;
+					const icon = q.querySelector('.hermes-faq-icon') as HTMLElement;
+					if (!item || !a || !icon) return;
+					const isOpen = item.classList.contains('open');
+					document.querySelectorAll('.hermes-faq-item').forEach((x) => {
+						x.classList.remove('open');
+						const xa = x.querySelector('.hermes-faq-a') as HTMLElement;
+						const xi = x.querySelector('.hermes-faq-icon') as HTMLElement;
+						if (xa) xa.style.maxHeight = '0';
+						if (xi) xi.style.transform = 'rotate(0deg)';
+					});
+					if (!isOpen) {
+						item.classList.add('open');
+						a.style.maxHeight = a.scrollHeight + 'px';
+						icon.style.transform = 'rotate(45deg)';
+					}
+				});
+			});
+
+			// Form submit → done state
+			const form = document.getElementById('signup');
+			const shell = document.getElementById('signupFormShell');
+			if (form && shell) {
+				form.addEventListener('submit', (e) => {
+					e.preventDefault();
+					shell.innerHTML = `
+            <div class="py-7 text-center">
+              <span class="font-hermes-mono text-xs font-bold uppercase tracking-[0.1em] text-hermes-orange">✓ ĐÃ NHẬN</span>
+              <p class="mt-3 text-hermes-muted">Cảm ơn anh. Hermes sẽ gửi link kích hoạt qua email trong ít phút.</p>
+            </div>
+          `;
+				});
+			}
+		</script>
+	</body>
+</html>
+
+<style>
+	.hermes-eyebrow {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		font-family: var(--font-hermes-mono);
+		font-size: 11px;
+		font-weight: 700;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		color: var(--color-hermes-orange);
+	}
+
+	.hermes-eyebrow::before {
+		content: '';
+		width: 24px;
+		height: 2px;
+		background: var(--color-hermes-orange);
+	}
+</style>

@@ -1,0 +1,165 @@
+---
+/**
+ * Dismissible announcement banner for Hermes Agent launch (05/07).
+ * Shows on home page and blog. User can dismiss via localStorage.
+ */
+import { getLocaleFromUrl } from '../i18n';
+
+const locale = getLocaleFromUrl(Astro.url);
+const isVi = locale === 'vi';
+
+const announcement = {
+	vi: {
+		text: '🚀 Ra mắt Hermes Agent ngày 05/07 — Đặt trước hôm nay để được giá ưu đãi 999k (giá mở bán: 1.999k)',
+		cta: 'Đặt trước ngay',
+		dismiss: 'Đóng',
+	},
+	en: {
+		text: '🚀 Hermes Agent launching 05/07 — Pre-order today for early-bird price 999k (launch price: 1.999k)',
+		cta: 'Pre-order now',
+		dismiss: 'Dismiss',
+	},
+};
+
+const copy = isVi ? announcement.vi : announcement.en;
+const ctaUrl = '/hermes#signup-sec';
+---
+
+<div id="hermes-announce-banner" class="hermes-announce-banner py-0.5" data-dismissed="false" style="display: none;">
+	<div class="announce-inner">
+		<span class="announce-text">{copy.text}</span>
+		<a href={ctaUrl} class="announce-cta">{copy.cta}</a>
+		<button
+			type="button"
+			id="hermes-announce-dismiss"
+			class="announce-dismiss"
+			aria-label={copy.dismiss}
+		>
+			✕
+		</button>
+	</div>
+</div>
+
+<script is:inline>
+	// Run immediately to avoid flash - check localStorage before anything renders
+	(function() {
+		const STORAGE_KEY = 'hermes-announce-dismissed';
+		const wasDismissed = localStorage.getItem(STORAGE_KEY) === 'true';
+
+		if (!wasDismissed) {
+			const banner = document.getElementById('hermes-announce-banner');
+			if (banner) {
+				banner.style.display = '';
+				document.body.style.paddingTop = '3.5rem';
+			}
+		}
+	})();
+</script>
+
+<script>
+	const STORAGE_KEY = 'hermes-announce-dismissed';
+	const banner = document.getElementById('hermes-announce-banner');
+	const dismissBtn = document.getElementById('hermes-announce-dismiss');
+
+	if (banner) {
+		dismissBtn?.addEventListener('click', () => {
+			localStorage.setItem(STORAGE_KEY, 'true');
+			banner.dataset.dismissed = 'true';
+			banner.style.display = 'none';
+			document.body.style.paddingTop = '';
+		});
+	}
+</script>
+
+<style>
+	.hermes-announce-banner {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 60;
+		background: linear-gradient(135deg, #f26c2c 10%, #e85a1a 100%);
+		color: white;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+	}
+
+	.announce-inner {
+		max-width: 1200px;
+		margin: 0 auto;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 1rem;
+		flex-wrap: wrap;
+	}
+
+	.announce-text {
+		font-size: 0.94rem;
+		font-weight: 600;
+		line-height: 1.4;
+		text-align: center;
+	}
+
+	.announce-cta {
+		display: inline-flex;
+		align-items: center;
+		padding: 0.5rem 1rem;
+		background: white;
+		color: #f26c2c;
+		font-size: 0.875rem;
+		font-weight: 700;
+		text-decoration: none;
+		border-radius: 6px;
+		transition: transform 0.15s ease;
+	}
+
+	.announce-cta:hover {
+		transform: translateY(-1px);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+	}
+
+	.announce-dismiss {
+		position: absolute;
+		right: 1rem;
+		top: 50%;
+		transform: translateY(-50%);
+		background: transparent;
+		border: none;
+		color: white;
+		font-size: 1.25rem;
+		cursor: pointer;
+		padding: 0.25rem 0.5rem;
+		opacity: 0.8;
+		transition: opacity 0.2s;
+	}
+
+	.announce-dismiss:hover {
+		opacity: 1;
+	}
+
+	@media (max-width: 768px) {
+		.hermes-announce-banner {
+			padding: 0.65rem 2.5rem 0.65rem 0.75rem;
+		}
+
+		.announce-inner {
+			justify-content: flex-start;
+			gap: 0.75rem;
+		}
+
+		.announce-text {
+			font-size: 0.85rem;
+			text-align: left;
+			flex: 1;
+		}
+
+		.announce-cta {
+			font-size: 0.8rem;
+			padding: 0.45rem 0.85rem;
+		}
+
+		.announce-dismiss {
+			right: 0.5rem;
+		}
+	}
+</style>

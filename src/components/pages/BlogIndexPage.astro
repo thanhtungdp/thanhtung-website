@@ -2,6 +2,7 @@
 import BlogPostCard from '../blog/BlogPostCard.astro';
 import BaseHead from '../BaseHead.astro';
 import Footer from '../Footer.astro';
+import AnnouncementBanner from '../AnnouncementBanner.astro';
 import ProjectAnimatedBackground from './project-detail/ProjectAnimatedBackground.astro';
 import { SITE_TITLE } from '../../consts';
 import { getTranslations, type Locale } from '../../i18n';
@@ -22,6 +23,7 @@ const posts = await getBlogPosts(locale);
 		<BaseHead title={`${t.blog.title} | ${SITE_TITLE}`} description={t.blog.description} locale={locale} />
 	</head>
 	<body>
+		<AnnouncementBanner />
 		<ProjectAnimatedBackground>
 		<main class="mx-auto site-container !py-8">
 			<section class="py-2">

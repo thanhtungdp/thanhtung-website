@@ -3,6 +3,7 @@ import BaseHead from '../../BaseHead.astro';
 import { Image } from 'astro:assets';
 import DavidTungLogo from '../../../assets/david-tung-logo-upload.png';
 import HermesIcon from '../../../assets/hermes-landing/icon.png';
+import HermesOgImage from '../../../assets/hermes-landing/featured.png';
 import HeroAnimatedBackground from './HeroAnimatedBackground.astro';
 import LiveChat from './LiveChat';
 import FlowDiagram from './FlowDiagram';
@@ -43,7 +44,7 @@ const wrap = 'py-6 sm:py-8';
 <!doctype html>
 <html lang={defaultLocale}>
 	<head>
-		<BaseHead title={title} description={description} locale={defaultLocale} />
+		<BaseHead title={title} description={description} image={HermesOgImage} locale={defaultLocale} />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link

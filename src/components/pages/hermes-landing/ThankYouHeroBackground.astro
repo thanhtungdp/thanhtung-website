@@ -1,0 +1,218 @@
+---
+// "Level-up" 3D background for the thank-you hero: a perspective grid floor
+// scrolling toward the viewer, spinning cubes, flipping coins, twinkling
+// sparks. Pure CSS 3D transforms (preserve-3d) — kept in a scoped component
+// because Tailwind can't express cube faces / 3D transforms cleanly.
+// pointer-events-none so it never blocks the hero content above it.
+
+// face positions reused by every cube
+const cubeFaces = ['front', 'back', 'right', 'left', 'top', 'bottom'] as const;
+
+const cubes = [
+	{ style: 'top:11%; right:9%;', delay: '0s', scale: 1, glyph: '?' },
+	{ style: 'top:46%; right:24%;', delay: '0.6s', scale: 0.72, glyph: '?' },
+	{ style: 'top:6%; left:3%;', delay: '1.1s', scale: 0.6, glyph: '↑' },
+];
+
+const coins = [
+	{ style: 'top:28%; right:15%;', delay: '0.3s', scale: 1 },
+	{ style: 'top:60%; right:7%;', delay: '0.9s', scale: 1 },
+	{ style: 'top:21%; right:33%;', delay: '1.4s', scale: 0.8 },
+	{ style: 'bottom:20%; right:21%;', delay: '0.5s', scale: 0.85 },
+];
+
+const sparks = [
+	{ style: 'top:30%; right:42%;', delay: '0.2s' },
+	{ style: 'top:16%; right:24%;', delay: '0.8s' },
+	{ style: 'top:52%; right:38%;', delay: '1.3s' },
+	{ style: 'bottom:30%; right:10%;', delay: '0.6s' },
+];
+---
+
+<div class="ty-hero-bg" aria-hidden="true">
+	<div class="ty-floor"></div>
+	{
+		cubes.map((cube) => (
+			<div class="ty-float" style={`${cube.style} animation-delay:${cube.delay}; scale:${cube.scale};`}>
+				<div class="ty-cube">
+					{cubeFaces.map((face) => (
+						<span class={`ty-face ty-${face}`}>{face === 'front' ? cube.glyph : ''}</span>
+					))}
+				</div>
+			</div>
+		))
+	}
+	{
+		coins.map((coin) => (
+			<div class="ty-float" style={`${coin.style} animation-delay:${coin.delay}; scale:${coin.scale};`}>
+				<div class="ty-coin" />
+			</div>
+		))
+	}
+	{
+		sparks.map((spark) => (
+			<span class="ty-spark" style={`${spark.style} animation-delay:${spark.delay};`}>
+				✦
+			</span>
+		))
+	}
+</div>
+
+<style>
+	.ty-hero-bg {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		pointer-events: none;
+		overflow: hidden;
+		perspective: 560px;
+	}
+
+	.ty-floor {
+		position: absolute;
+		left: -25%;
+		right: -25%;
+		bottom: -12%;
+		height: 58%;
+		background-image: linear-gradient(rgba(255, 255, 255, 0.55) 2px, transparent 2px),
+			linear-gradient(90deg, rgba(255, 255, 255, 0.55) 2px, transparent 2px);
+		background-size: 48px 48px;
+		opacity: 0.14;
+		transform: rotateX(66deg);
+		transform-origin: bottom center;
+		animation: ty-floor 1.5s linear infinite;
+	}
+
+	@keyframes ty-floor {
+		from {
+			background-position: 0 0;
+		}
+		to {
+			background-position: 0 48px;
+		}
+	}
+
+	.ty-float {
+		position: absolute;
+		animation: ty-bob 2.8s ease-in-out infinite;
+	}
+
+	@keyframes ty-bob {
+		0%,
+		100% {
+			transform: translateY(0);
+		}
+		50% {
+			transform: translateY(-14px);
+		}
+	}
+
+	.ty-cube {
+		width: 44px;
+		height: 44px;
+		position: relative;
+		transform-style: preserve-3d;
+		animation: ty-spin 5.5s linear infinite;
+	}
+
+	@keyframes ty-spin {
+		from {
+			transform: rotateX(-16deg) rotateY(0);
+		}
+		to {
+			transform: rotateX(-16deg) rotateY(360deg);
+		}
+	}
+
+	.ty-face {
+		position: absolute;
+		inset: 0;
+		border: 2px solid #000;
+	}
+
+	.ty-front {
+		transform: translateZ(22px);
+		background: #ffffff;
+		color: #16140f;
+		display: grid;
+		place-items: center;
+		font-family: var(--font-hermes-mono);
+		font-weight: 700;
+		font-size: 22px;
+	}
+	.ty-back {
+		transform: rotateY(180deg) translateZ(22px);
+		background: #8f877a;
+	}
+	.ty-right {
+		transform: rotateY(90deg) translateZ(22px);
+		background: #cfc8bb;
+	}
+	.ty-left {
+		transform: rotateY(-90deg) translateZ(22px);
+		background: #cfc8bb;
+	}
+	.ty-top {
+		transform: rotateX(90deg) translateZ(22px);
+		background: #ffffff;
+	}
+	.ty-bottom {
+		transform: rotateX(-90deg) translateZ(22px);
+		background: #6f685d;
+	}
+
+	.ty-coin {
+		width: 28px;
+		height: 28px;
+		border-radius: 50%;
+		background: #ffffff;
+		border: 2px solid #000;
+		position: relative;
+		animation: ty-flip 1.3s linear infinite;
+	}
+	.ty-coin::after {
+		content: '';
+		position: absolute;
+		inset: 5px;
+		border: 2px solid rgba(0, 0, 0, 0.28);
+		border-radius: 50%;
+	}
+
+	@keyframes ty-flip {
+		0% {
+			transform: rotateY(0);
+		}
+		100% {
+			transform: rotateY(360deg);
+		}
+	}
+
+	.ty-spark {
+		position: absolute;
+		color: #ffffff;
+		font-size: 16px;
+		animation: ty-twinkle 2.2s ease-in-out infinite;
+	}
+
+	@keyframes ty-twinkle {
+		0%,
+		100% {
+			opacity: 0.15;
+			transform: scale(0.7);
+		}
+		50% {
+			opacity: 0.9;
+			transform: scale(1.1);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.ty-floor,
+		.ty-float,
+		.ty-cube,
+		.ty-coin,
+		.ty-spark {
+			animation: none !important;
+		}
+	}
+</style>

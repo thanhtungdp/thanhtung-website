@@ -376,8 +376,8 @@ export const cta = {
 	title: 'Việc lặp lại không cần bạn nữa.',
 	titleEm: 'không cần bạn',
 	body: 'Trong 4 tuần, em coach bạn từ AI-aware → AI-operator. Đặt trước hôm nay để được giá ưu đãi 999k (giá mở bán: 1.999k).',
-	seats: '50 chỗ đặt trước · còn 42',
-	seatsAccent: 'còn 42',
+	seats: '20 chỗ đặt trước · còn 10',
+	seatsAccent: 'còn 10',
 	formTitle: 'Đặt trước Hermes Pro',
 	formSub: 'Khóa học ra mắt 05/07. Đặt trước để nhận giá sớm.',
 	fields: {

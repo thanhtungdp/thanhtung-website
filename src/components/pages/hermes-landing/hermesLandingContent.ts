@@ -183,7 +183,7 @@ export const team = {
 export const connect = {
 	eyebrow: 'Kết nối',
 	title: 'Một Hermes — nối mọi tool, ra mọi outcome.',
-	lede: 'Bên trái: các tool bạn đang dùng. Ở giữa: Hermes điều phối. Bên phải: kết quả cụ thể rơi ra mỗi ngày.',
+	lede: 'Bạn vẫn dùng những tool quen thuộc. Hermes chỉ đứng giữa, nối chúng lại — và mỗi ngày, kết quả tự rơi ra mà bạn không phải động tay.',
 	toolsLabel: 'Kết nối tools',
 	outcomeLabel: 'Outcome cụ thể',
 	tools: ['Telegram', 'Gmail', 'Google Sheets', 'Facebook', 'Canva', 'CRM / Zalo'],

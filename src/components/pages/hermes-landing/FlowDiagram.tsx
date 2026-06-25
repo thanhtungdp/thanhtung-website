@@ -57,7 +57,7 @@ export default function FlowDiagram() {
 	const isMobile = size.w > 0 && size.w < 640;
 
 	return (
-		<div ref={containerRef} className="relative min-h-[480px] sm:min-h-[520px]">
+		<div ref={containerRef} className="relative">
 			{/* SVG connector layer */}
 			{!isMobile && size.w > 0 && (
 				<svg

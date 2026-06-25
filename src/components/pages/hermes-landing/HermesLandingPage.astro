@@ -174,7 +174,7 @@ const wrap = 'py-6 sm:py-8';
 			</div>
 		</section>
 
-		<!-- WHAT IS HERMES -->
+		<!-- WHAT IS HERMES
 		<section id="what-is">
 			<div class={`${page} ${wrap}`}>
 				<div class="border-2 border-hermes-ink bg-hermes-card px-8 py-8 sm:px-10">
@@ -185,50 +185,22 @@ const wrap = 'py-6 sm:py-8';
 					</div>
 				</div>
 			</div>
-		</section>
-
-		<!-- AWARE vs OPERATOR -->
-		<section id="aware">
-			<div class={`${page} ${wrap} flex flex-col gap-4`}>
-				<span class="hermes-eyebrow">{aware.eyebrow}</span>
-				<h2 class="my-5 max-w-[20ch] text-3xl sm:text-4xl lg:text-5xl">
-					Hai trạng thái. Một khoảng cách tên là{' '}
-					<span class="font-hermes-serif font-medium italic">{aware.titleEm}</span>
-				</h2>
-				<div class="grid grid-cols-1 border-2 border-hermes-ink md:grid-cols-2">
-					<div class="border-b-2 flex flex-col gap-4 border-hermes-ink bg-hermes-card px-8 py-9 md:border-b-0 md:border-r-2">
-						<h3 class="mb-6 font-hermes-mono text-[13px] uppercase tracking-[0.1em]">
-							{aware.left.heading}
-						</h3>
-						<ul class="flex flex-col gap-3.5">
-							{
-								aware.left.items.map((item) => (
-									<li class="relative pl-6 text-[15.5px] leading-[1.4] before:absolute before:left-0 before:opacity-60 before:content-['→']">
-										{item}
-									</li>
-								))
-							}
-						</ul>
+		</section> -->
+		<!-- CONNECT / FLOW DIAGRAM -->
+		<section id="connect">
+			<div class={`${page} ${wrap}`}>
+				<div class="mb-11 flex flex-wrap items-end justify-between gap-8">
+					<div>
+						<span class="hermes-eyebrow">{connect.eyebrow}</span>
+						<h2 class="mt-4 max-w-[20ch] text-3xl sm:text-4xl lg:text-5xl">{connect.title}</h2>
 					</div>
-					<div class="bg-hermes-orange px-8 py-9 text-white">
-						<h3 class="mb-6 font-hermes-mono text-[13px] uppercase tracking-[0.1em]">
-							{aware.right.heading}
-						</h3>
-						<ul class="flex flex-col gap-3.5">
-							{
-								aware.right.items.map((item) => (
-									<li class="relative pl-6 text-[15.5px] leading-[1.4] before:absolute before:left-0 before:opacity-60 before:content-['→']">
-										{item}
-									</li>
-								))
-							}
-						</ul>
-					</div>
+					<p class="max-w-[56ch] text-[16px] leading-[1.6] text-hermes-muted">{connect.lede}</p>
 				</div>
+				<FlowDiagram client:visible />
 			</div>
 		</section>
 
-		<!-- GALLERY -->
+		<!-- GALLERY
 		<section id="gallery">
 			<div class={`${page} ${wrap}`}>
 				<div class="mb-11 flex flex-wrap items-end justify-between gap-8">
@@ -255,7 +227,49 @@ const wrap = 'py-6 sm:py-8';
 					}
 				</div>
 			</div>
+		</section> -->
+
+		<!-- AWARE vs OPERATOR -->
+		<section id="aware">
+			<div class={`${page} ${wrap} flex flex-col gap-4`}>
+				<span class="hermes-eyebrow">{aware.eyebrow}</span>
+				<h2 class="my-5 max-w-[20ch] text-3xl sm:text-4xl lg:text-5xl">
+					Hai trạng thái. Một khoảng cách tên là{' '}
+					<span class="font-hermes-serif font-medium italic">{aware.titleEm}</span>
+				</h2>
+				<div class="grid grid-cols-1 border-2 border-hermes-ink md:grid-cols-2">
+					<div class="border-b-2 flex flex-col gap-4 border-hermes-ink bg-hermes-card px-8 py-9 md:border-b-0 md:border-r-2">
+						<h3 class="mb-6 font-hermes-mono text-[13px] uppercase tracking-[0.1em]">
+							{aware.left.heading}
+						</h3>
+						<ul class="flex flex-col gap-3.5">
+							{
+								aware.left.items.map((item) => (
+									<li class="relative pl-6 text-[15.5px] leading-[1.4] before:absolute before:left-0 before:opacity-60 before:content-['→']">
+										{item}
+									</li>
+								))
+							}
+						</ul>
+					</div>
+					<div class="flex flex-col gap-4 bg-hermes-orange px-8 py-9 text-white">
+						<h3 class="mb-6 font-hermes-mono text-[13px] uppercase tracking-[0.1em]">
+							{aware.right.heading}
+						</h3>
+						<ul class="flex flex-col gap-3.5">
+							{
+								aware.right.items.map((item) => (
+									<li class="relative pl-6 text-[15.5px] leading-[1.4] before:absolute before:left-0 before:opacity-60 before:content-['→']">
+										{item}
+									</li>
+								))
+							}
+						</ul>
+					</div>
+				</div>
+			</div>
 		</section>
+
 
 		<!-- PAIN DASHBOARD -->
 		<section id="results" class="bg-hermes-ink text-hermes-paper">
@@ -346,19 +360,7 @@ const wrap = 'py-6 sm:py-8';
 			</div>
 		</section>
 
-		<!-- CONNECT / FLOW DIAGRAM -->
-		<section id="connect">
-			<div class={`${page} ${wrap}`}>
-				<div class="mb-11 flex flex-wrap items-end justify-between gap-8">
-					<div>
-						<span class="hermes-eyebrow">{connect.eyebrow}</span>
-						<h2 class="mt-4 max-w-[20ch] text-3xl sm:text-4xl lg:text-5xl">{connect.title}</h2>
-					</div>
-					<p class="max-w-[56ch] text-[16px] leading-[1.6] text-hermes-muted">{connect.lede}</p>
-				</div>
-				<FlowDiagram client:visible />
-			</div>
-		</section>
+
 
 		<!-- MOCKUPS -->
 		<section class="bg-hermes-paper-alt">
@@ -504,7 +506,7 @@ const wrap = 'py-6 sm:py-8';
 			</div>
 		</section>
 
-		<!-- STORY -->
+		<!-- STORY
 		<section class="bg-hermes-paper-alt">
 			<div class={`${page} ${wrap} `}>
 				<div class="mx-auto max-w-[760px] flex flex-col gap-4">
@@ -530,7 +532,7 @@ const wrap = 'py-6 sm:py-8';
 					<p class="text-[18.5px] leading-[1.72]">{story.closing}</p>
 				</div>
 			</div>
-		</section>
+		</section> -->
 
 		<!-- CURRICULUM -->
 		<section id="curriculum">

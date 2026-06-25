@@ -3,7 +3,7 @@ import { connect } from './hermesLandingContent';
 
 // Draws animated cubic bezier paths from each tool node to the hub and from
 // the hub to each outcome node. Re-measures on resize so it stays accurate.
-export default function FlowDiagram() {
+export default function FlowDiagram({ coreIcon }: { coreIcon?: string }) {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const leftRef = useRef<HTMLDivElement>(null);
 	const rightRef = useRef<HTMLDivElement>(null);
@@ -111,6 +111,13 @@ export default function FlowDiagram() {
 						ref={hubRef}
 						className="flex h-[150px] w-[150px] flex-col items-center justify-center border-2 border-hermes-ink bg-hermes-orange text-white shadow-[8px_8px_0_#16140f]"
 					>
+						{coreIcon && (
+							<img
+								src={coreIcon}
+								alt="Hermes Core"
+								className="mb-1.5 h-10 w-10 object-contain"
+							/>
+						)}
 						<span className="font-hermes-sans text-2xl font-bold tracking-tight">HERMES</span>
 						<span className="font-hermes-mono mt-1 text-[11px] tracking-[0.14em] opacity-85">
 							CORE

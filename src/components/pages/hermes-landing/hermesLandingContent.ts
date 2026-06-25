@@ -126,15 +126,15 @@ export const painStats = {
 
 export const team = {
 	eyebrow: 'Đội ngũ Hermès',
-	title: '5 agent. 3 phòng ban. Ít mà sâu.',
-	lede: 'Mỗi agent là một năng lực thật — không phải feature creep. Số tối thiểu để vẫn có cảm giác "team".',
+	title: '5 agent. Ít mà sâu.',
+	lede: 'Mỗi agent là một năng lực thật — không thêm cho có. Đủ để một mình vẫn có cảm giác như đang dẫn cả một team.',
 	agents: [
 		{
 			num: '01',
 			dept: 'Phòng Sales',
 			name: 'Hermès Sales',
 			role: 'Trợ lý Báo giá & Email',
-			body: 'Tạo báo giá → sinh email → log lại.',
+			body: 'Tạo báo giá , nhiều báo giá → sinh email → đồng bộ CRM - Excel, làm hợp đồng',
 			core: false,
 		},
 		{
@@ -142,7 +142,7 @@ export const team = {
 			dept: 'Phòng Sales',
 			name: 'Hermès Funnel',
 			role: 'Quản lý Lead & Nhắc hẹn',
-			body: 'Phân loại lead, follow-up đúng giờ.',
+			body: 'Phân loại lead, lên kịch bản follow up email tự động, tìm hiểu về leads',
 			core: false,
 		},
 		{
@@ -158,7 +158,7 @@ export const team = {
 			dept: 'Marketing',
 			name: 'Hermès Voice',
 			role: 'Tác giả Content',
-			body: 'Viết caption, post, blog theo brand voice.',
+			body: 'Viết bài viết viral, post, blog theo thương hiệu.',
 			core: false,
 		},
 		{
@@ -166,7 +166,7 @@ export const team = {
 			dept: 'Marketing',
 			name: 'Hermès Visual',
 			role: 'Designer & Producer',
-			body: 'Sinh banner, poster, video ngắn.',
+			body: 'Làm banner, poster, video ngắn.',
 			core: false,
 		},
 		{
@@ -174,7 +174,7 @@ export const team = {
 			dept: 'Điều hành',
 			name: 'Hermès Daily',
 			role: 'Chánh Văn phòng',
-			body: 'Briefing 7h sáng + báo cáo tuần.',
+			body: 'Briefing 7h sáng + báo cáo tuần, cập nhật tin tức quan trọng',
 			core: false,
 		},
 	],
@@ -182,7 +182,7 @@ export const team = {
 
 export const connect = {
 	eyebrow: 'Kết nối',
-	title: 'Một Hermes — nối mọi tool, ra mọi outcome.',
+	title: 'Một Hermes — nối mọi công cụ, tự động hóa.',
 	lede: 'Bạn vẫn dùng những tool quen thuộc. Hermes chỉ đứng giữa, nối chúng lại — và mỗi ngày, kết quả tự rơi ra mà bạn không phải động tay.',
 	toolsLabel: 'Kết nối tools',
 	outcomeLabel: 'Outcome cụ thể',
@@ -194,6 +194,38 @@ export const connect = {
 		'Báo giá khách hàng',
 		'Briefing hằng ngày',
 		'Lịch đăng content',
+	],
+};
+
+export const videoShowcase = {
+	eyebrow: 'Output thật · Tự động hoàn toàn',
+	title: 'Hermes tự sản xuất — không chỉnh tay.',
+	lede: 'Từ lên kịch bản 90s đến video hoàn chỉnh. Đây là những gì Hermes làm tự động mỗi ngày trong lúc tôi tập gym',
+	videos: [
+		{
+			id: 'top10ceo',
+			src: '/videos/top10ceo.mp4',
+			title: 'Top 10 CEO',
+			thumbnail: '/videos/top10ceo.mp4#t=1',
+		},
+		{
+			id: 'langchain',
+			src: '/videos/langchain.mp4',
+			title: 'LangChain Tutorial',
+			thumbnail: '/videos/langchain.mp4#t=2',
+		},
+		{
+			id: 'dify',
+			src: '/videos/dify.mp4',
+			title: 'Dify Platform',
+			thumbnail: '/videos/dify.mp4#t=2',
+		},
+		{
+			id: '5ways',
+			src: '/videos/5waysvideo.mp4',
+			title: '5 Ways Video',
+			thumbnail: '/videos/5waysvideo.mp4#t=2',
+		},
 	],
 };
 

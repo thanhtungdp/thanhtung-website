@@ -6,6 +6,7 @@ import HermesIcon from '../../../assets/hermes-landing/icon.png';
 import HeroAnimatedBackground from './HeroAnimatedBackground.astro';
 import LiveChat from './LiveChat';
 import FlowDiagram from './FlowDiagram';
+import VideoShowcase from './VideoShowcase';
 import CheckOutModal from '../../ui/CheckOutModal';
 import {
 	nav,
@@ -17,6 +18,7 @@ import {
 	painStats,
 	team,
 	connect,
+	videoShowcase,
 	story,
 	curriculum,
 	pricing,
@@ -196,7 +198,25 @@ const wrap = 'py-6 sm:py-8';
 					</div>
 					<p class="max-w-[56ch] text-[16px] leading-[1.6] text-hermes-muted">{connect.lede}</p>
 				</div>
-				<FlowDiagram client:visible />
+				<FlowDiagram client:visible coreIcon={HermesIcon.src} />
+			</div>
+		</section>
+
+		<!-- VIDEO SHOWCASE -->
+		<section id="videos">
+			<div class={`${page} ${wrap}`}>
+				<div class="mb-8 flex flex-wrap items-end justify-between gap-8">
+					<div>
+						<span class="hermes-eyebrow">{videoShowcase.eyebrow}</span>
+						<h2 class="mt-4 max-w-[20ch] text-3xl sm:text-4xl lg:text-5xl">
+							{videoShowcase.title}
+						</h2>
+					</div>
+					<p class="max-w-[56ch] text-[16px] leading-[1.6] text-hermes-muted">
+						{videoShowcase.lede}
+					</p>
+				</div>
+				<VideoShowcase client:visible />
 			</div>
 		</section>
 

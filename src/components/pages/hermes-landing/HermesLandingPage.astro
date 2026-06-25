@@ -5,8 +5,8 @@ import DavidTungLogo from '../../../assets/david-tung-logo-upload.png';
 import HermesIcon from '../../../assets/hermes-landing/icon.png';
 import HeroAnimatedBackground from './HeroAnimatedBackground.astro';
 import LiveChat from './LiveChat';
-import RadarChart from './RadarChart';
 import FlowDiagram from './FlowDiagram';
+import CheckOutModal from '../../ui/CheckOutModal';
 import {
 	nav,
 	hero,
@@ -17,7 +17,6 @@ import {
 	painStats,
 	team,
 	connect,
-	radar,
 	story,
 	curriculum,
 	pricing,
@@ -107,7 +106,8 @@ const wrap = 'py-6 sm:py-8';
 								{hero.titleAware}
 							</span><br />
 							{hero.titleMid}{' '}
-							<em class="not-italic text-hermes-orange">{hero.titleOperator}</em>
+							<em class="not-italic text-hermes-orange">{hero.titleOperator}</em><br />
+							{hero.titleTail}
 						</h1>
 						<p class="text-hermes-muted">{hero.lede}</p>
 						<div class="mt-9 flex border-2 border-hermes-ink">
@@ -177,45 +177,12 @@ const wrap = 'py-6 sm:py-8';
 		<!-- WHAT IS HERMES -->
 		<section id="what-is">
 			<div class={`${page} ${wrap}`}>
-				<div class="grid grid-cols-1 border-2 border-hermes-ink lg:grid-cols-[1.15fr_0.85fr]">
-					<div class="flex flex-col gap-4 border-b-2 border-hermes-ink bg-hermes-card px-8 py-10 sm:px-10 lg:border-b-0 lg:border-r-2">
+				<div class="border-2 border-hermes-ink bg-hermes-card px-8 py-8 sm:px-10">
+					<div class="flex max-w-[78ch] flex-col gap-4">
 						<span class="hermes-eyebrow">{whatIs.eyebrow}</span>
-						<h2 class="mt-4 mb-5 text-3xl sm:text-4xl lg:text-5xl">{whatIs.title}</h2>
-						<p class="mb-5 text-[17px] leading-[1.7] text-hermes-muted">{whatIs.body}</p>
+						<p class="text-[17px] leading-[1.65] text-hermes-muted">{whatIs.body}</p>
 						<p class="text-[17px] leading-[1.7] text-hermes-muted">{whatIs.body2}</p>
 					</div>
-					<div class="grid grid-cols-1 bg-hermes-ink text-hermes-paper">
-						{
-							whatIs.stats.map((stat, i) => (
-								<div
-									class:list={[
-										'px-8 py-7 sm:px-10',
-										i < whatIs.stats.length - 1 && 'border-b-2 border-hermes-line-soft',
-									]}
-								>
-									<div class="text-4xl font-bold leading-none tracking-[-0.03em] text-hermes-orange sm:text-5xl">
-										{stat.big}
-									</div>
-									<div class="mt-2.5 text-[14px] leading-[1.5] opacity-80">{stat.lab}</div>
-								</div>
-							))
-						}
-					</div>
-				</div>
-
-				<div class="mt-0.5 flex flex-col gap-4 border-2 border-t-0 border-hermes-ink bg-hermes-orange px-8 py-10 text-white sm:px-10">
-					<h3 class="mb-6 text-2xl sm:text-3xl">{whatIs.whyTitle}</h3>
-					<ul class="grid gap-4 lg:grid-cols-3">
-						{
-							whatIs.whyItems.map((item, i) => (
-								<li class="flex flex-col gap-3 border-t-2 border-white/30 pt-4">
-									<span class="font-hermes-mono text-xs font-bold">{`0${i + 1}`}</span>
-									<span class="text-[15.5px] leading-[1.5]">{item}</span>
-								</li>
-							))
-						}
-					</ul>
-					<p class="mt-7 max-w-[68ch] text-[16px] leading-[1.6] opacity-90">{whatIs.whyClosing}</p>
 				</div>
 			</div>
 		</section>
@@ -410,9 +377,38 @@ const wrap = 'py-6 sm:py-8';
 					class="mb-[18px] inline-flex items-center gap-2 font-hermes-mono text-[11px] uppercase tracking-[0.08em] text-hermes-orange opacity-0 transition-opacity duration-300"
 				>
 					<span class="hermes-live-dot h-[7px] w-[7px] rounded-full bg-hermes-orange"></span>
-					<span data-scene-text>HERMES ĐANG CHẠY KỊCH BẢN…</span>
+					<span data-scene-text>HERMES ĐANG LÀM VIỆC…</span>
 				</div>
 				<div id="mocks" class="grid grid-cols-1 gap-[18px] md:grid-cols-2">
+					<!-- Briefing -->
+					<div class="hermes-mock border-2 border-hermes-ink bg-hermes-card">
+						<div
+							class="flex items-center gap-2 bg-hermes-ink px-3 py-2.5 font-hermes-mono text-[11px] text-hermes-paper"
+						>
+							<span class="h-2.5 w-2.5 rounded-full bg-[#3a352c]"></span>
+							<span class="h-2.5 w-2.5 rounded-full bg-[#3a352c]"></span>
+							<span class="ml-1.5 opacity-80">Hermès Daily · Email — Briefing 7:00</span>
+						</div>
+						<div class="p-4">
+							<div class="font-hermes-mono text-[11px] font-bold text-hermes-orange">
+								▸ Briefing sáng · Thứ Ba, 24/06
+							</div>
+							<ul class="mt-2.5 flex flex-col gap-2">
+								{
+									[
+										'3 lead nóng cần phản hồi trước trưa (Sơn, Hà, Minh).',
+										'2 báo giá quá hạn follow-up — Funnel đã nhắc.',
+										'Post Facebook 19h đã lên lịch, chờ anh duyệt.',
+										'Doanh thu tuần: 142tr (+18% so tuần trước).',
+									].map((line) => (
+										<li class="relative pl-[18px] text-[13px] before:absolute before:left-0 before:text-hermes-orange before:content-['▸']">
+											{line}
+										</li>
+									))
+								}
+							</ul>
+						</div>
+					</div>
 					<!-- Pipeline sheet -->
 					<div class="hermes-mock border-2 border-hermes-ink bg-hermes-card">
 						<div
@@ -504,75 +500,6 @@ const wrap = 'py-6 sm:py-8';
 							</div>
 						</div>
 					</div>
-					<!-- Briefing -->
-					<div class="hermes-mock border-2 border-hermes-ink bg-hermes-card">
-						<div
-							class="flex items-center gap-2 bg-hermes-ink px-3 py-2.5 font-hermes-mono text-[11px] text-hermes-paper"
-						>
-							<span class="h-2.5 w-2.5 rounded-full bg-[#3a352c]"></span>
-							<span class="h-2.5 w-2.5 rounded-full bg-[#3a352c]"></span>
-							<span class="ml-1.5 opacity-80">Hermès Daily · Email — Briefing 7:00</span>
-						</div>
-						<div class="p-4">
-							<div class="font-hermes-mono text-[11px] font-bold text-hermes-orange">
-								▸ Briefing sáng · Thứ Ba, 24/06
-							</div>
-							<ul class="mt-2.5 flex flex-col gap-2">
-								{
-									[
-										'3 lead nóng cần phản hồi trước trưa (Sơn, Hà, Minh).',
-										'2 báo giá quá hạn follow-up — Funnel đã nhắc.',
-										'Post Facebook 19h đã lên lịch, chờ anh duyệt.',
-										'Doanh thu tuần: 142tr (+18% so tuần trước).',
-									].map((line) => (
-										<li class="relative pl-[18px] text-[13px] before:absolute before:left-0 before:text-hermes-orange before:content-['▸']">
-											{line}
-										</li>
-									))
-								}
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-
-		<!-- RADAR -->
-		<section>
-			<div class={`${page} ${wrap}`}>
-				<div class="mb-11">
-					<span class="hermes-eyebrow">{radar.eyebrow}</span>
-					<h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl">{radar.title}</h2>
-				</div>
-				<div
-					class="grid grid-cols-1 items-center gap-12 border-2 border-hermes-ink bg-hermes-card p-10 lg:grid-cols-[auto_1fr]"
-				>
-					<RadarChart client:visible />
-					<div class="flex flex-col gap-[18px]">
-						{
-							radar.legend.map((item, i) => (
-								<div class="flex items-start gap-3">
-									<span
-										class:list={[
-											'mt-0.5 h-[22px] w-[22px] shrink-0',
-											i === 0
-												? 'border-[1.5px] border-dashed border-hermes-muted bg-hermes-ink/[0.06]'
-												: 'border-[2.5px] border-hermes-orange bg-hermes-orange/[0.16]',
-										]}
-									/>
-									<div>
-										<h5 class="text-[17px]">{item.title}</h5>
-										<p class="mt-1 text-[13.5px] text-hermes-muted">{item.body}</p>
-									</div>
-								</div>
-							))
-						}
-						<p
-							class="mt-1.5 font-hermes-mono text-[11px] tracking-[0.04em] text-hermes-muted"
-						>
-							{radar.note}
-						</p>
-					</div>
 				</div>
 			</div>
 		</section>
@@ -646,7 +573,7 @@ const wrap = 'py-6 sm:py-8';
 					<h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl">{pricing.title}</h2>
 					<p class="mt-3 text-[16px] leading-[1.6] text-hermes-muted">{pricing.lede}</p>
 				</div>
-				<div class="grid grid-cols-1 gap-0.5 border-2 border-hermes-ink bg-hermes-ink md:grid-cols-3">
+				<div class="grid grid-cols-1 gap-0.5 border-2 border-hermes-ink bg-hermes-ink md:grid-cols-2">
 					{
 						pricing.tiers.map((tier) => (
 							<div
@@ -683,6 +610,11 @@ const wrap = 'py-6 sm:py-8';
 										{tier.unit}
 									</span>
 								</div>
+								{tier.priceNote && (
+									<p class="mb-2 font-hermes-mono text-xs text-hermes-muted">
+										{tier.priceNote}
+									</p>
+								)}
 								<ul class="mb-6 flex flex-1 flex-col gap-3">
 									{tier.features.map((feat) => (
 										<li
@@ -694,17 +626,29 @@ const wrap = 'py-6 sm:py-8';
 										</li>
 									))}
 								</ul>
-								<a
-									href={tier.cta.href}
-									class:list={[
-										'flex w-full items-center justify-center border-2 px-5 py-3.5 text-center text-sm font-bold',
-										tier.feat
-											? 'hermes-press border-hermes-orange bg-hermes-orange !text-white'
-											: 'border-hermes-ink bg-hermes-card !text-hermes-ink hover:bg-hermes-ink hover:!text-hermes-paper',
-									]}
-								>
-									{tier.cta.label}
-								</a>
+								{tier.cta.disabled ? (
+									<button
+										disabled
+										class:list={[
+											'flex w-full items-center justify-center border-2 px-5 py-3.5 text-center text-sm font-bold opacity-50',
+											'border-hermes-ink bg-hermes-card !text-hermes-ink cursor-not-allowed',
+										]}
+									>
+										{tier.cta.label}
+									</button>
+								) : (
+									<a
+										href={tier.cta.href}
+										class:list={[
+											'flex w-full items-center justify-center border-2 px-5 py-3.5 text-center text-sm font-bold',
+											tier.feat
+												? 'hermes-press border-hermes-orange bg-hermes-orange !text-white'
+												: 'border-hermes-ink bg-hermes-card !text-hermes-ink hover:bg-hermes-ink hover:!text-hermes-paper',
+										]}
+									>
+										{tier.cta.label}
+									</a>
+								)}
 							</div>
 						))
 					}
@@ -720,6 +664,11 @@ const wrap = 'py-6 sm:py-8';
 						<span class="hermes-eyebrow">{testimonials.eyebrow}</span>
 						<h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl">{testimonials.title}</h2>
 					</div>
+						{tier.priceNote && (
+							<p class="mb-2 font-hermes-mono text-xs text-hermes-muted">
+								{tier.priceNote}
+							</p>
+						)}
 					<p class="max-w-[56ch] text-[16px] leading-[1.6] text-hermes-muted">
 						{testimonials.lede}{' '}
 						<span class="font-hermes-mono text-[13px] text-hermes-orange">
@@ -810,12 +759,13 @@ const wrap = 'py-6 sm:py-8';
 						<div id="signupFormShell">
 							<h3 class="mb-1.5 text-[20px]">{cta.formTitle}</h3>
 							<div class="mb-6 text-sm text-hermes-muted">{cta.formSub}</div>
-							<form id="signup">
+							<form id="signup" data-course-code={cta.courseCode}>
 								<div class="mb-3.5">
 									<label class="mb-1.5 block font-hermes-mono text-[11px] uppercase tracking-[0.06em] text-hermes-muted">
 										{cta.fields.name.label}
 									</label>
 									<input
+										id="signup-name"
 										type="text"
 										required
 										placeholder={cta.fields.name.placeholder}
@@ -827,6 +777,7 @@ const wrap = 'py-6 sm:py-8';
 										{cta.fields.email.label}
 									</label>
 									<input
+										id="signup-email"
 										type="email"
 										required
 										placeholder={cta.fields.email.placeholder}
@@ -835,9 +786,24 @@ const wrap = 'py-6 sm:py-8';
 								</div>
 								<div class="mb-3.5">
 									<label class="mb-1.5 block font-hermes-mono text-[11px] uppercase tracking-[0.06em] text-hermes-muted">
+										{cta.fields.phone.label}
+									</label>
+									<input
+										id="signup-phone"
+										type="tel"
+										required
+										placeholder={cta.fields.phone.placeholder}
+										class="w-full border-2 border-hermes-ink bg-hermes-paper px-3.5 py-3 font-hermes-sans text-[15px] focus:border-hermes-orange focus:outline-none"
+									/>
+								</div>
+								<div class="mb-3.5">
+									<label class="mb-1.5 block font-hermes-mono text-[11px] uppercase tracking-[0.06em] text-hermes-muted">
 										{cta.fields.plan.label}
 									</label>
-									<select class="w-full border-2 border-hermes-ink bg-hermes-paper px-3.5 py-3 font-hermes-sans text-[15px] focus:border-hermes-orange focus:outline-none">
+									<select
+										id="signup-plan"
+										class="w-full border-2 border-hermes-ink bg-hermes-paper px-3.5 py-3 font-hermes-sans text-[15px] focus:border-hermes-orange focus:outline-none"
+									>
 										{
 											cta.fields.plan.options.map((opt) => (
 												<option>{opt}</option>
@@ -870,6 +836,9 @@ const wrap = 'py-6 sm:py-8';
 			</div>
 		</footer>
 
+		<!-- CHECKOUT MODAL (reusable QR-payment island) -->
+		<CheckOutModal client:idle price={cta.price} />
+
 		<script>
 			// Scene reveal for mockups: scroll into view triggers sequential reveal + active box shadow
 			const mocks = document.getElementById('mocks');
@@ -891,7 +860,7 @@ const wrap = 'py-6 sm:py-8';
 								setTimeout(() => {
 									badge.classList.remove('opacity-100');
 									setTimeout(() => {
-										if (badgeText) badgeText.textContent = '✓ KỊCH BẢN HOÀN TẤT';
+										if (badgeText) badgeText.textContent = '✓ HERMES ĐÃ LÀM XONG';
 										badge.classList.add('opacity-100');
 									}, 300);
 								}, 1000);
@@ -932,18 +901,37 @@ const wrap = 'py-6 sm:py-8';
 				});
 			});
 
-			// Form submit → done state
-			const form = document.getElementById('signup');
-			const shell = document.getElementById('signupFormShell');
-			if (form && shell) {
+			// Form submit → open the QR checkout modal with the buyer's details.
+			const form = document.getElementById('signup') as HTMLFormElement | null;
+			if (form) {
+				const courseCode = form.dataset.courseCode || 'HERMES-999';
 				form.addEventListener('submit', (e) => {
 					e.preventDefault();
-					shell.innerHTML = `
-            <div class="py-7 text-center">
-              <span class="font-hermes-mono text-xs font-bold uppercase tracking-[0.1em] text-hermes-orange">✓ ĐÃ NHẬN</span>
-              <p class="mt-3 text-hermes-muted">Cảm ơn anh. Hermes sẽ gửi link kích hoạt qua email trong ít phút.</p>
-            </div>
-          `;
+					const get = (id: string) =>
+						(document.getElementById(id) as HTMLInputElement | null)?.value.trim() ?? '';
+
+					const userInfo = {
+						fullname: get('signup-name'),
+						email: get('signup-email'),
+						phone: get('signup-phone'),
+					};
+
+					// Save user info to localStorage for thank-you page upsell
+					try {
+						localStorage.setItem('hermes-user-info', JSON.stringify(userInfo));
+					} catch {
+						// localStorage not available - non-fatal
+					}
+
+					window.dispatchEvent(
+						new CustomEvent('hermes:checkout', {
+							detail: {
+								...userInfo,
+								courseCode,
+								price: '999.000₫',
+							},
+						}),
+					);
 				});
 			}
 		</script>

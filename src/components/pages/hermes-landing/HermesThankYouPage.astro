@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import DavidTungLogo from '../../../assets/david-tung-logo-upload.png';
 import HermesIcon from '../../../assets/hermes-landing/icon.png';
 import ThankYouHeroBackground from './ThankYouHeroBackground.astro';
+import CheckOutModal from '../../ui/CheckOutModal';
 import { nav, hero, journey, upsell, whatNow, footer } from './hermesThankYouContent';
 import { defaultLocale } from '../../../i18n';
 
@@ -182,12 +183,13 @@ const wrap = 'py-12 sm:py-16';
 						<div class="mt-2.5 inline-block self-start bg-hermes-orange px-3 py-1.5 font-hermes-mono text-[11px] font-bold tracking-[0.06em] text-[#1a120c]">
 							{upsell.save}
 						</div>
-						<a
-							href={upsell.cta.href}
+						<button
+							type="button"
+							id="upsellCta"
 							class="hermes-press mt-auto flex w-full items-center justify-center gap-2.5 border-2 border-hermes-orange bg-hermes-orange px-6 py-4 text-center text-[15px] font-bold !text-white"
 						>
 							{upsell.cta.label}
-						</a>
+						</button>
 						<button
 							type="button"
 							id="declineUpsell"
@@ -238,10 +240,45 @@ const wrap = 'py-12 sm:py-16';
 			</div>
 		</footer>
 
+		<!-- CHECKOUT MODAL (for upsell) -->
+		<CheckOutModal client:idle price={upsell.price} />
+
 		<script>
 			// "Decline" link scrolls down to the What-now section.
 			document.getElementById('declineUpsell')?.addEventListener('click', () => {
 				document.getElementById('what-now')?.scrollIntoView({ behavior: 'smooth' });
+			});
+
+			// Upsell CTA opens the checkout modal with coaching package details.
+			document.getElementById('upsellCta')?.addEventListener('click', () => {
+				// Retrieve user info from localStorage (saved on landing page)
+				let fullname = '';
+				let email = '';
+				let phone = '';
+
+				try {
+					const saved = localStorage.getItem('hermes-user-info');
+					if (saved) {
+						const parsed = JSON.parse(saved);
+						fullname = parsed.fullname || '';
+						email = parsed.email || '';
+						phone = parsed.phone || '';
+					}
+				} catch {
+					// localStorage not available or corrupted - proceed with empty values
+				}
+
+				window.dispatchEvent(
+					new CustomEvent('hermes:checkout', {
+						detail: {
+							fullname,
+							email,
+							phone,
+							courseCode: 'HERMES-COACH-MINI4',
+							price: '2.000.000₫',
+						},
+					}),
+				);
 			});
 		</script>
 	</body>

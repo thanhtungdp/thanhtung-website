@@ -17,11 +17,12 @@ export const nav = {
 
 export const hero = {
 	eyebrow: 'Đội ngũ AI tự chủ cho Solo CEO',
-	titleLead: 'Từ',
-	titleAware: 'AI-aware',
-	titleMid: 'đến',
-	titleOperator: 'AI-operator.',
-	lede: '90% founder đã dùng ChatGPT mỗi sáng — nhưng vẫn copy-paste. Khoảng cách không phải tool, mà là một phương pháp. Hermes coach anh xây đội AI tự chạy việc lặp lại.',
+	titleLead: 'Biến',
+	titleAware: 'việc lặp lại',
+	titleMid: 'thành',
+	titleOperator: 'agent tự chạy',
+	titleTail: 'trong 4 tuần.',
+	lede: 'AI giúp bạn viết nhanh hơn. Nhưng vẫn là bạn ngồi làm. Hermes giúp bạn xây một đội AI tự chạy việc lặp lại, tự học mỗi ngày — để bạn vận hành như có cả một phòng ban.',
 	primaryCta: { href: '#pricing', label: 'Bắt đầu với Hermes →' },
 	secondaryCta: { href: '#demo', label: 'Xem demo live' },
 	chatBarLabel: 'Hermes Core · Telegram',
@@ -30,11 +31,11 @@ export const hero = {
 
 // Live Telegram demo script for the hero chat island.
 export const chatScript: Array<{ who: 'me' | 'bot'; name: string; text: string }> = [
-	{ who: 'me', name: 'CEO', text: 'Báo giá gói Pro cho anh Minh, hợp đồng 12 tháng' },
+	{ who: 'me', name: 'CEO', text: 'Báo giá gói Pro cho bạn Minh, hợp đồng 12 tháng' },
 	{
 		who: 'bot',
 		name: 'Hermès Sales',
-		text: 'Đã tạo báo giá #BG-204 — 32.400.000₫. Soạn email gửi anh Minh xong. Anh duyệt gửi?',
+		text: 'Đã tạo báo giá #BG-204 — 32.400.000₫. Soạn email gửi bạn Minh xong. Bạn duyệt gửi?',
 	},
 	{ who: 'me', name: 'CEO', text: 'Gửi luôn' },
 	{ who: 'bot', name: 'Hermès Sales', text: '✓ Đã gửi email cho minh@acme.vn.' },
@@ -55,38 +56,24 @@ export const promises = [
 	{
 		n: '01',
 		title: 'Ra lệnh, không thao tác',
-		body: 'Một câu qua Telegram. Agent tự tạo báo giá, gửi email, lên content — không cần anh mở 10 tab.',
+		body: 'Một câu qua Telegram. Agent tự tạo báo giá, gửi email, lên content — không cần bạn mở 10 tab.',
 	},
 	{
 		n: '02',
 		title: 'Việc lặp tự chạy',
-		body: 'Đóng gói quy trình lặp lại thành skill. Làm một lần, chạy mãi — người không còn là nút thắt.',
+		body: 'Mỗi lần xử lý xong một việc, agent tự ghi lại cách làm. Lần sau gặp việc tương tự, nó tự nhớ — không cần bạn dạy lại lần hai.',
 	},
 	{
 		n: '03',
-		title: '4 tuần, có agent thật',
-		body: 'Không phải khoá học xem cho biết. Kết thúc là 1–2 agent production đang chạy việc thật của anh.',
+		title: '4 tuần, có agent 24/24',
+		body: 'Không phải khoá học xem cho biết. Kết thúc là 1–2 agent đang làm việc thật mỗi ngày, không phải demo.',
 	},
 ];
 
 export const whatIs = {
-	eyebrow: 'Bối cảnh',
-	title: 'Hermes Agent là gì?',
-	body: 'Hermes Agent là AI agent mã nguồn mở do Nous Research phát triển, ra mắt đầu 2026. Điểm khác biệt: Hermes tự học — sau mỗi nhiệm vụ, nó tự đúc kết kinh nghiệm thành "kỹ năng" để lần sau làm nhanh, chính xác hơn, và có bộ nhớ bền vững xuyên suốt các phiên làm việc, không bị quên như chatbot thông thường. Hermes chạy được trên VPS giá rẻ, kết nối hơn 200 model AI, hoạt động qua Telegram, Slack, email, terminal hay desktop app.',
-	body2: 'Dự án đã đạt gần 150.000 star GitHub chỉ trong vài tháng, và được rót khoảng 65 triệu đô vốn đầu tư — vòng lớn nhất do quỹ Paradigm dẫn dắt với định giá 1 tỷ đô, cho thấy mức độ tin tưởng lớn từ giới đầu tư công nghệ.',
-	stats: [
-		{ big: '≈150k', lab: 'GitHub star chỉ trong vài tháng' },
-		{ big: '200+', lab: 'model AI có thể kết nối' },
-		{ big: '$65M', lab: 'vốn đầu tư · định giá $1 tỷ (Paradigm dẫn dắt)' },
-	],
-	whyTitle: 'Vì sao CEO nên quan tâm?',
-	whyItems: [
-		'Nhân sự số biết học hỏi, không chỉ trả lời theo kịch bản — càng dùng càng giỏi.',
-		'Chi phí vận hành thấp, chạy được trên VPS giá rẻ — không phải dự án "làm cho vui" rồi bỏ ngang.',
-		'Xu hướng "agent kinh tế" đang tới: Nous đã hợp tác NVIDIA và Stripe để agent tự giao dịch, tự vận hành như một đơn vị kinh doanh.',
-	],
-	whyClosing:
-		'CEO không cần biết code, nhưng cần hiểu nguyên lý để biết hỏi đúng: nên cho agent học gì, nhớ gì, tự động hóa phần nào trong vận hành.',
+	eyebrow: 'Nền tảng',
+	body: 'Xây trên Hermes Agent — dự án mã nguồn mở, được các quỹ công nghệ lớn hậu thuẫn, không phải dự án làm cho vui rồi bỏ ngang.',
+	body2: 'Giá trị thực dụng cho CEO: agent tự học sau mỗi việc và chạy được trên máy chủ giá rẻ.',
 };
 
 export const aware = {
@@ -107,7 +94,7 @@ export const aware = {
 		items: [
 			'Ra lệnh 1 câu, agent tự chạy',
 			'Việc lặp tự chạy — người không làm',
-			'Đóng gói skill khi gặp việc mới',
+			'Agent tự nhớ cách làm khi gặp việc mới',
 			'6 tháng sau có 5+ agent tự chạy',
 		],
 	},
@@ -160,10 +147,10 @@ export const team = {
 		},
 		{
 			num: 'CORE',
-			dept: 'Orchestrator',
+			dept: 'Hermes Core',
 			name: 'Hermes Core',
 			role: 'Điều phối trung tâm',
-			body: 'Anh ra lệnh 1 nơi — Core điều phối cả 3 phòng ban tự động.',
+			body: 'Bạn ra lệnh 1 nơi — Core điều phối cả 3 phòng ban tự động.',
 			core: true,
 		},
 		{
@@ -196,7 +183,7 @@ export const team = {
 export const connect = {
 	eyebrow: 'Kết nối',
 	title: 'Một Hermes — nối mọi tool, ra mọi outcome.',
-	lede: 'Bên trái: các tool anh đang dùng. Ở giữa: Hermes điều phối. Bên phải: kết quả cụ thể rơi ra mỗi ngày.',
+	lede: 'Bên trái: các tool bạn đang dùng. Ở giữa: Hermes điều phối. Bên phải: kết quả cụ thể rơi ra mỗi ngày.',
 	toolsLabel: 'Kết nối tools',
 	outcomeLabel: 'Outcome cụ thể',
 	tools: ['Telegram', 'Gmail', 'Google Sheets', 'Facebook', 'Canva', 'CRM / Zalo'],
@@ -233,13 +220,13 @@ export const story = {
 	eyebrow: 'Câu chuyện',
 	title: 'Tôi gặp một founder ở quán cà phê Q7.',
 	paragraphs: [
-		'Anh ấy chạy startup được 18 tháng. 8 nhân viên. Doanh thu 200 triệu/tháng. Vẫn tự làm hết — sale, marketing, vận hành, sản phẩm.',
+		'Bạn ấy chạy startup được 18 tháng. 8 nhân viên. Doanh thu 200 triệu/tháng. Vẫn tự làm hết — sale, marketing, vận hành, sản phẩm.',
 		'"Em đã dùng ChatGPT từ ngày nó ra mắt. Em trả Claude Pro 20 đô/tháng. Em test n8n, Make, Zapier… Vậy mà em vẫn không thoát được."',
-		'Anh mở laptop, chỉ vào màn hình đầy tab Zalo, Messenger, Gmail: "Mỗi sáng em vẫn copy-paste 30 tin báo giá vào ChatGPT. ChatGPT giúp em viết NHANH hơn — không phải làm THAY em."',
+		'Bạn mở laptop, chỉ vào màn hình đầy tab Zalo, Messenger, Gmail: "Mỗi sáng em vẫn copy-paste 30 tin báo giá vào ChatGPT. ChatGPT giúp em viết NHANH hơn — không phải làm THAY em."',
 	],
-	pull: '"ChatGPT làm anh viết nhanh hơn. Nhưng anh vẫn là người làm."',
+	pull: '"ChatGPT làm bạn viết nhanh hơn. Nhưng bạn vẫn là người làm."',
 	closing:
-		'Anh đang ở trạng thái AI-aware nhưng không phải AI-operator. Khoảng cách giữa hai trạng thái này không phải vài prompt — mà là một phương pháp. Đây là khoảng cách Hermes lấp đầy. Sau khoá, những việc lặp lại không cần anh nữa.',
+		'Bạn đang ở trạng thái AI-aware nhưng không phải AI-operator. Khoảng cách giữa hai trạng thái này không phải vài prompt — mà là một phương pháp. Đây là khoảng cách Hermes lấp đầy. Sau khoá, những việc lặp lại không cần bạn nữa.',
 };
 
 export const curriculum = {
@@ -250,7 +237,7 @@ export const curriculum = {
 		{
 			n: '01',
 			title: 'Cài đặt & chạy Hermes lần đầu',
-			body: 'Từ con số 0 đến agent đầu tiên trả lời anh — trong 15 phút.',
+			body: 'Từ con số 0 đến agent đầu tiên trả lời bạn — trong 15 phút.',
 		},
 		{
 			n: '02',
@@ -259,8 +246,8 @@ export const curriculum = {
 		},
 		{
 			n: '03',
-			title: 'Tạo skill đầu tiên',
-			body: 'Báo giá, blog, email — bóc tách quy trình lặp thành skill rõ ràng.',
+			title: 'Dạy agent việc đầu tiên',
+			body: 'Làm cùng agent một lần: báo giá, blog, hay email. Nó tự ghi nhớ cách làm, từ lần hai tự chạy.',
 		},
 		{
 			n: '04',
@@ -270,7 +257,7 @@ export const curriculum = {
 		{
 			n: '05',
 			title: 'Tự động hoá quy trình lặp',
-			body: 'Phân loại Risk-Free / Risk-Aware để chọn đúng mức tự động.',
+			body: 'Chọn việc nào agent tự quyết, việc nào cần bạn duyệt trước khi gửi đi.',
 		},
 		{
 			n: '06',
@@ -282,22 +269,14 @@ export const curriculum = {
 
 export const pricing = {
 	eyebrow: 'Hermes Self-serve',
-	title: 'Mua xong dùng ngay.',
-	lede: 'Entry point cho founder mới chạm AI. Sẵn sàng hơn? Nâng cấp lên Cohort coaching (4.9M–49M).',
+	title: 'Ra mắt 05/07 — đặt trước ngay.',
+	lede: 'Khóa học chính thức mở bán 05/07/2026. Đặt trước hôm nay để được giá ưu đãi sớm nhất.',
 	tiers: [
 		{
-			name: 'Starter',
-			tag: '',
-			price: '699k',
-			unit: '/lifetime',
-			feat: false,
-			features: ['3 module nền tảng', '2 skill pack mẫu của David', 'Discord community + AI Helper'],
-			cta: { href: '#signup-sec', label: 'Chọn Starter' },
-		},
-		{
 			name: 'Pro',
-			tag: 'CHÍNH',
+			tag: 'ĐANG MỞ',
 			price: '999k',
+			priceNote: 'Giá mở bán: 1.999k',
 			unit: '/lifetime',
 			feat: true,
 			features: [
@@ -306,16 +285,17 @@ export const pricing = {
 				'Telegram group + 1:1 David',
 				'3 năm updates · lifetime archive',
 			],
-			cta: { href: '#signup-sec', label: 'Chọn Pro →' },
+			cta: { href: '#signup-sec', label: 'Đặt trước Pro →' },
 		},
 		{
 			name: 'Enterprise',
-			tag: '',
-			price: '1.999k',
+			tag: 'CHƯA MỞ BÁN',
+			price: '4.999k',
+			priceNote: '',
 			unit: '/lifetime',
 			feat: false,
 			features: ['Mọi thứ trong Pro', 'Server Hermes 24/7', 'CRM integration + 1:1 priority'],
-			cta: { href: '#signup-sec', label: 'Chọn Enterprise' },
+			cta: { href: '#signup-sec', label: 'Sắp ra mắt', disabled: true },
 		},
 	],
 };
@@ -342,41 +322,44 @@ export const faq = {
 	items: [
 		{
 			q: 'Tôi không biết code, có dùng được không?',
-			a: 'Được. Toàn bộ tương tác qua Telegram bằng tiếng Việt tự nhiên. Module 1 đưa anh từ con số 0 đến agent chạy trong 15 phút — không một dòng code.',
+			a: 'Được. Toàn bộ tương tác qua Telegram bằng tiếng Việt tự nhiên. Module 1 đưa bạn từ con số 0 đến agent chạy trong 15 phút — không một dòng code.',
 		},
 		{
 			q: 'Hermes có tự nhắn cho khách của tôi không?',
-			a: 'Không thay anh giao tiếp. Hermès Sales là back-office: soạn báo giá, email, log pipeline — anh duyệt trước khi gửi. Anh giữ toàn quyền kiểm soát.',
+			a: 'Không thay bạn giao tiếp. Hermès Sales làm phần hậu trường — bạn là người duyệt và bấm gửi. Bạn giữ toàn quyền kiểm soát.',
 		},
 		{
 			q: 'Khác gì so với mua một khoá prompt?',
-			a: 'Khoá prompt dạy anh viết nhanh hơn — vẫn là người làm. Hermes dạy phương pháp đóng gói việc lặp thành skill để agent tự chạy. Khác nhau ở chỗ: sau khoá, việc lặp không cần anh nữa.',
+			a: 'Khoá prompt dạy bạn viết nhanh hơn — vẫn là người làm. Hermes dạy phương pháp đóng gói việc lặp thành skill để agent tự chạy. Khác nhau ở chỗ: sau khoá, việc lặp không cần bạn nữa.',
 		},
 		{
 			q: 'Tôi cần bao lâu mỗi tuần?',
-			a: 'Self-serve: 3–4 giờ/tuần trong 4 tuần, theo nhịp của anh. Video pre-recorded nên anh học lúc nào cũng được, xem lại vĩnh viễn.',
+			a: 'Self-serve: 3–4 giờ/tuần trong 4 tuần, theo nhịp của bạn. Video pre-recorded nên bạn học lúc nào cũng được, xem lại vĩnh viễn.',
 		},
 	],
 };
 
 export const cta = {
-	eyebrow: 'Founding 50 · Bảo hành 30 ngày',
-	title: 'Việc lặp lại không cần anh nữa.',
-	titleEm: 'không cần anh',
-	body: 'Trong 4 tuần, em coach anh từ AI-aware → AI-operator. Bonus thực ~2.5 triệu cho 30 người đầu — nói thẳng, không phóng đại.',
-	seats: '30 chỗ Founding · còn 27',
-	seatsAccent: 'còn 27',
-	formTitle: 'Giữ chỗ Founding',
-	formSub: 'Nhận link kích hoạt Hermes Pro qua email.',
+	eyebrow: 'Ra mắt 05/07 · Bảo hành 30 ngày',
+	title: 'Việc lặp lại không cần bạn nữa.',
+	titleEm: 'không cần bạn',
+	body: 'Trong 4 tuần, em coach bạn từ AI-aware → AI-operator. Đặt trước hôm nay để được giá ưu đãi 999k (giá mở bán: 1.999k).',
+	seats: '50 chỗ đặt trước · còn 42',
+	seatsAccent: 'còn 42',
+	formTitle: 'Đặt trước Hermes Pro',
+	formSub: 'Khóa học ra mắt 05/07. Đặt trước để nhận giá sớm.',
 	fields: {
 		name: { label: 'Họ tên', placeholder: 'Phan Thanh Tùng' },
 		email: { label: 'Email', placeholder: 'ceo@company.vn' },
-		plan: { label: 'Gói', options: ['Pro — 999k (chính)', 'Starter — 699k', 'Enterprise — 1.999k'] },
+		phone: { label: 'Số điện thoại', placeholder: '0987 654 321' },
+		plan: { label: 'Gói', options: ['Pro — 999k (giá mở bán: 1.999k)'] },
 	},
-	submit: 'Giữ chỗ & thanh toán →',
+	submit: 'Đặt trước & thanh toán 999k →',
+	courseCode: 'HERMES-999',
+	price: '999.000₫',
 	done: {
 		badge: '✓ ĐÃ NHẬN',
-		body: 'Cảm ơn anh. Hermes sẽ gửi link kích hoạt qua email trong ít phút.',
+		body: 'Cảm ơn bạn. Hermes sẽ gửi link kích hoạt qua email trong ít phút.',
 	},
 };
 

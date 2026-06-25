@@ -9,9 +9,9 @@ export const nav = {
 
 export const hero = {
 	eyebrow: 'Thanh toán thành công',
-	titleLead: 'Anh vừa ra một',
+	titleLead: 'Bạn vừa ra một',
 	titleEm: 'quyết định quan trọng.',
-	lede: 'Không phải mua thêm một khoá học. Đây là ngày anh chọn bước qua ranh giới — từ người dùng AI thành người vận hành AI. Chào mừng anh vào Hermes.',
+	lede: 'Không phải mua thêm một khoá học. Đây là ngày bạn chọn bước qua ranh giới — từ người dùng AI thành người vận hành AI. Chào mừng bạn vào Hermes.',
 	receipt: [
 		{ k: 'Gói', v: 'Hermes Pro · Lifetime', ok: false },
 		{ k: 'Đã thanh toán', v: '999.000₫', ok: true },
@@ -20,24 +20,24 @@ export const hero = {
 };
 
 export const journey = {
-	eyebrow: 'Hành trình của anh',
-	title: 'Đây là nơi anh đang đứng — và nơi anh sẽ tới.',
+	eyebrow: 'Hành trình của bạn',
+	title: 'Đây là nơi bạn đang đứng — và nơi bạn sẽ tới.',
 	steps: [
 		{
 			n: '01',
 			when: 'HÔM NAY',
 			state: 'now',
 			tag: 'Quyết định',
-			title: 'Anh đã kích hoạt Hermes.',
-			body: 'Quyết định khó nhất đã xong. Hầu hết founder dừng lại ở "biết về AI" — anh thì không. Bước tiếp theo bắt đầu trong hộp thư của anh ngay bây giờ.',
+			title: 'Bạn đã kích hoạt Hermes.',
+			body: 'Quyết định khó nhất đã xong. Hầu hết founder dừng lại ở "biết về AI" — bạn thì không. Bước tiếp theo bắt đầu trong hộp thư của bạn ngay bây giờ.',
 		},
 		{
 			n: '02',
 			when: '4–6 TUẦN',
 			state: 'default',
 			tag: 'Hoàn thành & ứng dụng',
-			title: 'Anh đi hết 6 module và ship agent đầu tiên.',
-			body: 'Mỗi tuần 3–4 giờ. Anh bóc tách quy trình lặp thành skill, kết nối Telegram – Gmail – Sheets, và để 1–2 agent chạy việc thật. Kết thúc: anh đã là AI-operator.',
+			title: 'Bạn đi hết 6 module và ship agent đầu tiên.',
+			body: 'Mỗi tuần 3–4 giờ. Bạn bóc tách quy trình lặp thành skill, kết nối Telegram – Gmail – Sheets, và để 1–2 agent chạy việc thật. Kết thúc: bạn đã là AI-operator.',
 		},
 		{
 			n: '03',
@@ -45,35 +45,36 @@ export const journey = {
 			state: 'next',
 			tag: 'Lên nấc — Coaching 1:1',
 			title: 'Hoàn thiện cả hệ thống Hermès, cùng David.',
-			body: 'Khi anh đã chạy được agent đầu, nấc tiếp theo là một hệ thống hoàn chỉnh — 5 agent, 3 phòng ban, một dashboard. Đây là lúc coaching 1:1 rút ngắn nhiều tháng mày mò xuống còn 4 buổi.',
+			body: 'Khi bạn đã chạy được agent đầu, nấc tiếp theo là một hệ thống hoàn chỉnh — 5 agent, 3 phòng ban, một dashboard. Đây là lúc coaching 1:1 rút ngắn nhiều tháng mày mò xuống còn 4 buổi.',
 		},
 	],
 };
 
 export const upsell = {
 	eyebrow: 'Ưu đãi chỉ xuất hiện một lần',
-	titleLead: 'Hoàn thiện cả hệ thống với',
-	titleEm: '4 buổi 1:1',
+	titleLead: 'Nâng cấp với',
+	titleEm: 'coach 1:1 3 buổi',
 	titleRest: 'cùng David.',
-	body: 'Self-serve cho anh phương pháp. Coaching 1:1 cho anh một hệ thống Hermès production chạy đúng business của anh — không phải tự mò.',
+	body: 'Self-serve cho bạn phương pháp. Coaching 1:1 cho bạn một hệ thống Hermès production chạy đúng business của bạn — không phải tự mò.',
 	list: [
-		'Buổi 1 — Audit quy trình & bản đồ hoá 5 agent cho business của anh.',
-		'Buổi 2 — Build Hermès Sales + Funnel (back-office báo giá, pipeline).',
-		'Buổi 3 — Build Hermès Voice + Visual (content & sản xuất).',
-		'Buổi 4 — Orchestration: ghép 5 agent vào 1 dashboard + bàn giao.',
+		'Buổi 1 — Audit quy trình & bản đồ hoá agent cho business của bạn.',
+		'Buổi 2 — Build agent đầu tiên phù hợp với quy trình thực tế.',
+		'Buổi 3 — Fine-tune, test production & bàn giao hệ thống.',
 	],
 	specs: [
-		{ n: '4', l: 'Buổi 1:1' },
+		{ n: '3', l: 'Buổi 1:1' },
 		{ n: '90′', l: 'Mỗi buổi' },
 		{ n: '1:1', l: 'Cùng David' },
 	],
-	priceWas: 'Giá gốc 20.000.000₫',
-	priceNow: '4.000.000',
+	priceWas: 'Giá gốc 8.000.000₫',
+	priceNow: '2.000.000',
 	priceUnit: '₫',
-	save: 'Ưu đãi riêng cho người vừa kích hoạt · tiết kiệm 16 triệu',
+	save: 'Ưu đãi riêng cho người vừa kích hoạt · tiết kiệm 6 triệu',
 	cta: { href: '#', label: 'Thêm Coaching 1:1 →' },
 	decline: 'Cảm ơn, em tự đi với khoá trước đã',
-	note: 'Giá này chỉ áp dụng tại trang này, không quay lại sau khi anh rời đi.',
+	note: 'Giá này chỉ áp dụng tại trang này, không quay lại sau khi bạn rời đi.',
+	courseCode: 'HERMES-COACH-MINI4',
+	price: '2.000.000₫',
 };
 
 export const whatNow = {
@@ -83,23 +84,23 @@ export const whatNow = {
 		{
 			n: '01',
 			title: 'Kiểm tra email',
-			body: 'Link kích hoạt Hermes Pro + hoá đơn đã gửi tới hộp thư của anh. Chưa thấy? Kiểm tra mục Spam/Promotions.',
+			body: 'Link kích hoạt Hermes Pro + hoá đơn đã gửi tới hộp thư của bạn. Chưa thấy? Kiểm tra mục Spam/Promotions.',
 		},
 		{
 			n: '02',
 			title: 'Vào Telegram group',
-			body: 'Đây là nơi anh ra lệnh cho Hermes và hỏi đáp với cộng đồng. Link nằm trong email chào mừng.',
+			body: 'Đây là nơi bạn ra lệnh cho Hermes và hỏi đáp với cộng đồng. Link nằm trong email chào mừng.',
 		},
 		{
 			n: '03',
 			title: 'Mở Module 1',
-			body: '15 phút để có agent đầu tiên trả lời anh. Bắt đầu từ "Cài đặt & chạy Hermes lần đầu".',
+			body: '15 phút để có agent đầu tiên trả lời bạn. Bắt đầu từ "Cài đặt & chạy Hermes lần đầu".',
 		},
 	],
 };
 
 export const footer = {
 	left: 'HERMES AGENT v4.0',
-	leftRest: ' — Cảm ơn anh đã đồng hành',
+	leftRest: ' — Cảm ơn bạn đã đồng hành',
 	right: 'Phan Thanh Tùng · davidtung.net/hermes · 06/2026',
 };

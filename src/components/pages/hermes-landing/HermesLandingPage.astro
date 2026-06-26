@@ -760,24 +760,6 @@ const wrap = 'py-6 sm:py-8';
 		<section id="signup-sec">
 			<div class={`${page} ${wrap}`}>
 				<div class="grid grid-cols-1 border-2 border-hermes-ink lg:grid-cols-[1.1fr_0.9fr]">
-					<div
-						class="border-b-2 border-hermes-ink bg-hermes-orange px-11 py-[52px] text-white lg:border-b-0 lg:border-r-2"
-					>
-						<span class="inline-flex items-center gap-2.5 font-hermes-mono text-[11px] font-bold uppercase tracking-[0.18em] text-white before:h-0.5 before:w-6 before:bg-white">
-							{cta.eyebrow}
-						</span>
-						<h2 class="my-5 text-4xl sm:text-5xl">
-							Việc lặp lại{' '}
-							<span class="font-hermes-serif font-medium italic">{cta.titleEm}</span> nữa.
-						</h2>
-						<p class="max-w-[32ch] text-[17px] leading-[1.6] opacity-90">{cta.body}</p>
-						<div
-							class="mt-6 inline-flex items-center gap-2 bg-white px-3.5 py-2 font-hermes-mono text-xs text-hermes-ink"
-						>
-							{cta.seats.split('·')[0]}·{' '}
-							<b class="text-hermes-orange">{cta.seatsAccent}</b>
-						</div>
-					</div>
 					<div class="bg-hermes-card px-11 py-11">
 						<div id="signupFormShell">
 							<h3 class="mb-1.5 text-[20px]">{cta.formTitle}</h3>
@@ -821,6 +803,35 @@ const wrap = 'py-6 sm:py-8';
 								</div>
 								<div class="mb-3.5">
 									<label class="mb-1.5 block font-hermes-mono text-[11px] uppercase tracking-[0.06em] text-hermes-muted">
+										Số lượng
+									</label>
+									<div class="flex items-center border-2 border-hermes-ink bg-hermes-paper">
+										<button
+											type="button"
+											id="qty-decrease"
+											class="flex h-[50px] w-[50px] items-center justify-center border-r-2 border-hermes-ink font-bold text-hermes-ink hover:bg-hermes-card"
+										>
+											−
+										</button>
+										<input
+											id="signup-qty"
+											type="number"
+											min="1"
+											value="1"
+											required
+											class="flex-1 border-none bg-transparent px-3.5 py-3 text-center font-hermes-sans text-[15px] focus:outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+										/>
+										<button
+											type="button"
+											id="qty-increase"
+											class="flex h-[50px] w-[50px] items-center justify-center border-l-2 border-hermes-ink font-bold text-hermes-ink hover:bg-hermes-card"
+										>
+											+
+										</button>
+									</div>
+								</div>
+								<div class="mb-3.5">
+									<label class="mb-1.5 block font-hermes-mono text-[11px] uppercase tracking-[0.06em] text-hermes-muted">
 										{cta.fields.plan.label}
 									</label>
 									<select
@@ -843,6 +854,25 @@ const wrap = 'py-6 sm:py-8';
 							</form>
 						</div>
 					</div>
+					<div
+						class="border-b-2 border-hermes-ink bg-hermes-orange px-11 py-[52px] text-white lg:border-b-0 lg:border-r-2"
+					>
+						<span class="inline-flex items-center gap-2.5 font-hermes-mono text-[11px] font-bold uppercase tracking-[0.18em] text-white before:h-0.5 before:w-6 before:bg-white">
+							{cta.eyebrow}
+						</span>
+						<h2 class="my-5 text-4xl sm:text-5xl">
+							Việc lặp lại{' '}
+							<span class="font-hermes-serif font-medium italic">{cta.titleEm}</span> nữa.
+						</h2>
+						<p class="max-w-[32ch] text-[17px] leading-[1.6] opacity-90">{cta.body}</p>
+						<div
+							class="mt-6 inline-flex items-center gap-2 bg-white px-3.5 py-2 font-hermes-mono text-xs text-hermes-ink"
+						>
+							{cta.seats.split('·')[0]}·{' '}
+							<b class="text-hermes-orange">{cta.seatsAccent}</b>
+						</div>
+					</div>
+					
 				</div>
 			</div>
 		</section>
@@ -928,6 +958,34 @@ const wrap = 'py-6 sm:py-8';
 			const form = document.getElementById('signup') as HTMLFormElement | null;
 			if (form) {
 				const courseCode = form.dataset.courseCode || 'HERMES-999';
+
+				// Quantity controls
+				const qtyInput = document.getElementById('signup-qty') as HTMLInputElement | null;
+				const qtyDecrease = document.getElementById('qty-decrease');
+				const qtyIncrease = document.getElementById('qty-increase');
+
+				if (qtyInput && qtyDecrease && qtyIncrease) {
+					qtyDecrease.addEventListener('click', () => {
+						const current = parseInt(qtyInput.value) || 1;
+						if (current > 1) {
+							qtyInput.value = String(current - 1);
+						}
+					});
+
+					qtyIncrease.addEventListener('click', () => {
+						const current = parseInt(qtyInput.value) || 1;
+						qtyInput.value = String(current + 1);
+					});
+
+					// Ensure minimum value of 1
+					qtyInput.addEventListener('change', () => {
+						const current = parseInt(qtyInput.value) || 1;
+						if (current < 1) {
+							qtyInput.value = '1';
+						}
+					});
+				}
+
 				form.addEventListener('submit', (e) => {
 					e.preventDefault();
 					const get = (id: string) =>
@@ -946,12 +1004,14 @@ const wrap = 'py-6 sm:py-8';
 						// localStorage not available - non-fatal
 					}
 
+					const qty = parseInt(get('signup-qty')) || 1;
+
 					window.dispatchEvent(
 						new CustomEvent('hermes:checkout', {
 							detail: {
 								...userInfo,
 								courseCode,
-								price: '999.000₫',
+								qty,
 							},
 						}),
 					);

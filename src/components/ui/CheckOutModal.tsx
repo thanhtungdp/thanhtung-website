@@ -20,6 +20,7 @@ export type CheckoutPayload = {
 	fullname: string;
 	courseCode: string;
 	price?: string;
+	qty?: number;
 };
 
 type Phase = 'creating' | 'pending' | 'success' | 'expired' | 'error';
@@ -29,6 +30,8 @@ type ActiveTx = {
 	qr: string;
 	expiresAt: number;
 	payload: CheckoutPayload;
+	price?: number;
+	qty?: number;
 };
 
 type Props = {
@@ -107,13 +110,15 @@ export default function CheckOutModal({
 					body: JSON.stringify(payload),
 				});
 				if (!res.ok) throw new Error(`HTTP ${res.status}`);
-				const data = unwrap<{ Id: number; QRPayment: string }>(await res.json());
+				const data = unwrap<{ Id: number; QRPayment: string; Price?: number; Qty?: number }>(await res.json());
 				if (!data?.Id || !data?.QRPayment) throw new Error('Phản hồi không hợp lệ');
 				const active: ActiveTx = {
 					id: data.Id,
 					qr: data.QRPayment,
 					expiresAt: Date.now() + windowMs,
 					payload,
+					price: data.Price,
+					qty: data.Qty,
 				};
 				setTx(active);
 				setRemaining(windowMs);
@@ -339,12 +344,19 @@ export default function CheckOutModal({
 		// pending
 		return (
 			<div className="flex flex-col items-center gap-4 text-center">
-				{price && (
+				{tx?.price && (
 					<div className="w-full border-2 border-hermes-ink bg-hermes-card px-5 py-4">
 						<div className="font-hermes-mono text-[11px] uppercase tracking-[0.1em] text-hermes-muted">
 							Số tiền thanh toán
 						</div>
-						<div className="mt-1 text-3xl font-bold tracking-[-0.02em] text-hermes-orange">{price}</div>
+						<div className="mt-1 text-3xl font-bold tracking-[-0.02em] text-hermes-orange">
+							{new Intl.NumberFormat('vi-VN').format(tx.price)}₫
+						</div>
+						{tx.qty && tx.qty > 1 && (
+							<div className="mt-2 font-hermes-mono text-[11px] text-hermes-muted">
+								Số lượng: {tx.qty}
+							</div>
+						)}
 					</div>
 				)}
 				<p className="text-sm text-hermes-muted">

@@ -1,0 +1,536 @@
+---
+// Hermes Agent Sales Page — v2: Simple Telegram-first
+import LiveDemoChat from '../components/hermes/LiveDemoChat';
+
+const hermesLogo = '/hermes-logo.png';
+---
+
+<style>
+    .font-fraunces { font-family: 'Fraunces', 'Georgia', serif; }
+    .font-mono { font-family: 'JetBrains Mono', 'SF Mono', monospace; }
+    .bg-navy { background-color: #0E1621; }
+    .bg-navy-light { background-color: #17212B; }
+    .bg-navy-soft { background-color: #2A3D5F; }
+    .bg-brand { background-color: #F26C2C; }
+    .text-brand { color: #F26C2C; }
+    .border-brand { border-color: #F26C2C; }
+    .bg-navy-card { background-color: #1A2B4A; }
+    .text-navy { color: #1A2B4A; }
+  </style>
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hermes Agent — Trợ lý thực thi cho CEO solo | David Tùng</title>
+  <meta name="description" content="300 câu hỏi với ChatGPT. 0 việc hoàn thành. Hermes là trợ lý thực thi: nhận việc → dùng tool → tạo output → đóng gói skill." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ===== 1. HEADER (minimal) ===== -->
+  <header class="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-gray-200">
+    <div class="max-w-[1100px] mx-auto px-6 flex items-center justify-between h-14">
+      <a href="/" class="flex items-center gap-2 font-bold text-lg no-underline text-gray-900">
+        <img src={hermesLogo} alt="Hermes" class="h-7 w-auto rounded-none" />
+        <span class="hidden sm:inline">David Tùng</span>
+      </a>
+      <a href="#pricing" class="bg-brand text-white px-5 py-2 rounded-full font-semibold text-sm no-underline hover:opacity-90 transition">
+        Nhận trợ lý →
+      </a>
+    </div>
+  </header>
+
+  <!-- ===== 2. HERO (split 7/5) ===== -->
+  <section class="bg-white">
+    <div class="max-w-[1100px] mx-auto px-6 py-16 md:py-20 grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
+      <!-- Text: col 1-7 -->
+      <div class="md:col-span-7">
+        <div class="text-brand uppercase tracking-[0.12em] text-xs font-semibold mb-4">
+          HERMES AGENT · EXECUTION FOR SOLO CEO
+        </div>
+        <h1 class="font-fraunces text-4xl md:text-[56px] leading-[1.1] text-navy-900 mb-5 font-bold">
+          Bạn đang chat với AI <span class="text-brand">hàng giờ</span> —<br>
+          mà vẫn <span class="text-gray-400">tự làm hết mọi việc?</span>
+        </h1>
+        <p class="text-gray-600 text-lg max-w-[600px] mb-4">
+          300 câu hỏi với ChatGPT. <strong>0 công việc hoàn thành.</strong><br>
+          Hermes là trợ lý thực thi: nhận việc → dùng tool → tạo output → kiểm tra → đóng gói skill.
+        </p>
+        <p class="text-sm text-gray-500" style="margin-top:28px">
+          <span class="text-gray-800 font-semibold">✓ Dành cho:</span> CEO / chủ DN 1 người — đã thử ChatGPT, thấy nhanh hơn nhưng vẫn tự làm hết.
+          <br>
+          <span class="text-gray-800 font-semibold">✗ Không dành cho:</span> người muốn AI làm chủ — bạn vẫn là người ra quyết định.
+        </p>
+        <div class="flex flex-wrap gap-4 mt-8">
+          <a href="#pricing" class="bg-brand text-white px-7 py-3.5 rounded-full font-bold text-base no-underline hover:opacity-90 transition shadow-lg shadow-brand/25 inline-flex items-center gap-2">
+            Nhận trọn bộ — từ 699k →
+          </a>
+          <a href="#demo" class="border-2 border-gray-300 text-gray-800 px-7 py-3.5 rounded-full font-semibold text-base no-underline hover:border-brand hover:text-brand transition inline-flex items-center gap-2">
+            Xem đang chạy ▸
+          </a>
+        </div>
+        <div class="text-gray-400 text-sm mt-6">
+          🛡️ 30 ngày hoàn tiền — <strong class="text-brand">không cần lý do</strong>
+        </div>
+        <div class="flex flex-wrap gap-2 mt-5 text-gray-500 text-sm">
+          <span class="bg-gray-100 px-3 py-1.5 rounded-md">💬 Telegram</span>
+          <span class="bg-gray-100 px-3 py-1.5 rounded-md">📱 WhatsApp</span>
+          <span class="bg-gray-100 px-3 py-1.5 rounded-md">🖥️ Terminal</span>
+          <span class="bg-gray-100 px-3 py-1.5 rounded-md">📧 Email</span>
+        </div>
+      </div>
+
+      <!-- Panel: col 8-12 -->
+      <div class="md:col-span-5">
+        <div class="rounded-[20px] overflow-hidden shadow-2xl border border-white/5 mx-auto max-w-[400px]" style="background-color:#0E1621">
+          <!-- Telegram header -->
+          <div class="flex items-center px-4 py-3.5" style="background-color:#17212B">
+            <svg class="w-5 h-5 text-white/60 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            <div class="w-10 h-10 rounded-full bg-brand flex items-center justify-center text-white font-bold text-lg mr-3 flex-shrink-0">🪶</div>
+            <div class="flex-1 min-w-0">
+              <div class="text-white font-semibold text-[15px] truncate">Hermes Bot</div>
+              <div class="flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 inline-block animate-pulse"></span>
+                <span class="text-emerald-400 text-[11px]">online</span>
+              </div>
+            </div>
+            <div class="text-white/40 text-xl flex-shrink-0">⋯</div>
+          </div>
+          <!-- Chat body -->
+          <div class="px-3.5 py-4" style="background-color:#0E1621;min-height:240px">
+            <div class="flex justify-end mb-3">
+              <div class="bg-brand text-white rounded-2xl rounded-br-md px-3.5 py-2.5 text-sm leading-relaxed max-w-[78%]">
+                <div>Tạo báo giá cho Cty Thép Bình Minh<br>- 100 cây thép hộp 50×50</div>
+                <div class="text-white/50 text-[11px] text-right mt-1">08:42</div>
+              </div>
+            </div>
+            <div class="flex mb-3">
+              <div class="w-7 h-7 rounded-full bg-brand flex items-center justify-center text-white text-xs mr-2 flex-shrink-0 mt-1">🪶</div>
+              <div class="bg-navy-soft text-white rounded-2xl rounded-bl-md px-3.5 py-2.5 text-sm leading-relaxed max-w-[78%]">
+                <div>Đang tra cứu KH-042 + bảng giá hôm nay...</div>
+                <div class="flex gap-1.5 items-center mt-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-brand animate-pulse" style="animation-duration:1.4s"></span>
+                  <span class="w-1.5 h-1.5 rounded-full bg-brand animate-pulse" style="animation-duration:1.4s;animation-delay:0.2s"></span>
+                  <span class="w-1.5 h-1.5 rounded-full bg-brand animate-pulse" style="animation-duration:1.4s;animation-delay:0.4s"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Footer -->
+          <div class="flex items-center px-4 py-3 gap-3" style="background-color:#17212B">
+            <div class="flex gap-2 text-white/30 text-[11px] flex-1">
+              <span>💬 Telegram</span>
+              <span>📱 WhatsApp</span>
+              <span>📧 Email</span>
+            </div>
+            <div class="flex items-center gap-1.5 text-white/50 text-[11px]">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"></span>
+              <span>Live · 12 tác vụ · 4 skill</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 3. JOB TO BE DONE ===== -->
+  <section class="bg-gray-50 py-20">
+    <div class="max-w-[1100px] mx-auto px-6">
+      <div class="text-brand uppercase tracking-[0.12em] text-xs font-semibold mb-4">✦ JOB TO BE DONE</div>
+      <h2 class="font-fraunces text-3xl md:text-4xl font-bold text-navy-900 mb-3">Từ Q&A đến việc hoàn thành</h2>
+      <p class="text-gray-600 max-w-[600px] mb-10">
+        Hầu hết doanh nghiệp đang dùng AI ở cấp "hỏi — đáp". Hermes đưa bạn lên cấp "hoàn thành công việc".
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
+        <div class="bg-white border border-gray-200 rounded-xl p-6">
+          <div class="text-gray-400 uppercase tracking-wider text-xs font-semibold mb-2">❌ Q&A (thường thấy)</div>
+          <p class="text-gray-600">Viết vài ý tưởng → Soạn nội dung → Hỏi lỗi → Tóm tắt cuộc họp... <em>rồi tự làm tiếp.</em></p>
+        </div>
+        <div class="bg-navy-card border border-brand/40 rounded-xl p-6">
+          <div class="text-brand uppercase tracking-wider text-xs font-semibold mb-2">✅ Job to be done (Hermes)</div>
+          <ul class="text-gray-100 space-y-1 text-sm">
+            <li>Tạo script, voice, visual, render, caption</li>
+            <li>DOCX, PDF, QR, gửi file</li>
+            <li>Đọc log, fix lỗi, viết checklist</li>
+            <li>Chốt quyết định, phân việc, follow-up</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Testimonial -->
+      <div class="max-w-[650px] mx-auto bg-white border border-gray-200 rounded-xl p-7 text-center mb-12">
+        <div class="text-gray-700 text-lg italic leading-relaxed mb-2">
+          "Tôi mất 2 năm để xây quy trình báo giá thủ công. Hermes làm trong 30 giây. Và nhớ mãi."
+        </div>
+        <div class="text-gray-400 text-sm">— Chủ doanh nghiệp thép, sau tuần 2 sử dụng Hermes</div>
+        <div class="flex flex-wrap gap-4 justify-center mt-3 text-sm text-gray-500">
+          <span>⏱ Tiết kiệm <strong class="text-brand">4 giờ/tuần</strong></span>
+          <span>📄 1 skill = 1 quy trình tự động</span>
+          <span>📱 Qua Telegram</span>
+        </div>
+      </div>
+
+      <!-- 3 Promises -->
+      <h3 class="font-fraunces text-2xl font-bold text-center mb-8">Bạn nói — Hermes làm</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white border border-gray-200 rounded-xl p-7 text-center">
+          <div class="text-3xl mb-4">💬</div>
+          <h4 class="font-bold text-lg mb-2">Bạn nói — Hermes làm</h4>
+          <p class="text-gray-500 text-sm">"Tạo báo giá cho khách A, gửi email và nhắc hẹn tuần sau" — một câu, không chat vòng vo.</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-7 text-center">
+          <div class="text-3xl mb-4">🔁</div>
+          <h4 class="font-bold text-lg mb-2">Tự tiến hóa qua skill</h4>
+          <p class="text-gray-500 text-sm">Mỗi lần làm đúng → đóng gói thành skill → lần sau chạy lại. Giống đào tạo nhân viên mới — nhưng nhanh hơn.</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-7 text-center">
+          <div class="text-3xl mb-4">📲</div>
+          <h4 class="font-bold text-lg mb-2">Ra lệnh qua Telegram & WhatsApp</h4>
+          <p class="text-gray-500 text-sm">Hermes trực trên server. Bạn gửi tin nhắn từ điện thoại — nó làm việc, gửi kết quả lại. Không cần mở máy.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 4. LIVE DEMO (Telegram chat auto-play) ===== -->
+  <section id="demo" class="py-24" style="background-color:#0E1621">
+    <div class="max-w-[1000px] mx-auto px-6 text-center">
+      <div class="text-brand uppercase tracking-[0.12em] text-xs font-semibold mb-4">⚡ LIVE DEMO</div>
+      <h2 class="font-fraunces text-3xl md:text-4xl font-bold text-white mb-3">
+        Một câu nói trên Telegram —<br>toàn bộ quy trình tự chạy.
+      </h2>
+      <p class="text-white/60 max-w-[600px] mx-auto mb-10">
+        Bạn nhắn — Hermes làm việc — gửi kết quả lại. Không cần mở máy, không cần học code.
+      </p>
+
+      <!-- React live demo component -->
+      <LiveDemoChat client:visible />
+
+      <p class="text-gray-400 italic text-sm mt-6 max-w-[600px] mx-auto">
+        Output thật từ Hermes Agent — một lệnh, toàn bộ quy trình tự hoàn tất qua Telegram.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== 5. STORY — 2 sai lầm ===== -->
+  <section class="bg-white py-20">
+    <div class="max-w-[800px] mx-auto px-6">
+      <div class="text-gray-400 uppercase tracking-[0.12em] text-xs font-semibold mb-4">📖 BẰNG CHỨNG</div>
+      <h2 class="font-fraunces text-3xl md:text-4xl font-bold text-navy-900 mb-3">2 sai lầm trước khi tôi tìm ra Hermes</h2>
+      <p class="text-gray-600 mb-10">Tôi từng nghĩ 10X là làm gấp đôi. Rồi tôi nghĩ AI sẽ giải phóng mình. Cả hai đều sai.</p>
+
+      <div class="border-l-4 border-brand bg-gray-50 rounded-r-xl p-6 mb-6">
+        <div class="text-gray-400 text-xs font-semibold uppercase tracking-wider mb-1">Sai lầm 1 · 10X</div>
+        <p class="text-gray-800">
+          <strong>"Muốn lớn 10 lần, đừng tối ưu cái cũ."</strong><br>
+          Thêm KPI, thêm cuộc họp — tôi chỉ làm nhanh hơn guồng quay, không thoát khỏi nó.
+        </p>
+        <a href="/blog/tu-duy-10x-dung-toi-uu-cai-cu/" class="text-brand text-sm font-medium no-underline hover:underline mt-2 inline-block">→ Đọc bài "10X: Đừng tối ưu cái cũ"</a>
+      </div>
+
+      <div class="border-l-4 border-brand bg-gray-50 rounded-r-xl p-6">
+        <div class="text-gray-400 text-xs font-semibold uppercase tracking-wider mb-1">Sai lầm 2 · AI Trap</div>
+        <p class="text-gray-800">
+          <strong>AI không giải phóng tôi — nó biến tôi thành nô lệ nhanh hơn.</strong><br>
+          Dùng AI cho mọi thứ, năng suất tăng vọt, nhưng kiệt sức sau 6 tháng. Thứ tôi cần không phải chatbot — mà một agent <strong>biết làm</strong>.
+        </p>
+        <a href="/blog/ai-khong-bien-doanh-nghiep-1-nguoi-thanh-de-che/" class="text-brand text-sm font-medium no-underline hover:underline mt-2 inline-block">→ Đọc bài "AI biến bạn thành nô lệ nhanh hơn"</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 6. SO SÁNH — 3 cấp độ AI ===== -->
+  <section class="bg-gray-50 py-20">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <div class="text-gray-400 uppercase tracking-[0.12em] text-xs font-semibold mb-4">SO SÁNH</div>
+      <h2 class="font-fraunces text-3xl md:text-4xl font-bold text-navy-900 mb-3">Ba cấp độ AI trong doanh nghiệp</h2>
+      <p class="text-gray-600 mb-10">Hầu hết doanh nghiệp đang ở cấp 1 hoặc 2. Hermes đưa bạn lên cấp 3.</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Cấp 1 -->
+        <div class="bg-white border border-gray-200 rounded-xl p-7 flex flex-col">
+          <div class="text-gray-400 text-center mb-3">
+            <svg class="w-10 h-10 mx-auto" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" fill="#D4D4D4"/><path d="M8 8h8M8 12h6M8 16h4" stroke="#A3A3A3" stroke-width="1.5"/></svg>
+          </div>
+          <h3 class="font-bold text-lg text-center mb-1">Chatbot Q&A</h3>
+          <p class="text-gray-400 text-sm text-center mb-5">Trả lời — bạn tự làm tiếp</p>
+          <ul class="space-y-2 text-sm flex-1">
+            <li class="flex items-center gap-2"><span class="text-red-400">✗</span> Trả lời câu hỏi</li>
+            <li class="flex items-center gap-2"><span class="text-red-400">✗</span> Không nhớ doanh nghiệp bạn</li>
+            <li class="flex items-center gap-2"><span class="text-red-400">✗</span> Không tạo file, không gửi email</li>
+          </ul>
+        </div>
+        <!-- Cấp 2 -->
+        <div class="bg-white border border-gray-200 rounded-xl p-7 flex flex-col">
+          <div class="text-gray-400 text-center mb-3">
+            <svg class="w-10 h-10 mx-auto" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" fill="#D4D4D4"/><path d="M6 18L18 6M9 9h.01M15 15h.01" stroke="#A3A3A3" stroke-width="1.5"/></svg>
+          </div>
+          <h3 class="font-bold text-lg text-center mb-1">Co-working Assistant</h3>
+          <p class="text-gray-400 text-sm text-center mb-5">Code cùng — cần bạn mở máy</p>
+          <ul class="space-y-2 text-sm flex-1">
+            <li class="flex items-center gap-2"><span class="text-gray-400">~</span> Code, script, terminal</li>
+            <li class="flex items-center gap-2"><span class="text-red-400">✗</span> Chạy trên máy bạn — tắt là mất</li>
+            <li class="flex items-center gap-2"><span class="text-red-400">✗</span> Không nhớ quy trình, không skill</li>
+          </ul>
+        </div>
+        <!-- Cấp 3 — HIGHLIGHTED -->
+        <div class="bg-navy-card border border-brand rounded-xl p-7 flex flex-col relative shadow-lg shadow-brand/10 scale-[1.04]">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand text-white text-xs font-bold px-4 py-1 rounded-full whitespace-nowrap">★ HERMES AGENT</div>
+          <div class="text-brand text-center mb-3 mt-2">
+            <svg class="w-10 h-10 mx-auto" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#F26C2C" opacity="0.15" stroke="#F26C2C" stroke-width="1.5"/><circle cx="12" cy="12" r="3" fill="#F26C2C" opacity="0.3"/><path d="M12 2v3M12 19v3M22 12h-3M5 12H2" stroke="#F26C2C" stroke-width="1.2" opacity="0.5"/></svg>
+          </div>
+          <h3 class="font-bold text-lg text-center mb-1 text-white">Execution Agent</h3>
+          <p class="text-brand text-sm text-center mb-5">Thực thi — nhớ — tiến hóa</p>
+          <ul class="space-y-2 text-sm flex-1 text-gray-200">
+            <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Hoàn thành việc từ đầu đến cuối</li>
+            <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> 24/7 — ra lệnh qua Telegram/WhatsApp</li>
+            <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Nhớ quy trình — skill tự học</li>
+            <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Tạo file, gửi email, CRM</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 7. CHƯƠNG TRÌNH HỌC ===== -->
+  <section class="bg-white py-20">
+    <div class="max-w-[1100px] mx-auto px-6">
+      <div class="text-gray-400 uppercase tracking-[0.12em] text-xs font-semibold mb-4">CHƯƠNG TRÌNH HỌC</div>
+      <h2 class="font-fraunces text-3xl md:text-4xl font-bold text-navy-900 mb-3">6 module — 1 tháng — từ 0 đến tự động hoá</h2>
+      <p class="text-gray-600 mb-10">Không lý thuyết suông. Mỗi module kết thúc bằng một output có thể dùng ngay.</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="border border-gray-200 rounded-xl p-6 hover:border-brand hover:shadow-md transition">
+          <div class="font-fraunces text-5xl font-bold text-brand mb-3">1</div>
+          <h3 class="font-bold text-base mb-2">Cài đặt và chạy Hermes lần đầu</h3>
+          <p class="text-gray-500 text-sm">Không cần code. Chạy được ngay trong 15 phút.</p>
+        </div>
+        <div class="border border-gray-200 rounded-xl p-6 hover:border-brand hover:shadow-md transition">
+          <div class="font-fraunces text-5xl font-bold text-brand mb-3">2</div>
+          <h3 class="font-bold text-base mb-2">Ra lệnh tự nhiên — hiểu Hermes trả lời gì</h3>
+          <p class="text-gray-500 text-sm">Prompt engineering cho CEO: tư duy hệ thống, không cần kỹ thuật.</p>
+        </div>
+        <div class="border border-gray-200 rounded-xl p-6 hover:border-brand hover:shadow-md transition">
+          <div class="font-fraunces text-5xl font-bold text-brand mb-3">3</div>
+          <h3 class="font-bold text-base mb-2">Tạo skill đầu tiên: báo giá, blog, email</h3>
+          <p class="text-gray-500 text-sm">Dạy Hermes một quy trình — nó nhớ mãi.</p>
+        </div>
+        <div class="border border-gray-200 rounded-xl p-6 hover:border-brand hover:shadow-md transition">
+          <div class="font-fraunces text-5xl font-bold text-brand mb-3">4</div>
+          <h3 class="font-bold text-base mb-2">Kết nối công cụ: CRM, Telegram, file server</h3>
+          <p class="text-gray-500 text-sm">Hermes dùng được terminal và API — không chỉ chat.</p>
+        </div>
+        <div class="border border-gray-200 rounded-xl p-6 hover:border-brand hover:shadow-md transition">
+          <div class="font-fraunces text-5xl font-bold text-brand mb-3">5</div>
+          <h3 class="font-bold text-base mb-2">Tự động hoá quy trình lặp</h3>
+          <p class="text-gray-500 text-sm">Viết báo giá hàng ngày. Kiểm tra server mỗi sáng. Gửi báo cáo tuần.</p>
+        </div>
+        <div class="border border-gray-200 rounded-xl p-6 hover:border-brand hover:shadow-md transition">
+          <div class="font-fraunces text-5xl font-bold text-brand mb-3">6</div>
+          <h3 class="font-bold text-base mb-2">Xây hệ thống cho doanh nghiệp 1 người</h3>
+          <p class="text-gray-500 text-sm">Áp dụng bài học từ 10X + AI trap: hệ thống trước, AI sau.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 8. PRICING ===== -->
+  <section id="pricing" class="bg-gray-50 py-20">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <div class="text-gray-400 uppercase tracking-[0.12em] text-xs font-semibold mb-4">CHỌN GÓI</div>
+      <h2 class="font-fraunces text-3xl md:text-4xl font-bold text-navy-900 mb-3">3 cách để sở hữu Hermes</h2>
+      <p class="text-gray-600 mb-10">Từ dùng thử đến full hệ thống — chọn gói phù hợp với bạn.</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+        <!-- Starter -->
+        <div class="bg-white border border-gray-200 rounded-xl p-8 flex flex-col">
+          <div class="font-fraunces text-5xl font-bold text-navy-900">699.000₫</div>
+          <div class="text-gray-400 text-sm mb-6">Một lần</div>
+          <ul class="space-y-3 text-sm text-gray-600 mb-6 flex-1">
+            <li class="flex items-start gap-2"><span class="text-brand mt-0.5">✓</span> Hermes Agent — giữ mãi</li>
+            <li class="flex items-start gap-2"><span class="text-brand mt-0.5">✓</span> 3 module học cơ bản</li>
+            <li class="flex items-start gap-2"><span class="text-brand mt-0.5">✓</span> Skill pack: báo giá + blog</li>
+            <li class="flex items-start gap-2"><span class="text-brand mt-0.5">✓</span> Telegram group hỗ trợ</li>
+          </ul>
+          <p class="text-gray-400 text-xs mb-4">Sau đăng ký: email hướng dẫn trong 5 phút. Cài Hermes xong trong 15 phút.</p>
+          <a href="#" class="border-2 border-gray-300 text-gray-800 text-center py-3 rounded-full font-semibold text-sm no-underline hover:border-brand hover:text-brand transition block">Chọn gói Starter →</a>
+        </div>
+
+        <!-- Pro (featured) -->
+        <div class="bg-navy-card border border-brand rounded-xl p-8 flex flex-col relative scale-[1.04] shadow-xl shadow-brand/15">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand text-white text-xs font-bold px-4 py-1 rounded-full whitespace-nowrap">🔥 Best Value</div>
+          <div class="font-fraunces text-5xl md:text-6xl font-bold text-brand mt-2">999.000₫</div>
+          <div class="text-white/60 text-sm mb-4">Một lần — phổ biến nhất</div>
+          <div class="bg-white/10 border border-white/20 rounded-lg p-3 text-sm text-white mb-4">
+            🎁 <strong>Bonus hôm nay:</strong> Skill pack "Email tự động cho CEO" — trị giá 499k
+          </div>
+          <ul class="space-y-3 text-sm text-gray-200 mb-6 flex-1">
+            <li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Hermes Agent — giữ mãi</li>
+            <li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> 6 module đầy đủ + tài liệu</li>
+            <li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Skill pack: báo giá, blog, email, server check</li>
+            <li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Skill pack bonus: Email tự động</li>
+            <li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Telegram group + 1:1 David Tùng</li>
+            <li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Cập nhật trọn đời</li>
+            <li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">🛡️</span> 30 ngày hoàn tiền</li>
+          </ul>
+          <p class="text-white/50 text-xs mb-4">Sau đăng ký: email hướng dẫn + Telegram group trong 5 phút.</p>
+          <a href="#" class="bg-brand text-white text-center py-3.5 rounded-full font-bold text-sm no-underline hover:opacity-90 transition block shadow-lg shadow-brand/25">Chọn gói Pro →</a>
+        </div>
+
+        <!-- Enterprise -->
+        <div class="bg-white border border-gray-200 rounded-xl p-8 flex flex-col">
+          <div class="font-fraunces text-5xl font-bold text-navy-900">1.999.000₫</div>
+          <div class="text-gray-400 text-sm mb-6">Một lần — full system</div>
+          <ul class="space-y-3 text-sm text-gray-600 mb-6 flex-1">
+            <li class="flex items-start gap-2"><span class="text-brand mt-0.5">✓</span> Mọi thứ trong gói Pro</li>
+            <li class="flex items-start gap-2"><span class="text-brand mt-0.5">✓</span> Server Hermes 24/7 (setup sẵn)</li>
+            <li class="flex items-start gap-2"><span class="text-brand mt-0.5">✓</span> Tích hợp CRM + email doanh nghiệp</li>
+            <li class="flex items-start gap-2"><span class="text-brand mt-0.5">✓</span> Skill tùy chỉnh theo quy trình riêng</li>
+            <li class="flex items-start gap-2"><span class="text-brand mt-0.5">✓</span> Hỗ trợ 1:1 priority — David Tùng</li>
+            <li class="flex items-start gap-2"><span class="text-brand mt-0.5">🛡️</span> 30 ngày hoàn tiền</li>
+          </ul>
+          <p class="text-gray-400 text-xs mb-4">Sau đăng ký: tôi liên hệ bạn trong vòng 24h để setup server.</p>
+          <a href="#" class="border-2 border-gray-300 text-gray-800 text-center py-3 rounded-full font-semibold text-sm no-underline hover:border-brand hover:text-brand transition block">Chọn gói Enterprise →</a>
+        </div>
+      </div>
+
+      <p class="text-center text-gray-400 text-sm mt-8">
+        Không chắc chọn gói nào? <a href="#" class="text-brand font-medium no-underline hover:underline">Trò chuyện với David 15 phút →</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== 9. FAQ ===== -->
+  <section class="bg-white py-20">
+    <div class="max-w-[720px] mx-auto px-6">
+      <h2 class="font-fraunces text-3xl font-bold text-navy-900 mb-8 text-center">Câu hỏi thường gặp</h2>
+
+      <div class="space-y-4">
+        <details class="border border-gray-200 rounded-xl p-5 open:border-brand open:shadow-sm transition-all group">
+          <summary class="font-semibold text-gray-800 cursor-pointer list-none flex items-center justify-between">
+            Tôi không biết code — học được không?
+            <span class="text-gray-400 text-xl group-open:rotate-45 transition-transform">+</span>
+          </summary>
+          <p class="text-gray-500 text-sm mt-3">Hoàn toàn được. Hermes dạy cách giao tiếp bằng tiếng Việt tự nhiên qua Telegram. Module 1 cài đặt xong trong 15 phút.</p>
+        </details>
+        <details class="border border-gray-200 rounded-xl p-5 open:border-brand open:shadow-sm transition-all group">
+          <summary class="font-semibold text-gray-800 cursor-pointer list-none flex items-center justify-between">
+            Tôi đã dùng ChatGPT — khóa này khác gì?
+            <span class="text-gray-400 text-xl group-open:rotate-45 transition-transform">+</span>
+          </summary>
+          <p class="text-gray-500 text-sm mt-3">ChatGPT trả lời. Hermes <strong>làm</strong>. Đây là khác biệt giữa "AI-user" và "AI-operator".</p>
+        </details>
+        <details class="border border-gray-200 rounded-xl p-5 open:border-brand open:shadow-sm transition-all group">
+          <summary class="font-semibold text-gray-800 cursor-pointer list-none flex items-center justify-between">
+            Có hoàn tiền không?
+            <span class="text-gray-400 text-xl group-open:rotate-45 transition-transform">+</span>
+          </summary>
+          <p class="text-gray-500 text-sm mt-3">Có. 30 ngày hoàn 100%, không cần lý do.</p>
+        </details>
+        <details class="border border-gray-200 rounded-xl p-5 open:border-brand open:shadow-sm transition-all group">
+          <summary class="font-semibold text-gray-800 cursor-pointer list-none flex items-center justify-between">
+            Sau khóa tôi nhận được gì cụ thể?
+            <span class="text-gray-400 text-xl group-open:rotate-45 transition-transform">+</span>
+          </summary>
+          <p class="text-gray-500 text-sm mt-3">Hermes Agent giữ mãi + 6 module video + 4 skill pack đã setup sẵn + Telegram group.</p>
+        </details>
+        <details class="border border-gray-200 rounded-xl p-5 open:border-brand open:shadow-sm transition-all group">
+          <summary class="font-semibold text-gray-800 cursor-pointer list-none flex items-center justify-between">
+            Chi phí AI hàng tháng sau khóa khoảng bao nhiêu?
+            <span class="text-gray-400 text-xl group-open:rotate-45 transition-transform">+</span>
+          </summary>
+          <p class="text-gray-500 text-sm mt-3">Khoảng 200k–500k/tháng cho 1 Solo CEO chạy 3–5 skill. Module 1 dạy bạn cách tối ưu.</p>
+        </details>
+        <details class="border border-gray-200 rounded-xl p-5 open:border-brand open:shadow-sm transition-all group">
+          <summary class="font-semibold text-gray-800 cursor-pointer list-none flex items-center justify-between">
+            Tôi có thể chạy Hermes trên máy mình không?
+            <span class="text-gray-400 text-xl group-open:rotate-45 transition-transform">+</span>
+          </summary>
+          <p class="text-gray-500 text-sm mt-3">Có (gói Starter + Pro) hoặc trên server riêng (gói Enterprise — David setup sẵn).</p>
+        </details>
+        <details class="border border-gray-200 rounded-xl p-5 open:border-brand open:shadow-sm transition-all group">
+          <summary class="font-semibold text-gray-800 cursor-pointer list-none flex items-center justify-between">
+            Tôi không có CRM — vẫn dùng được không?
+            <span class="text-gray-400 text-xl group-open:rotate-45 transition-transform">+</span>
+          </summary>
+          <p class="text-gray-500 text-sm mt-3">Được. Hermes dùng Google Sheets + Email cũng đủ cho hầu hết quy trình.</p>
+        </details>
+        <details class="border border-gray-200 rounded-xl p-5 open:border-brand open:shadow-sm transition-all group">
+          <summary class="font-semibold text-gray-800 cursor-pointer list-none flex items-center justify-between">
+            Tôi có thể nâng cấp gói sau không?
+            <span class="text-gray-400 text-xl group-open:rotate-45 transition-transform">+</span>
+          </summary>
+          <p class="text-gray-500 text-sm mt-3">Được. Pay chênh lệch — không trừ trợ giá.</p>
+        </details>
+      </div>
+
+      <!-- Guarantee box -->
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 text-center mt-10">
+        <div class="text-2xl mb-2">🛡️</div>
+        <h3 class="font-bold text-lg mb-2">Cam kết của tôi</h3>
+        <div class="text-gray-600 text-sm space-y-1">
+          <p>✓ Hoàn 100% trong 30 ngày — không cần lý do.</p>
+          <p>✓ Không setup được Hermes trong tuần 1 → tôi tự hỗ trợ 1:1 đến khi chạy.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 10. FINAL CTA ===== -->
+  <section class="py-24 text-center" style="background-color:#1A2B4A">
+    <div class="max-w-[800px] mx-auto px-6">
+      <h2 class="font-fraunces text-3xl md:text-4xl font-bold text-white mb-4">
+        Bạn đang chat với AI hàng giờ.<br>
+        <span class="text-brand">Hermes làm việc thay bạn.</span>
+      </h2>
+      <p class="text-white/70 mb-8">Cài đặt trong 15 phút. Hoàn tiền trong 30 ngày. Không lý do.</p>
+
+      <div class="flex justify-center gap-4 mb-8 flex-wrap">
+        <div class="bg-white/10 border border-white/20 rounded-xl px-5 py-3 text-white text-sm">699k Starter</div>
+        <div class="bg-brand border border-brand rounded-xl px-5 py-3 text-white text-sm font-bold">999k Pro ★</div>
+        <div class="bg-white/10 border border-white/20 rounded-xl px-5 py-3 text-white text-sm">1.999k Enterprise</div>
+      </div>
+
+      <a href="#pricing" class="bg-brand text-white px-10 py-4 rounded-full font-bold text-lg no-underline hover:opacity-90 transition inline-flex items-center gap-2 shadow-xl shadow-brand/30">
+        Bắt đầu với gói Pro — 999k →
+      </a>
+      <p class="text-white/50 text-sm mt-4">
+        Chưa sẵn sàng? <a href="#" class="text-brand no-underline hover:underline">Trò chuyện với David 15 phút miễn phí →</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== 11. FOOTER ===== -->
+  <footer class="bg-gray-900 text-gray-400 py-12">
+    <div class="max-w-[1100px] mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
+      <div>
+        <div class="flex items-center gap-2 text-white font-bold mb-4">
+          <img src={hermesLogo} alt="Hermes" class="h-6 w-auto rounded-none" />
+          David Tùng
+        </div>
+        <p>Trợ lý thực thi tự tiến hóa cho CEO solo và doanh nghiệp 1 người.</p>
+      </div>
+      <div>
+        <h4 class="text-white font-semibold mb-3">Hermes</h4>
+        <ul class="space-y-2">
+          <li><a href="https://hermes-agent.nousresearch.com/docs" class="text-gray-400 no-underline hover:text-white">Tài liệu</a></li>
+          <li><a href="https://github.com/NousResearch/hermes-agent" class="text-gray-400 no-underline hover:text-white">GitHub</a></li>
+          <li><a href="/blog" class="text-gray-400 no-underline hover:text-white">Blog</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-semibold mb-3">David Tùng</h4>
+        <ul class="space-y-2">
+          <li><a href="https://davidtung.net" class="text-gray-400 no-underline hover:text-white">davidtung.net</a></li>
+          <li><a href="#" class="text-gray-400 no-underline hover:text-white">Telegram</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

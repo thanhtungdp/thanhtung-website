@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  width: 1792px; height: 1024px;
+  background: linear-gradient(135deg, #F6F1E8 0%, #EDE5D8 50%, #F0E9DC 100%);
+  font-family: 'Inter', 'Georgia', serif;
+  overflow: hidden;
+  position: relative;
+}
+.grid {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle, #D8CFBE 1.2px, transparent 1.2px);
+  background-size: 32px 32px;
+}
+.glow-orange {
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(248,96,0,0.08) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+.compass-outer {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 480px; height: 480px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #F6F1E8, #E8DFD0);
+  box-shadow: 
+    0 20px 60px rgba(0,0,0,0.12),
+    0 4px 12px rgba(0,0,0,0.06),
+    inset 0 2px 4px rgba(255,255,255,0.6),
+    inset 0 -2px 4px rgba(0,0,0,0.04);
+}
+.compass-ring {
+  position: absolute;
+  inset: 12px;
+  border-radius: 50%;
+  border: 2.5px solid #14120F;
+  box-shadow: 0 0 0 6px #F6F1E8, 0 0 0 9px #14120F, 0 0 0 15px #F6F1E8, 0 0 0 18px rgba(20,18,15,0.3);
+}
+.ticks-container {
+  position: absolute; inset: 30px;
+}
+.tick-major {
+  position: absolute;
+  width: 2px; height: 24px;
+  background: #14120F;
+  top: 0; left: 50%;
+  transform-origin: 50% 210px;
+}
+.tick-minor {
+  position: absolute;
+  width: 1px; height: 12px;
+  background: rgba(20,18,15,0.4);
+  top: 6px; left: 50%;
+  transform-origin: 50% 204px;
+}
+.needle-n {
+  position: absolute;
+  top: 40px; left: 50%;
+  transform: translateX(-50%);
+  width: 0; height: 0;
+  border-left: 16px solid transparent;
+  border-right: 16px solid transparent;
+  border-bottom: 170px solid #F86000;
+  filter: drop-shadow(0 4px 8px rgba(248,96,0,0.35));
+  z-index: 5;
+}
+.needle-s {
+  position: absolute;
+  bottom: 40px; left: 50%;
+  transform: translateX(-50%);
+  width: 0; height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 150px solid #14120F;
+  filter: drop-shadow(0 -2px 4px rgba(0,0,0,0.15));
+  z-index: 5;
+}
+.center-hub {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 28px; height: 28px;
+  background: radial-gradient(circle at 40% 40%, #3a3630, #14120F);
+  border-radius: 50%;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+.center-ring {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px; height: 50px;
+  border-radius: 50%;
+  border: 2px solid rgba(248,96,0,0.4);
+  z-index: 9;
+}
+.blueprint-line {
+  position: absolute;
+  background: rgba(20,18,15,0.06);
+}
+.badge {
+  position: absolute;
+  bottom: 100px; left: 50%;
+  transform: translateX(-50%);
+  background: #14120F;
+  color: #F6F1E8;
+  padding: 18px 56px;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  border-radius: 3px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+.badge-accent {
+  position: absolute;
+  bottom: 96px; left: 50%;
+  transform: translateX(-50%);
+  width: 300px; height: 4px;
+  background: #F86000;
+  border-radius: 2px;
+}
+.corner-dot {
+  position: absolute;
+  width: 10px; height: 10px;
+  background: #F86000;
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(248,96,0,0.4);
+}
+</style>
+</head>
+<body>
+<div class="grid"></div>
+<div class="glow-orange"></div>
+
+<!-- Blueprint lines -->
+<div class="blueprint-line" style="top:18%;left:0;right:0;height:1px"></div>
+<div class="blueprint-line" style="top:38%;left:0;right:0;height:1px"></div>
+<div class="blueprint-line" style="top:62%;left:0;right:0;height:1px"></div>
+<div class="blueprint-line" style="top:82%;left:0;right:0;height:1px"></div>
+<div class="blueprint-line" style="left:18%;top:0;bottom:0;width:1px"></div>
+<div class="blueprint-line" style="left:38%;top:0;bottom:0;width:1px"></div>
+<div class="blueprint-line" style="left:62%;top:0;bottom:0;width:1px"></div>
+<div class="blueprint-line" style="left:82%;top:0;bottom:0;width:1px"></div>
+
+<div class="compass-outer">
+  <div class="compass-ring">
+    <div class="ticks-container" id="ticks"></div>
+    <div class="needle-n"></div>
+    <div class="needle-s"></div>
+    <div class="center-hub"></div>
+    <div class="center-ring"></div>
+  </div>
+</div>
+
+<div class="badge">ACTIONCOACH 6 STEPS</div>
+<div class="badge-accent"></div>
+
+<div class="corner-dot" style="top:10%;left:10%"></div>
+<div class="corner-dot" style="top:10%;right:10%"></div>
+<div class="corner-dot" style="bottom:15%;left:10%"></div>
+<div class="corner-dot" style="bottom:15%;right:10%"></div>
+</body>
+<script>
+const container = document.getElementById('ticks');
+for (let i = 0; i < 36; i++) {
+  const t = document.createElement('div');
+  t.className = i % 3 === 0 ? 'tick-major' : 'tick-minor';
+  t.style.transform = `rotate(${i*10}deg)`;
+  container.appendChild(t);
+}
+</script>
+</html>

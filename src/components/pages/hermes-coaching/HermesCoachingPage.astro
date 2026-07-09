@@ -513,11 +513,22 @@ const wrap = 'py-6 sm:py-8';
 											))
 										}
 									</select>
-								</div>
-								<button
-									type="submit"
-									class="hermes-press w-full border-2 border-hermes-orange bg-hermes-orange px-5 py-3.5 text-center text-sm font-bold text-white"
-								>
+										</div>
+										<div class="mb-3.5">
+											<label class="mb-1.5 block font-hermes-mono text-[11px] uppercase tracking-[0.06em] text-hermes-muted">
+												Mã giảm giá
+											</label>
+											<input
+												id="signup-coupon"
+												type="text"
+												placeholder="Nhập mã (nếu có)"
+												class="w-full border-2 border-hermes-ink bg-hermes-paper px-3.5 py-3 font-hermes-sans text-[15px] focus:border-hermes-orange focus:outline-none"
+											/>
+										</div>
+										<button
+											type="submit"
+											class="hermes-press w-full border-2 border-hermes-orange bg-hermes-orange px-5 py-3.5 text-center text-sm font-bold text-white"
+										>
 									{cta.submit}
 								</button>
 							</form>
@@ -645,6 +656,7 @@ const wrap = 'py-6 sm:py-8';
 
 					// Determine courseCode based on selected plan
 					const courseCode = planSelect?.value || 'HERMES-MINI-COACH-4';
+					const coupon = get('signup-coupon');
 
 					window.dispatchEvent(
 						new CustomEvent('hermes:checkout', {
@@ -652,6 +664,7 @@ const wrap = 'py-6 sm:py-8';
 								...userInfo,
 								courseCode,
 								qty: 1,
+								...(coupon ? { coupon } : {}),
 							},
 						}),
 					);

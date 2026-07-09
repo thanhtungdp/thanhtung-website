@@ -19,6 +19,7 @@ export type CheckoutPayload = {
 	email: string;
 	fullname: string;
 	courseCode: string;
+	coupon?: string;
 	price?: string;
 	qty?: number;
 };

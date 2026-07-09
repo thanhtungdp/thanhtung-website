@@ -301,14 +301,14 @@ export const curriculum = {
 
 export const pricing = {
 	eyebrow: 'Hermes Self-serve',
-	title: 'Ra mắt 05/07 — đặt trước ngay.',
-	lede: 'Khóa học chính thức mở bán 05/07/2026. Đặt trước hôm nay để được giá ưu đãi sớm nhất.',
+	title: 'Bắt đầu với hành trình giải phóng lãnh đạo.',
+	lede: 'Đầu tư gói học phù hợp với bạn. Hermes Pro đã mở bán — bắt đầu hôm nay.',
 	tiers: [
 		{
 			name: 'Pro',
-			tag: 'ĐANG MỞ',
-			price: '999k',
-			priceNote: 'Giá mở bán: 1.999k',
+			tag: 'ĐANG MỞ BÁN',
+			price: '1.999k',
+			priceNote: '',
 			unit: '/lifetime',
 			feat: true,
 			features: [
@@ -317,7 +317,7 @@ export const pricing = {
 				'Telegram group + 1:1 David',
 				'3 năm updates · lifetime archive',
 			],
-			cta: { href: '#signup-sec', label: 'Đặt trước Pro →' },
+			cta: { href: '#signup-sec', label: 'Mua Pro →' },
 		},
 		{
 			name: 'Enterprise',
@@ -328,6 +328,21 @@ export const pricing = {
 			feat: false,
 			features: ['Mọi thứ trong Pro', 'Server Hermes 24/7', 'CRM integration + 1:1 priority'],
 			cta: { href: '#signup-sec', label: 'Sắp ra mắt', disabled: true },
+		},
+		{
+			name: 'Coaching 1:1',
+			tag: 'HOÀN THÀNH CÙNG BẠN',
+			price: '20–60tr',
+			priceNote: 'Done-with-you · David cầm tay chỉ việc',
+			unit: '',
+			feat: false,
+			features: [
+				'AI Roadmap đạt ROI cho business bạn',
+				'Tự build agent production-ready',
+				'4 hoặc 12 buổi 1:1 · 90 phút/buổi',
+				'Kết nối tool + dashboard vận hành',
+			],
+			cta: { href: '/hermes-coaching', label: 'Tìm hiểu coaching →' },
 		},
 	],
 };
@@ -372,23 +387,23 @@ export const faq = {
 };
 
 export const cta = {
-	eyebrow: 'Ra mắt 05/07 · Bảo hành 30 ngày',
+	eyebrow: 'Đã mở bán · Bảo hành 30 ngày',
 	title: 'Việc lặp lại không cần bạn nữa.',
 	titleEm: 'không cần bạn',
-	body: 'Trong 4 tuần, em coach bạn từ AI-aware → AI-operator. Đặt trước hôm nay để được giá ưu đãi 999k (giá mở bán: 1.999k).',
-	seats: '20 chỗ đặt trước · còn 10',
+	body: 'Trong 4 tuần, em coach bạn từ AI-aware → AI-operator. Đầu tư hôm nay để có hệ thống agent tự chạy việc thật mỗi ngày.',
+	seats: '20 chỗ · còn 10',
 	seatsAccent: 'còn 10',
-	formTitle: 'Đặt trước Hermes Pro',
-	formSub: 'Khóa học ra mắt 05/07. Đặt trước để nhận giá sớm.',
+	formTitle: 'Mua Hermes Pro',
+	formSub: 'Khóa học đã mở bán. Thanh toán để nhận link kích hoạt ngay.',
 	fields: {
 		name: { label: 'Họ tên', placeholder: 'Phan Thanh Tùng' },
 		email: { label: 'Email', placeholder: 'ceo@company.vn' },
 		phone: { label: 'Số điện thoại', placeholder: '0987 654 321' },
-		plan: { label: 'Gói', options: ['Pro — 999k (giá mở bán: 1.999k)'] },
+		plan: { label: 'Gói', options: ['Pro — 1.999k /lifetime'] },
 	},
-	submit: 'Đặt trước & thanh toán 999k →',
+	submit: 'Mua & thanh toán 1.999k →',
 	courseCode: 'HERMES-999',
-	price: '999.000₫',
+	price: '1.999.000₫',
 	done: {
 		badge: '✓ ĐÃ NHẬN',
 		body: 'Cảm ơn bạn. Hermes sẽ gửi link kích hoạt qua email trong ít phút.',

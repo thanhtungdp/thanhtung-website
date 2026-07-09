@@ -1,0 +1,683 @@
+---
+import BaseHead from '../../BaseHead.astro';
+import { Image } from 'astro:assets';
+import DavidTungLogo from '../../../assets/david-tung-logo-upload.png';
+import HermesIcon from '../../../assets/hermes-landing/icon.png';
+import HermesOgImage from '../../../assets/hermes-landing/featured.png';
+import FlowDiagram from '../hermes-landing/FlowDiagram';
+import CheckOutModal from '../../ui/CheckOutModal';
+import CoachingLiveChat from './CoachingLiveChat';
+import {
+	nav,
+	hero,
+	promises,
+	painStats,
+	team,
+	connect,
+	curriculum,
+	pricing,
+	faq,
+	cta,
+	footer,
+} from './hermesCoachingContent';
+import { defaultLocale } from '../../../i18n';
+
+const title = 'Hermes Coaching 1:1 — Cùng David Tùng build đội AI agent';
+const description =
+	'Coaching 1:1 cùng David Tùng. Audit quy trình business thật, build agent production-ready, bàn giao hệ thống chạy 24/7. 2 gói: Mini (4 buổi) và 12 buổi (full hệ thống).';
+
+const page = 'mx-auto w-full max-w-[1200px] px-[18px] sm:px-8';
+const wrap = 'py-6 sm:py-8';
+---
+
+<!doctype html>
+<html lang={defaultLocale}>
+	<head>
+		<BaseHead title={title} description={description} image={HermesOgImage} locale={defaultLocale} />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body class="hermes-landing hermes-grid-bg">
+		<!-- NAV -->
+		<nav class="sticky top-0 z-50 border-b-2 border-hermes-ink bg-hermes-paper">
+			<div class={`${page} flex h-[58px] items-center gap-3`}>
+				<div
+					class="flex h-full min-w-0 items-center gap-2 pr-3 font-hermes-mono text-[13px] font-bold uppercase tracking-[0.04em] sm:gap-2.5 sm:border-r-2 sm:border-hermes-ink sm:pr-[26px]"
+				>
+					<Image
+						src={DavidTungLogo}
+						alt="David Tung"
+						class="!h-5 w-auto !rounded-none sm:!h-6"
+					/>
+					<span class="text-hermes-hair">|</span>
+					<Image
+						src={HermesIcon}
+						alt="Hermes"
+						class="!h-[18px] w-auto !rounded-none sm:!h-[22px]"
+					/>
+					<span class="hidden whitespace-nowrap min-[420px]:inline"
+						>{nav.brandName} <b class="text-hermes-orange">{nav.brandAccent}</b></span
+					>
+				</div>
+				<div
+					class="hidden flex-1 gap-[26px] pl-[26px] font-hermes-mono text-xs tracking-[0.04em] lg:flex"
+				>
+					{
+						nav.links.map((link) => (
+							<a href={link.href} class="!text-hermes-muted hover:!text-hermes-orange">
+								{link.label}
+							</a>
+						))
+					}
+				</div>
+				<a
+					href={nav.cta.href}
+					class="ml-auto shrink-0 whitespace-nowrap bg-hermes-ink px-4 py-2.5 font-hermes-mono text-xs font-bold !text-hermes-paper lg:ml-0"
+				>
+					{nav.cta.label}
+				</a>
+			</div>
+		</nav>
+
+		<!-- HERO -->
+		<header id="benefits" class="relative overflow-hidden border-2 border-t-0 border-hermes-ink">
+			<div class={`${page} relative z-10`}>
+				<div class="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr]">
+					<div
+						class="flex flex-col gap-8 border-2 border-dashed border-t-0 border-l-0 border-r-0 border-hermes-ink px-6 py-12 sm:px-12 sm:py-16"
+					>
+						<span class="hermes-eyebrow">{hero.eyebrow}</span>
+						<h1 class="my-6 text-5xl sm:text-6xl lg:text-7xl">
+							<span class="font-hermes-serif font-medium italic tracking-[-0.01em]">
+								{hero.titleEm}
+							</span><br />
+							{hero.titleMid}{' '}
+							<em class="not-italic text-hermes-orange">{hero.titleOperator}</em>
+						</h1>
+						<p class="text-hermes-muted">{hero.lede}</p>
+						<div class="mt-9 flex border-2 border-hermes-ink">
+							<a
+								href={hero.primaryCta.href}
+								class="hermes-press flex flex-1 items-center justify-center gap-2.5 border-r-2 border-hermes-orange bg-hermes-orange px-6 py-[15px] text-center font-hermes-sans text-sm font-bold !text-white"
+							>
+								{hero.primaryCta.label}
+							</a>
+							<a
+								href={hero.secondaryCta.href}
+								class="flex flex-1 items-center justify-center gap-2.5 bg-hermes-card px-6 py-[15px] text-center font-hermes-sans text-sm font-bold !text-hermes-ink hover:bg-hermes-ink hover:!text-hermes-paper"
+							>
+								{hero.secondaryCta.label}
+							</a>
+						</div>
+					</div>
+					<div id="demo" class="flex flex-col p-4 sm:p-8">
+						<div
+							class="flex h-[420px] flex-col border-2 border-dashed border-hermes-ink bg-hermes-ink sm:h-[460px]"
+						>
+							<div
+								class="flex items-center gap-2.5 border-b-2 border-hermes-line-soft bg-hermes-ink px-3.5 py-3 font-hermes-mono text-xs text-hermes-paper"
+							>
+								<span
+									class="grid h-[26px] w-[26px] place-items-center bg-hermes-orange font-hermes-sans font-bold text-white"
+								>
+									H
+								</span>
+								<span>{hero.chatBarLabel}</span>
+								<span
+									class="ml-auto inline-flex items-center gap-1.5 font-hermes-mono text-[10px] tracking-[0.1em] opacity-70"
+								>
+									<span class="hermes-live-dot h-[7px] w-[7px] rounded-full bg-hermes-orange"></span>
+									{hero.chatLiveLabel}
+								</span>
+							</div>
+							<CoachingLiveChat client:visible />
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<!-- PROMISES -->
+		<section>
+			<div class={`${page} ${wrap} pb-0`}>
+				<div class="grid grid-cols-1 md:grid-cols-3">
+					{
+						promises.map((p, i) => (
+							<div
+								class:list={[
+									'border-2 border-hermes-ink px-7 py-8 md:border-r-0 last:md:border-r-2 flex-col flex gap-4',
+									i > 0 && 'border-t-0 md:border-t-2',
+								]}
+							>
+								<div class="font-hermes-mono text-xs font-bold text-hermes-orange">{p.n}</div>
+								<h4 class="my-4 text-[22px]">{p.title}</h4>
+								<p class="text-[15px] leading-[1.55] text-hermes-muted">{p.body}</p>
+							</div>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<!-- PAIN STATS -->
+		<section id="pain" class="bg-hermes-ink text-hermes-paper">
+			<div class={`${page} ${wrap} flex flex-col gap-4`}>
+				<span class="hermes-eyebrow">{painStats.eyebrow}</span>
+				<h2 class="my-5 max-w-[24ch] text-3xl sm:text-4xl" style="line-height:1.25">{painStats.title}</h2>
+				<div class="grid grid-cols-1 border-2 border-hermes-line-soft md:grid-cols-3">
+					{
+						painStats.stats.map((stat, i) => (
+							<div
+								class:list={[
+									'px-7 py-10 md:border-r-2 md:border-hermes-line-soft last:md:border-r-0',
+									i > 0 && 'border-t-2 border-hermes-line-soft md:border-t-0',
+								]}
+							>
+								<div class="mb-5 font-hermes-mono text-[11px] uppercase tracking-[0.12em] opacity-50">
+									{stat.k}
+								</div>
+								<div class="text-3xl font-bold tracking-[-0.03em] text-hermes-orange sm:text-4xl lg:text-5xl" style="line-height:1.25">
+									{stat.big}
+								</div>
+								<div class="mt-3.5 max-w-[26ch] text-[15px] opacity-80">{stat.lab}</div>
+							</div>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<!-- TEAM -->
+		<section id="team">
+			<div class={`${page} ${wrap}`}>
+				<div class="mb-11 flex flex-wrap items-end justify-between gap-8">
+					<div>
+						<span class="hermes-eyebrow">{team.eyebrow}</span>
+						<h2 class="mt-4 max-w-[18ch] text-3xl sm:text-4xl lg:text-5xl">{team.title}</h2>
+					</div>
+					<p class="max-w-[56ch] text-[16px] leading-[1.6] text-hermes-muted">{team.lede}</p>
+				</div>
+				<div class="grid grid-cols-1 gap-0.5 border-2 border-hermes-ink bg-hermes-ink sm:grid-cols-2 lg:grid-cols-3">
+					{
+						team.agents.map((agent) => (
+							<div
+								class:list={[
+									'flex min-h-[200px] flex-col px-6 py-7',
+									agent.core ? 'bg-hermes-orange text-white' : 'bg-hermes-card',
+								]}
+							>
+								<div class="flex items-baseline justify-between">
+									<span
+										class:list={[
+											'font-hermes-mono text-[11px]',
+											agent.core ? 'text-white/90' : 'text-hermes-muted',
+										]}
+									>
+										{agent.num}
+									</span>
+									<span
+										class:list={[
+											'font-hermes-mono text-[10px] font-bold uppercase tracking-[0.08em]',
+											agent.core ? 'text-white/90' : 'text-hermes-orange',
+										]}
+									>
+										{agent.dept}
+									</span>
+								</div>
+								<h4 class="mb-1 mt-4 text-[25px]">{agent.name}</h4>
+								<span
+									class:list={[
+										'font-hermes-mono text-xs',
+										agent.core ? 'text-white/90' : 'text-hermes-muted',
+									]}
+								>
+									{agent.role}
+								</span>
+								<p
+									class:list={[
+										'mt-auto pt-4 text-[14.5px] leading-[1.5]',
+										agent.core ? 'text-white/90' : 'text-hermes-muted',
+									]}
+								>
+									{agent.body}
+								</p>
+							</div>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<!-- CONNECT / FLOW DIAGRAM -->
+		<section id="connect">
+			<div class={`${page} ${wrap}`}>
+				<div class="mb-11 flex flex-wrap items-end justify-between gap-8">
+					<div>
+						<span class="hermes-eyebrow">{connect.eyebrow}</span>
+						<h2 class="mt-4 max-w-[20ch] text-3xl sm:text-4xl lg:text-5xl">{connect.title}</h2>
+					</div>
+					<p class="max-w-[56ch] text-[16px] leading-[1.6] text-hermes-muted">{connect.lede}</p>
+				</div>
+				<FlowDiagram client:visible coreIcon={HermesIcon.src} />
+			</div>
+		</section>
+
+		<!-- PRICING -->
+		<section id="pricing" class="bg-hermes-paper-alt">
+			<div class={`${page} ${wrap}`}>
+				<div class="mb-10 max-w-3xl">
+					<span class="hermes-eyebrow">{pricing.eyebrow}</span>
+					<h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl">{pricing.title}</h2>
+					<p class="mt-3 text-[16px] leading-[1.6] text-hermes-muted">{pricing.lede}</p>
+				</div>
+				<div class="grid grid-cols-1 gap-0.5 border-2 border-hermes-ink bg-hermes-ink md:grid-cols-2">
+					{
+						pricing.tiers.map((tier) => (
+							<div
+								class:list={[
+									'flex flex-col px-6 py-8',
+									tier.feat ? 'bg-hermes-ink text-hermes-paper' : 'bg-hermes-card',
+								]}
+							>
+								<div class="flex items-start justify-between gap-4">
+									<div>
+										<p
+											class:list={[
+												'font-hermes-mono text-xs uppercase tracking-[0.1em]',
+												tier.feat ? 'text-hermes-paper' : 'text-hermes-muted',
+											]}
+										>
+											{tier.name}
+										</p>
+										<span class="mt-2 inline-block font-hermes-mono text-[10px] font-bold text-hermes-orange">
+											{tier.tag}
+										</span>
+									</div>
+								</div>
+								<div class="my-4 text-[38px] font-bold leading-none tracking-[-0.03em]">
+									{tier.price}
+									<span
+										class:list={[
+											'font-hermes-mono text-sm font-normal',
+											tier.feat ? 'text-[#a89c8c]' : 'text-hermes-muted',
+										]}
+									>
+										{tier.priceUnit}
+									</span>
+								</div>
+								{tier.priceNote && (
+									<p class="mb-2 font-hermes-mono text-xs text-hermes-muted">
+										{tier.priceNote}
+									</p>
+								)}
+								<ul class="mb-6 flex flex-1 flex-col gap-3">
+									{tier.features.map((feat) => (
+										<li
+											class:list={[
+												'relative pl-5 text-[14px] leading-[1.4] before:absolute before:left-0 before:font-bold before:text-hermes-orange before:content-["+"]',
+											]}
+										>
+											{feat}
+										</li>
+									))}
+								</ul>
+								<a
+									href={tier.cta.href}
+									data-plan={tier.courseCode}
+									data-plan-name={tier.name}
+									data-plan-price={tier.price + tier.priceUnit}
+									class:list={[
+										'pricing-cta flex w-full items-center justify-center border-2 px-5 py-3.5 text-center text-sm font-bold',
+										tier.feat
+											? 'hermes-press border-hermes-orange bg-hermes-orange !text-white'
+											: 'border-hermes-ink bg-hermes-card !text-hermes-ink hover:bg-hermes-ink hover:!text-hermes-paper',
+									]}
+								>
+									{tier.cta.label}
+								</a>
+							</div>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<!-- CURRICULUM (toggle tab, below pricing) -->
+		<section id="curriculum">
+			<div class={`${page} ${wrap}`}>
+				<div class="mb-8 max-w-3xl">
+					<span class="hermes-eyebrow">{curriculum.eyebrow}</span>
+					<h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl">{curriculum.title}</h2>
+					<p class="mt-3 text-[16px] leading-[1.6] text-hermes-muted">{curriculum.lede}</p>
+				</div>
+				{/* Toggle tabs */}
+				<div class="flex gap-0 border-2 border-hermes-ink">
+					{curriculum.columns.map((col, i) => (
+						<button
+							type="button"
+							data-tab={i}
+							class:list={[
+								'curriculum-tab flex-1 px-6 py-4 text-center font-hermes-sans text-sm font-bold transition-colors',
+								i === 0
+									? 'bg-hermes-ink text-hermes-paper'
+									: 'bg-hermes-card text-hermes-ink hover:bg-hermes-ink hover:text-hermes-paper',
+							]}
+						>
+							{col.name} · {col.price}
+						</button>
+					))}
+				</div>
+				{/* Tab panels */}
+				{curriculum.columns.map((col, i) => (
+					<div
+						class:list={[
+							'curriculum-panel border-2 border-t-0 border-hermes-ink bg-hermes-card',
+							i > 0 && 'hidden',
+						]}
+						data-panel={i}
+					>
+						<div class="flex flex-wrap items-center gap-4 border-b-2 border-hermes-ink px-6 py-4 sm:px-8">
+							<span class="font-hermes-mono text-[10px] font-bold uppercase tracking-[0.08em] text-hermes-orange">
+								{col.tag}
+							</span>
+							<span class="font-hermes-mono text-xs text-hermes-muted">{col.weeks}</span>
+						</div>
+						{col.modules.map((mod, mi) => (
+							<div
+								class:list={[
+									'grid grid-cols-[60px_1fr] border-hermes-ink bg-hermes-card border-b-2',
+									mi === col.modules.length - 1 && '!border-b-0',
+								]}
+							>
+								<div class="flex items-center border-r-2 border-hermes-ink px-4 py-5 font-hermes-mono text-[13px] font-bold text-hermes-orange">
+									{mod.n}
+								</div>
+								<div class="px-5 py-5">
+									<h4 class="mb-1.5 text-[18px]">{mod.title}</h4>
+									<p class="text-[14px] leading-[1.5] text-hermes-muted">{mod.body}</p>
+								</div>
+							</div>
+						))}
+						{/* CTA for this tab */}
+						<div class="border-t-2 border-hermes-ink bg-hermes-card px-6 py-5">
+							<a
+								href={col.ctaHref}
+								data-plan={col.code}
+								class:list={[
+									'pricing-cta hermes-press flex w-full items-center justify-center border-2 px-5 py-3.5 text-center text-sm font-bold',
+									i === 0
+										? 'border-hermes-orange bg-hermes-orange text-white'
+										: 'border-hermes-ink bg-hermes-ink text-hermes-paper hover:bg-hermes-orange hover:border-hermes-orange',
+								]}
+							>
+								{col.ctaLabel}
+							</a>
+						</div>
+					</div>
+				))}
+			</div>
+		</section>
+
+		<!-- FAQ -->
+		<section id="faq">
+			<div class={`${page} ${wrap}`}>
+				<div class="mb-11">
+					<span class="hermes-eyebrow">{faq.eyebrow}</span>
+					<h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl">{faq.title}</h2>
+				</div>
+				<div class="border-2 border-hermes-ink">
+					{
+						faq.items.map((item, i) => (
+							<div
+								class:list={[
+									'hermes-faq-item border-hermes-ink bg-hermes-card',
+									i < faq.items.length - 1 && 'border-b-2',
+								]}
+							>
+								<div class="hermes-faq-q flex cursor-pointer select-none items-center justify-between gap-5 px-6 py-6 text-[17px] font-semibold">
+									<span>{item.q}</span>
+									<span class="hermes-faq-icon font-hermes-mono text-2xl text-hermes-orange transition-transform">
+										+
+									</span>
+								</div>
+								<div class="hermes-faq-a max-h-0 overflow-hidden text-hermes-muted transition-[max-height] duration-300 ease-in-out">
+									<p class="px-6 pb-6 text-[15px] leading-[1.6]">{item.a}</p>
+								</div>
+							</div>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<!-- CTA + FORM -->
+		<section id="signup-sec">
+			<div class={`${page} ${wrap}`}>
+				<div class="grid grid-cols-1 border-2 border-hermes-ink lg:grid-cols-[1.1fr_0.9fr]">
+					<div class="bg-hermes-card px-11 py-11">
+						<div id="signupFormShell">
+							<h3 class="mb-1.5 text-[20px]">{cta.formTitle}</h3>
+							<div class="mb-6 text-sm text-hermes-muted">{cta.formSub}</div>
+							<form id="signup" data-course-code={cta.courseCode}>
+								<div class="mb-3.5">
+									<label class="mb-1.5 block font-hermes-mono text-[11px] uppercase tracking-[0.06em] text-hermes-muted">
+										{cta.fields.name.label}
+									</label>
+									<input
+										id="signup-name"
+										type="text"
+										required
+										placeholder={cta.fields.name.placeholder}
+										class="w-full border-2 border-hermes-ink bg-hermes-paper px-3.5 py-3 font-hermes-sans text-[15px] focus:border-hermes-orange focus:outline-none"
+									/>
+								</div>
+								<div class="mb-3.5">
+									<label class="mb-1.5 block font-hermes-mono text-[11px] uppercase tracking-[0.06em] text-hermes-muted">
+										{cta.fields.email.label}
+									</label>
+									<input
+										id="signup-email"
+										type="email"
+										required
+										placeholder={cta.fields.email.placeholder}
+										class="w-full border-2 border-hermes-ink bg-hermes-paper px-3.5 py-3 font-hermes-sans text-[15px] focus:border-hermes-orange focus:outline-none"
+									/>
+								</div>
+								<div class="mb-3.5">
+									<label class="mb-1.5 block font-hermes-mono text-[11px] uppercase tracking-[0.06em] text-hermes-muted">
+										{cta.fields.phone.label}
+									</label>
+									<input
+										id="signup-phone"
+										type="tel"
+										required
+										placeholder={cta.fields.phone.placeholder}
+										class="w-full border-2 border-hermes-ink bg-hermes-paper px-3.5 py-3 font-hermes-sans text-[15px] focus:border-hermes-orange focus:outline-none"
+									/>
+								</div>
+								<div class="mb-3.5">
+									<label class="mb-1.5 block font-hermes-mono text-[11px] uppercase tracking-[0.06em] text-hermes-muted">
+										{cta.fields.plan.label}
+									</label>
+									<select
+										id="signup-plan"
+										class="w-full border-2 border-hermes-ink bg-hermes-paper px-3.5 py-3 font-hermes-sans text-[15px] focus:border-hermes-orange focus:outline-none"
+									>
+										{
+											cta.fields.plan.options.map((opt, i) => (
+												<option value={i === 0 ? 'HERMES-MINI-COACH-4' : 'HERMES-MINI-COACH-12'}>{opt}</option>
+											))
+										}
+									</select>
+								</div>
+								<button
+									type="submit"
+									class="hermes-press w-full border-2 border-hermes-orange bg-hermes-orange px-5 py-3.5 text-center text-sm font-bold text-white"
+								>
+									{cta.submit}
+								</button>
+							</form>
+						</div>
+					</div>
+					<div
+						class="border-b-2 border-hermes-ink bg-hermes-orange px-11 py-[52px] text-white lg:border-b-0 lg:border-r-2"
+					>
+						<span class="inline-flex items-center gap-2.5 font-hermes-mono text-[11px] font-bold uppercase tracking-[0.18em] text-white before:h-0.5 before:w-6 before:bg-white">
+							{cta.eyebrow}
+						</span>
+						<h2 class="my-5 text-4xl sm:text-5xl">
+							{cta.title}{' '}
+							<span class="font-hermes-serif font-medium italic">{cta.titleEm}</span>
+						</h2>
+						<p class="max-w-[32ch] text-[17px] leading-[1.6] opacity-90">{cta.body}</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- FOOTER -->
+		<footer class="border-t-2 border-hermes-ink bg-hermes-ink text-hermes-paper">
+			<div
+				class={`${page} flex flex-wrap items-center justify-between gap-5 py-9 font-hermes-mono text-xs tracking-[0.04em]`}
+			>
+				<span>
+					<span class="text-hermes-orange">{footer.left}</span>{footer.leftRest}
+				</span>
+				<span>{footer.right}</span>
+			</div>
+		</footer>
+
+		<!-- CHECKOUT MODAL (reusable QR-payment island) -->
+		<CheckOutModal client:idle price={cta.price} thankYouUrl="/hermes-coaching-thanksyou" />
+
+		<script>
+			// FAQ accordion
+			document.querySelectorAll('.hermes-faq-q').forEach((q) => {
+				q.addEventListener('click', () => {
+					const item = q.closest('.hermes-faq-item');
+					const a = item?.querySelector('.hermes-faq-a') as HTMLElement;
+					const icon = q.querySelector('.hermes-faq-icon') as HTMLElement;
+					if (!item || !a || !icon) return;
+					const isOpen = item.classList.contains('open');
+					document.querySelectorAll('.hermes-faq-item').forEach((x) => {
+						x.classList.remove('open');
+						const xa = x.querySelector('.hermes-faq-a') as HTMLElement;
+						const xi = x.querySelector('.hermes-faq-icon') as HTMLElement;
+						if (xa) xa.style.maxHeight = '0';
+						if (xi) xi.style.transform = 'rotate(0deg)';
+					});
+					if (!isOpen) {
+						item.classList.add('open');
+						a.style.maxHeight = a.scrollHeight + 'px';
+						icon.style.transform = 'rotate(45deg)';
+					}
+				});
+			});
+
+			// Curriculum toggle tabs
+			const tabs = document.querySelectorAll('.curriculum-tab');
+			const panels = document.querySelectorAll('.curriculum-panel');
+			tabs.forEach((tab, i) => {
+				tab.addEventListener('click', () => {
+					// Update tab styles
+					tabs.forEach((t, ti) => {
+						if (ti === i) {
+							t.classList.add('bg-hermes-ink', 'text-hermes-paper');
+							t.classList.remove('bg-hermes-card', 'text-hermes-ink', 'hover:bg-hermes-ink', 'hover:text-hermes-paper');
+						} else {
+							t.classList.remove('bg-hermes-ink', 'text-hermes-paper');
+							t.classList.add('bg-hermes-card', 'text-hermes-ink', 'hover:bg-hermes-ink', 'hover:text-hermes-paper');
+						}
+					});
+					// Show/hide panels
+					panels.forEach((panel, pi) => {
+						if (pi === i) {
+							panel.classList.remove('hidden');
+						} else {
+							panel.classList.add('hidden');
+						}
+					});
+				});
+			});
+
+			// Pricing CTA → pre-select plan in form + scroll to signup
+			const planSelect = document.getElementById('signup-plan') as HTMLSelectElement | null;
+			document.querySelectorAll('.pricing-cta').forEach((btn) => {
+				btn.addEventListener('click', (e) => {
+					e.preventDefault();
+					const code = (btn as HTMLElement).dataset.plan || 'HERMES-MINI-COACH-4';
+					if (planSelect) {
+						for (let i = 0; i < planSelect.options.length; i++) {
+							if (planSelect.options[i].value === code) {
+								planSelect.selectedIndex = i;
+								break;
+							}
+						}
+					}
+					document.getElementById('signup-sec')?.scrollIntoView({ behavior: 'smooth' });
+				});
+			});
+
+			// Form submit → open the QR checkout modal with the buyer's details.
+			const form = document.getElementById('signup') as HTMLFormElement | null;
+			if (form) {
+				form.addEventListener('submit', (e) => {
+					e.preventDefault();
+					const get = (id: string) =>
+						(document.getElementById(id) as HTMLInputElement | null)?.value.trim() ?? '';
+
+					const userInfo = {
+						fullname: get('signup-name'),
+						email: get('signup-email'),
+						phone: get('signup-phone'),
+					};
+
+					// Save user info to localStorage for thank-you page
+					try {
+						localStorage.setItem('hermes-user-info', JSON.stringify(userInfo));
+					} catch {
+						// localStorage not available - non-fatal
+					}
+
+					// Determine courseCode based on selected plan
+					const courseCode = planSelect?.value || 'HERMES-MINI-COACH-4';
+
+					window.dispatchEvent(
+						new CustomEvent('hermes:checkout', {
+							detail: {
+								...userInfo,
+								courseCode,
+								qty: 1,
+							},
+						}),
+					);
+				});
+			}
+		</script>
+	</body>
+</html>
+
+<style>
+	.hermes-eyebrow {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		font-family: var(--font-hermes-mono);
+		font-size: 11px;
+		font-weight: 700;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		color: var(--color-hermes-orange);
+	}
+
+	.hermes-eyebrow::before {
+		content: '';
+		width: 24px;
+		height: 2px;
+		background: var(--color-hermes-orange);
+	}
+</style>

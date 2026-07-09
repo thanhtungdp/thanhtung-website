@@ -1,0 +1,150 @@
+---
+import BaseHead from '../../BaseHead.astro';
+import { Image } from 'astro:assets';
+import DavidTungLogo from '../../../assets/david-tung-logo-upload.png';
+import HermesIcon from '../../../assets/hermes-landing/icon.png';
+import { nav, hero, whatNow, guarantee, footer } from './hermesCoachingThanksContent';
+import { defaultLocale } from '../../../i18n';
+
+const title = 'Cảm ơn — Hermes Coaching';
+const description =
+	'Cảm ơn anh/chị đã đăng ký Hermes Coaching. David sẽ liên hệ trong 24h để xếp lịch buổi đầu tiên.';
+
+const page = 'mx-auto w-full max-w-[1080px] px-[18px] sm:px-8';
+const wrap = 'py-12 sm:py-16';
+---
+
+<!doctype html>
+<html lang={defaultLocale}>
+	<head>
+		<BaseHead title={title} description={description} locale={defaultLocale} />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body class="hermes-landing hermes-grid-bg">
+		<!-- NAV -->
+		<nav class="sticky top-0 z-50 border-b-2 border-hermes-ink bg-hermes-paper">
+			<div class={`${page} flex h-[58px] items-center gap-3`}>
+				<div
+					class="flex h-full min-w-0 items-center gap-2 pr-3 font-hermes-mono text-[13px] font-bold uppercase tracking-[0.04em] sm:gap-2.5 sm:border-r-2 sm:border-hermes-ink sm:pr-5"
+				>
+					<Image src={DavidTungLogo} alt="David Tung" class="!h-5 w-auto !rounded-none sm:!h-6" />
+					<span class="text-hermes-hair">|</span>
+					<Image src={HermesIcon} alt="Hermes" class="!h-[18px] w-auto !rounded-none sm:!h-5" />
+					<span class="hidden whitespace-nowrap min-[420px]:inline"
+						>{nav.brandName} <b class="text-hermes-orange">{nav.brandAccent}</b></span
+					>
+				</div>
+				<span class="ml-auto font-hermes-mono text-xs text-hermes-muted">{nav.orderLabel}</span>
+			</div>
+		</nav>
+
+		<!-- CONFIRMATION HERO -->
+		<header
+			class="relative overflow-hidden border-2 border-t-0 border-hermes-ink text-white"
+			style="background:radial-gradient(125% 110% at 72% -10%, #2a2418 0%, #16140f 46%, #090806 100%);"
+		>
+			<div class={`${page} relative z-10 px-6 py-12 sm:px-14 sm:py-16`}>
+				<div
+					class="mb-7 grid !h-[60px] !w-[60px] shrink-0 place-items-center bg-hermes-orange text-3xl font-bold text-white shadow-[6px_6px_0_#000]"
+				>
+					✓
+				</div>
+				<span class="hermes-eyebrow">{hero.eyebrow}</span>
+				<h1 class="my-5 max-w-[18ch] text-4xl !text-white sm:text-5xl lg:text-6xl">
+					{hero.titleLead}{' '}
+					<em class="font-hermes-serif font-medium italic text-hermes-orange">{hero.titleEm}</em>
+				</h1>
+				<p class="max-w-[54ch] text-[18px] leading-[1.6] text-[#d7cfc2]">{hero.lede}</p>
+				<div class="mt-10 grid grid-cols-1 border-2 border-hermes-ink bg-white/[0.04] sm:grid-cols-3">
+					{
+						hero.receipt.map((item, i) => (
+							<div
+								class:list={[
+									'px-6 py-5',
+									i < hero.receipt.length - 1 && 'border-b-2 border-hermes-ink sm:border-b-0 sm:border-r-2',
+								]}
+							>
+								<div class="mb-2 font-hermes-mono text-[11px] uppercase tracking-[0.1em] text-[#a89c8c]">
+									{item.k}
+								</div>
+								<div class:list={['text-[18px] font-bold', item.ok ? 'text-hermes-orange' : 'text-white']}>
+									{item.v}
+								</div>
+							</div>
+						))
+					}
+				</div>
+			</div>
+		</header>
+
+		<!-- WHAT NOW -->
+		<section id="what-now">
+			<div class={`${page} ${wrap}`}>
+				<div class="mb-11">
+					<span class="hermes-eyebrow">{whatNow.eyebrow}</span>
+					<h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl">{whatNow.title}</h2>
+				</div>
+				<div class="grid grid-cols-1 gap-0.5 border-2 border-hermes-ink bg-hermes-ink md:grid-cols-3">
+					{
+						whatNow.cards.map((card) => (
+							<div class="bg-hermes-card px-7 py-8">
+								<div class="font-hermes-mono text-xs font-bold text-hermes-orange">{card.n}</div>
+								<h4 class="my-3.5 text-[19px]">{card.title}</h4>
+								<p class="text-[14.5px] leading-[1.5] text-hermes-muted">{card.body}</p>
+							</div>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<!-- GUARANTEE -->
+		<section class="bg-hermes-ink text-hermes-paper">
+			<div class={`${page} ${wrap}`}>
+				<div class="mx-auto max-w-[720px] flex flex-col gap-4">
+					<span class="hermes-eyebrow">{guarantee.eyebrow}</span>
+					<h2 class="my-3 text-3xl sm:text-4xl lg:text-5xl">{guarantee.title}</h2>
+					<p class="text-[17px] leading-[1.65] text-[#c9c0b3]">{guarantee.body}</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- FOOTER -->
+		<footer class="border-t-2 border-hermes-ink bg-hermes-ink text-hermes-paper">
+			<div
+				class={`${page} flex flex-wrap items-center justify-between gap-5 py-9 font-hermes-mono text-xs tracking-[0.04em]`}
+			>
+				<span>
+					<span class="text-hermes-orange">{footer.left}</span>{footer.leftRest}
+				</span>
+				<span>{footer.right}</span>
+			</div>
+		</footer>
+	</body>
+</html>
+
+<style>
+	.hermes-eyebrow {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		font-family: var(--font-hermes-mono);
+		font-size: 11px;
+		font-weight: 700;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		color: var(--color-hermes-orange);
+	}
+
+	.hermes-eyebrow::before {
+		content: '';
+		width: 24px;
+		height: 2px;
+		background: var(--color-hermes-orange);
+	}
+</style>

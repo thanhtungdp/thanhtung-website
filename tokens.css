@@ -1,0 +1,28 @@
+/* Hallmark tokens · Sale AI case study */
+:root {
+  --sale-ai-color-paper: oklch(97% 0.008 250);
+  --sale-ai-color-paper-2: oklch(93% 0.012 250);
+  --sale-ai-color-ink: oklch(18% 0.025 255);
+  --sale-ai-color-ink-2: oklch(39% 0.025 255);
+  --sale-ai-color-rule: oklch(84% 0.018 250);
+  --sale-ai-color-accent: oklch(55% 0.2 258);
+  --sale-ai-color-accent-soft: oklch(91% 0.045 258);
+  --sale-ai-color-signal: oklch(68% 0.18 48);
+  --sale-ai-color-focus: oklch(62% 0.2 258);
+  --sale-ai-font-display: 'Geist', ui-sans-serif, sans-serif;
+  --sale-ai-font-body: 'Geist', ui-sans-serif, sans-serif;
+  --sale-ai-font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --sale-ai-space-xs: 0.5rem;
+  --sale-ai-space-sm: 0.75rem;
+  --sale-ai-space-md: 1rem;
+  --sale-ai-space-lg: 1.5rem;
+  --sale-ai-space-xl: 2.5rem;
+  --sale-ai-space-2xl: 4rem;
+  --sale-ai-space-3xl: 6rem;
+  --sale-ai-space-4xl: 9rem;
+  --sale-ai-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --sale-ai-ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --sale-ai-dur-micro: 120ms;
+  --sale-ai-dur-short: 220ms;
+  --sale-ai-dur-long: 420ms;
+}

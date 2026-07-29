@@ -18,7 +18,9 @@ const alternateLinks = getAlternateLinks(Astro.url.pathname);
 		<div class="nav-links">
 			<HeaderLink href={localizePath('/', locale)}>{t.nav.home}</HeaderLink>
 			<HeaderLink href={localizePath('/blog', locale)}>{t.nav.blog}</HeaderLink>
-			<HeaderLink href={localizePath('/about', locale)}>{t.nav.about}</HeaderLink>
+			<HeaderLink href="/hermes" target="_blank" rel="noopener noreferrer">
+				{locale === 'vi' ? 'Xây AI Agent' : 'Build AI Agent'}
+			</HeaderLink>
 		</div>
 
 		<div class="language-links" aria-label="Language selector">

@@ -7,7 +7,6 @@ import TableOfContents from '../components/blog/TableOfContents.astro';
 import Badge from '../components/ui/Badge.astro';
 import Card from '../components/ui/Card.astro';
 import Footer from '../components/Footer.astro';
-import AnnouncementBanner from '../components/AnnouncementBanner.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import ProjectAnimatedBackground from '../components/pages/project-detail/ProjectAnimatedBackground.astro';
 import { defaultLocale, getTranslations, type Locale } from '../i18n';
@@ -27,7 +26,6 @@ const t = getTranslations(locale);
 	</head>
 
 	<body>
-		<AnnouncementBanner />
 		<ProjectAnimatedBackground>
 		<main class="mx-auto max-w-6xl !px-4 !py-5 sm:!px-5 sm:!py-6 lg:!px-6 lg:!py-8">
 			<article>

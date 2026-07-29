@@ -5,16 +5,11 @@ import Footer from '../Footer.astro';
 import Header from '../Header.astro';
 import { SITE_TITLE } from '../../consts';
 import { localizePath, type Locale } from '../../i18n';
+import '../../../tokens.css';
 import EventFeature from '../../assets/projects/sale-ai/event-demo-feature.webp';
-import AgentConceptSlide from '../../assets/projects/sale-ai/slide-03.webp';
-import CaseSlide from '../../assets/projects/sale-ai/slide-04.webp';
-import EnterpriseImpactSlide from '../../assets/projects/sale-ai/slide-06.webp';
+import QuoteFeature from '../../assets/projects/sale-ai/quote-60s-feature.webp';
 import PainSlide from '../../assets/projects/sale-ai/slide-08.webp';
-import StrategySlide from '../../assets/projects/sale-ai/slide-09.webp';
-import QuoteSlide from '../../assets/projects/sale-ai/slide-10.webp';
 import FlowSlide from '../../assets/projects/sale-ai/slide-14.webp';
-import StopwatchSlide from '../../assets/projects/sale-ai/slide-15.webp';
-import OperatingModelSlide from '../../assets/projects/sale-ai/slide-17.webp';
 import KpiSlide from '../../assets/projects/sale-ai/slide-20.webp';
 
 interface Props {
@@ -26,922 +21,1166 @@ const isVi = locale === 'vi';
 
 const copy = isVi
 	? {
-			title: 'ADG Sale AI - AI Agent cho hệ thống phân phối quy mô lớn',
+			title: 'ADG Sale AI — Case study AI Agent cho 2.000 đại lý',
 			description:
-				'Project detail về ADG Sale AI: lớp AI Agent cho hệ thống phân phối 2k đại lý, giúp tư vấn, báo giá, tạo đơn hàng và tra cứu kinh doanh dưới 60 giây.',
-			back: '← Về trang chủ',
-			badge: 'Sale AI case study',
-			role: 'AI Agent / Product Architect',
-			heroTitle: 'AI Agent bán hàng cho mạng lưới 2k đại lý.',
+				'Case study ADG Sale AI: lớp AI Agent kết nối đại lý và sales với SAP/CRM, rút quy trình tư vấn, báo giá và tạo đơn hàng xuống dưới 120 giây.',
+			back: 'Về trang chủ',
+			meta: ['Case study', 'AI Agent / Product Architecture', 'Enterprise distribution'],
+			heroTitle: 'Từ ảnh công trình đến đơn hàng trong 120 giây.',
 			heroLead:
-				'ADG Sale AI tối ưu lớp giao tiếp cuối giữa đại lý, sales và hệ thống lõi SAP/CRM: tư vấn từ hình ảnh, so sánh sản phẩm, tạo báo giá, tạo đơn hàng và tra cứu dữ liệu kinh doanh 24/7.',
-			cta: 'Xem mô hình Sale AI',
-			statsTitle: 'Impact từ case study',
-			stats: [
-				{ value: '2k', label: 'đại lý C1/C2 trong hệ thống phân phối' },
-				{ value: '<60s', label: 'mục tiêu tạo báo giá và đơn hàng' },
-				{ value: '5-15m', label: 'thời gian phản hồi cũ tại điểm bán' },
-				{ value: '70-80%', label: 'giảm thời gian tư vấn & báo giá' },
-				{ value: '10-15%', label: 'doanh thu tăng thêm minh họa' },
-				{ value: '6-9m', label: 'payback period ước tính' },
+				'ADG Sale AI đặt một lớp giao tiếp tự nhiên lên SAP/CRM để 2.000 đại lý tra cứu sản phẩm, dựng cấu hình, tạo báo giá và lên đơn ngay tại điểm bán.',
+			primaryCta: 'Theo dõi flow 120 giây',
+			secondaryCta: 'Xem bằng chứng triển khai',
+			heroCaption: 'Giới thiệu Sale AI tại hội nghị khách hàng và đại lý của Austdoor Group.',
+			snapshotTitle: 'Bài toán không nằm ở ERP. Nó nằm ở 15 phút trước khi khách rời cửa hàng.',
+			snapshotBody:
+				'Sản phẩm nhiều cấu hình, bảng giá khó nhớ và dữ liệu nằm rải rác khiến đại lý phải chờ sales hỗ trợ. Mỗi phút chờ làm giảm chất lượng tư vấn tại điểm bán — nơi quyết định chuyển đổi thực sự diễn ra.',
+			baseline: [
+				{ value: '2.000', label: 'đại lý C1/C2 cần cùng một chuẩn tư vấn' },
+				{ value: '5–15 phút', label: 'thời gian phản hồi cũ tại điểm bán' },
+				{ value: '< 60 giây', label: 'mục tiêu cho mỗi bước báo giá và tạo đơn' },
 			],
-			modelTitle: 'Lớp AI Agent nằm giữa con người và hệ thống lõi',
-			modelLead:
-				'Giải pháp không thay thế SAP/CRM. Nó đóng vai trò lớp giao tiếp tự nhiên giúp đại lý và đội sales khai thác dữ liệu, tài liệu kỹ thuật, bảng giá và quy trình đặt hàng dễ hơn ngay tại điểm bán.',
-			layers: [
-				{ title: 'Tư vấn từ hình ảnh', text: 'Nhận ảnh/ngữ cảnh khách hàng để gợi ý dòng cửa, kích thước, vật liệu và cấu hình phù hợp.' },
-				{ title: 'So sánh sản phẩm', text: 'Đối chiếu theo ngân sách, kích thước, nhu cầu, quy cách kỹ thuật và điều kiện thi công.' },
-				{ title: 'Báo giá dưới 60 giây', text: 'Tạo báo giá nhanh, chuẩn dữ liệu và giảm sai sót so với thao tác thủ công nhiều bước.' },
-				{ title: 'Tạo đơn hàng dưới 60 giây', text: 'Chuyển tư vấn thành đơn hàng với dữ liệu đồng bộ về hệ thống nghiệp vụ lõi.' },
-				{ title: 'Business lookup 24/7', text: 'Tra cứu doanh số, đơn hàng, tài liệu kỹ thuật và chính sách theo quyền của từng đại lý.' },
-				{ title: 'Human + AI governance', text: 'AI xử lý việc lặp lại, con người giám sát tư vấn, bảo mật và quyết định cuối cùng.' },
+			workflowTitle: 'Một flow bán hàng. Năm điểm kiểm soát.',
+			workflowLead:
+				'Agent không thay thế hệ thống lõi. Nó gom đúng dữ liệu, đúng quyền và đúng thời điểm thành một luồng mà đại lý có thể hoàn thành ngay trước mặt khách hàng.',
+			stages: [
+				{
+					n: '01',
+					title: 'Nhận bối cảnh',
+					time: '0–15 giây',
+					text: 'Đại lý tải ảnh công trình, nhập kích thước, ngân sách và nhu cầu sử dụng thay vì mô tả qua nhiều cuộc gọi.',
+					input: 'Ảnh + kích thước + ngân sách',
+					output: 'Brief bán hàng có cấu trúc',
+				},
+				{
+					n: '02',
+					title: 'Đề xuất cấu hình',
+					time: '15–40 giây',
+					text: 'Sale AI đối chiếu catalogue, tài liệu kỹ thuật, điều kiện thi công và chính sách để thu hẹp phương án phù hợp.',
+					input: 'Knowledge base + policy',
+					output: 'Phương án có lý do',
+				},
+				{
+					n: '03',
+					title: 'Tạo báo giá',
+					time: '40–60 giây',
+					text: 'Bảng giá và quyền đại lý được áp dụng tự động; sales chỉ cần rà soát ngoại lệ thay vì dựng báo giá từ đầu.',
+					input: 'Cấu hình + bảng giá theo quyền',
+					output: 'Báo giá sẵn gửi khách',
+				},
+				{
+					n: '04',
+					title: 'Lên đơn',
+					time: '60–120 giây',
+					text: 'Dữ liệu đã xác nhận chuyển thành đơn hàng và đồng bộ về SAP/CRM, giữ nguyên vai trò kiểm soát của hệ thống lõi.',
+					input: 'Báo giá đã duyệt',
+					output: 'Đơn hàng đồng bộ',
+				},
+				{
+					n: '05',
+					title: 'Đo adoption',
+					time: 'Hàng tuần',
+					text: 'Dashboard theo dõi tốc độ phản hồi, mức sử dụng, conversion và các bước thường cần con người can thiệp.',
+					input: 'Event vận hành',
+					output: 'KPI để cải tiến agent',
+				},
 			],
-			implementationTitle: 'Từ pain point bán hàng tới flow chốt đơn 2 phút',
-			implementationLead:
-				'Deck mô tả bài toán ngành cửa: sản phẩm đa dạng, bảng giá khó nhớ, tư vấn dễ sai, khách hàng kỳ vọng phản hồi tức thì. Sale AI gom quy trình thành flow: upload ảnh, AI gợi ý, báo giá 60 giây và lên đơn.',
-			proofTitle: 'Board-level KPI & ROI',
-			cases: [
-				{ value: '+5%', label: 'conversion uplift', text: 'Kịch bản minh họa tăng chuyển đổi từ 20% lên 25% nhờ phản hồi nhanh và tư vấn chuẩn.' },
-				{ value: '3-5x', label: 'ROI năm đầu', text: 'Ước tính tác động tài chính so với chi phí đầu tư AI Agent trong năm đầu.' },
-				{ value: '10 khách', label: 'mỗi đại lý / ngày', text: 'Giả định quy mô vận hành để lượng hóa tác động cho mạng lưới 2k đại lý.' },
-				{ value: '24/7', label: 'hỗ trợ đại lý', text: 'Tra cứu dữ liệu kinh doanh, kỹ thuật và đào tạo liên tục, cá nhân hóa theo đại lý.' },
+			architectureTitle: 'AI ở giữa. Quyền quyết định vẫn ở hai đầu.',
+			architectureLead:
+				'Sale AI chỉ đọc và hành động trong phạm vi được cấp. Đại lý giữ ngữ cảnh khách hàng; SAP/CRM giữ dữ liệu chuẩn; con người duyệt các ngoại lệ có tác động lớn.',
+			architecture: [
+				{ title: 'Đại lý & Sales', text: 'Cung cấp bối cảnh, chọn phương án và duyệt trước khi gửi khách.' },
+				{ title: 'Sale AI', text: 'Hiểu yêu cầu, truy xuất tri thức, áp chính sách và điều phối workflow.' },
+				{ title: 'SAP / CRM', text: 'Giữ master data, bảng giá, đơn hàng, phân quyền và lịch sử giao dịch.' },
 			],
-			featureTitle: 'Core capabilities',
-			features: ['Image-to-quote', 'Product comparison', 'Quote <60s', 'Order <60s', 'Dealer personalization', 'SAP / CRM bridge', 'Technical documents', 'Training assistant', 'AI adoption KPI', 'Human-in-the-loop'],
-			galleryTitle: 'Sale AI được diễn dịch thành hệ thống',
-			visualBlocks: [
-				{ label: 'Input', title: 'Ảnh & nhu cầu khách hàng', text: 'Đại lý chụp ảnh công trình, nhập ngân sách, kích thước và ngữ cảnh bán hàng.' },
-				{ label: 'Agent', title: 'Sale AI tư vấn', text: 'AI đọc tài liệu kỹ thuật, bảng giá, chính sách và lịch sử bán hàng để đề xuất phương án.' },
-				{ label: 'System', title: 'SAP / CRM đồng bộ', text: 'Dữ liệu báo giá, đơn hàng và quyền đại lý được kiểm soát qua hệ thống lõi.' },
-				{ label: 'Output', title: 'Báo giá, đơn hàng, KPI', text: 'Sales và lãnh đạo thấy tốc độ phản hồi, conversion, doanh thu và adoption theo thời gian thực.' },
+			proofTitle: 'Bằng chứng trước lời hứa.',
+			proofLead:
+				'Case study phân biệt rõ mục tiêu thiết kế, giả định tài chính và cơ chế đo sau triển khai — không biến mọi con số trong deck thành kết quả đã xác nhận.',
+			proofItems: [
+				{ title: 'Mục tiêu vận hành', value: '70–80%', text: 'Mức giảm thời gian tư vấn và báo giá được đặt làm mục tiêu để đo sau triển khai.' },
+				{ title: 'Kịch bản tài chính', value: '3–5×', text: 'ROI năm đầu là mô hình ước tính dựa trên quy mô đại lý và giả định conversion.' },
+				{ title: 'Governance', value: 'Human + AI', text: 'Ngoại lệ, bảo mật và quyết định cuối cùng luôn có người chịu trách nhiệm.' },
 			],
-			workflow: ['Upload ảnh', 'AI gợi ý cấu hình', 'Báo giá <60s', 'Tạo đơn hàng', 'Dashboard KPI'],
-			governance: [
-				{ title: 'Human-in-the-loop', text: 'Con người duyệt khuyến nghị quan trọng, AI xử lý phần lặp lại và tra cứu nhanh.' },
-				{ title: 'Dealer permission', text: 'Mỗi đại lý chỉ thấy dữ liệu, chính sách và bảng giá theo quyền được cấp.' },
-				{ title: 'Adoption rhythm', text: 'Theo dõi tỷ lệ dùng AI, thời gian phản hồi và hiệu quả chuyển đổi theo tuần.' },
-			],
-			closing: 'Sale AI là ví dụ sắc nét cho cách tôi triển khai AI trong doanh nghiệp lớn: không thay lõi ERP/CRM, mà tối ưu điểm chạm cuối nơi tốc độ, trải nghiệm và doanh thu được quyết định.',
-			contact: 'Trao đổi về Sale AI / AI Agent cho sales',
+			galleryTitle: 'Từ sân khấu đến mô hình vận hành.',
 			gallery: [
-				{ title: 'AI Agent trong chuỗi giá trị', image: AgentConceptSlide },
-				{ title: 'Case ADG Sale AI tại hội nghị đại lý', image: CaseSlide },
-				{ title: 'Bức tranh hiệu quả AI toàn doanh nghiệp', image: EnterpriseImpactSlide },
-				{ title: 'Nỗi đau ngành cửa', image: PainSlide },
-				{ title: 'Mục tiêu chiến lược', image: StrategySlide },
-				{ title: 'Báo giá 60 giây', image: QuoteSlide },
-				{ title: 'Flow 120 giây chốt đơn', image: FlowSlide },
-				{ title: 'Nguyên tắc Human + AI', image: OperatingModelSlide },
-				{ title: 'KPI chính của dự án', image: KpiSlide },
+				{ title: 'Nỗi đau ngành cửa', note: 'Bối cảnh trước khi thiết kế giải pháp', image: PainSlide },
+				{ title: 'Flow chốt đơn 120 giây', note: 'Chuỗi thao tác tại điểm bán', image: FlowSlide },
+				{ title: 'KPI của dự án', note: 'Những chỉ số cần theo dõi sau triển khai', image: KpiSlide },
 			],
+			closingTitle: 'AI Agent chỉ có giá trị khi đi hết đường tới giao dịch.',
+			closingBody:
+				'Tôi thiết kế Sale AI như một lớp vận hành có thể đo được — kết nối knowledge, quyền dữ liệu, hành động nghiệp vụ và nhịp cải tiến hàng tuần.',
+			contact: 'Trao đổi về AI Agent cho sales',
 		}
 	: {
-			title: 'ADG Sale AI - AI Agent for large-scale distribution networks',
+			title: 'ADG Sale AI — AI Agent case study for 2,000 dealers',
 			description:
-				'ADG Sale AI project detail: an AI Agent layer for a 2k-dealer distribution system, enabling consultation, quoting, order creation, and business lookup in under 60 seconds.',
-			back: '← Back home',
-			badge: 'Sale AI case study',
-			role: 'AI Agent / Product Architect',
-			heroTitle: 'A sales AI Agent for a 2k-dealer network.',
+				'ADG Sale AI case study: an AI Agent layer connecting dealers and sales teams to SAP/CRM, compressing consultation, quoting, and ordering into under 120 seconds.',
+			back: 'Back home',
+			meta: ['Case study', 'AI Agent / Product Architecture', 'Enterprise distribution'],
+			heroTitle: 'From site photo to order in 120 seconds.',
 			heroLead:
-				'ADG Sale AI optimizes the last-mile interface between dealers, sales teams, and SAP/CRM: image-based consultation, product comparison, quotes, orders, and 24/7 business lookup.',
-			cta: 'View Sale AI model',
-			statsTitle: 'Case-study impact',
-			stats: [
-				{ value: '2k', label: 'C1/C2 dealers in the distribution network' },
-				{ value: '<60s', label: 'target quote and order creation time' },
-				{ value: '5-15m', label: 'previous point-of-sale response time' },
-				{ value: '70-80%', label: 'less consultation and quoting time' },
-				{ value: '10-15%', label: 'illustrative incremental revenue' },
-				{ value: '6-9m', label: 'estimated payback period' },
+				'ADG Sale AI adds a natural interface over SAP/CRM so 2,000 dealers can find products, configure an option, quote, and order while the customer is still at the counter.',
+			primaryCta: 'Follow the 120-second flow',
+			secondaryCta: 'See implementation evidence',
+			heroCaption: 'Sale AI presented at Austdoor Group’s customer and dealer conference.',
+			snapshotTitle: 'The bottleneck was not the ERP. It was the 15 minutes before a customer left the store.',
+			snapshotBody:
+				'Complex configurations, hard-to-recall pricing, and fragmented documents forced dealers to wait for sales support. Every minute weakened consultation at the exact point where conversion was decided.',
+			baseline: [
+				{ value: '2,000', label: 'C1/C2 dealers needing one consultation standard' },
+				{ value: '5–15 min', label: 'previous point-of-sale response time' },
+				{ value: '< 60 sec', label: 'target for each quote and order step' },
 			],
-			modelTitle: 'An AI Agent layer between people and core systems',
-			modelLead:
-				'The solution does not replace SAP/CRM. It acts as a natural-language interface that helps dealers and sales teams use data, technical documents, pricing, and ordering workflows at the point of sale.',
-			layers: [
-				{ title: 'Image-based consultation', text: 'Use customer images and context to recommend door lines, dimensions, materials, and configurations.' },
-				{ title: 'Product comparison', text: 'Compare options by budget, dimensions, needs, technical specifications, and installation context.' },
-				{ title: 'Quotes under 60 seconds', text: 'Generate fast, data-aligned quotes while reducing errors from manual multi-step work.' },
-				{ title: 'Orders under 60 seconds', text: 'Turn consultation into orders with synchronized data back to core business systems.' },
-				{ title: 'Business lookup 24/7', text: 'Retrieve sales, orders, technical documents, and policies based on each dealer’s permissions.' },
-				{ title: 'Human + AI governance', text: 'AI handles repetitive work while humans supervise recommendations, security, and final decisions.' },
+			workflowTitle: 'One sales flow. Five control points.',
+			workflowLead:
+				'The agent does not replace core systems. It assembles the right data, permission, and timing into a flow a dealer can complete in front of the customer.',
+			stages: [
+				{ n: '01', title: 'Capture context', time: '0–15 sec', text: 'The dealer uploads a site photo and enters dimensions, budget, and intent instead of explaining the job across multiple calls.', input: 'Photo + dimensions + budget', output: 'Structured sales brief' },
+				{ n: '02', title: 'Recommend a configuration', time: '15–40 sec', text: 'Sale AI checks catalogues, technical documents, installation constraints, and policy to narrow the right options.', input: 'Knowledge base + policy', output: 'Reasoned recommendation' },
+				{ n: '03', title: 'Generate the quote', time: '40–60 sec', text: 'Dealer-specific pricing and permissions are applied automatically; sales reviews exceptions rather than rebuilding the quote.', input: 'Configuration + allowed pricing', output: 'Customer-ready quote' },
+				{ n: '04', title: 'Create the order', time: '60–120 sec', text: 'Confirmed data becomes an order and syncs to SAP/CRM, preserving the core system as the operational source of truth.', input: 'Approved quote', output: 'Synchronized order' },
+				{ n: '05', title: 'Measure adoption', time: 'Weekly', text: 'The dashboard tracks response time, usage, conversion, and the steps that still require human intervention.', input: 'Operating events', output: 'Agent improvement KPI' },
 			],
-			implementationTitle: 'From sales pain points to a 2-minute closing flow',
-			implementationLead:
-				'The deck frames the door industry pain points: diverse products, hard-to-remember price rules, error-prone consultation, and customers expecting instant responses. Sale AI compresses the workflow into: upload image, AI suggestion, 60-second quote, and order creation.',
-			proofTitle: 'Board-level KPI & ROI',
-			cases: [
-				{ value: '+5%', label: 'conversion uplift', text: 'Illustrative scenario: conversion improves from 20% to 25% through faster response and standardized consultation.' },
-				{ value: '3-5x', label: 'first-year ROI', text: 'Estimated financial impact versus AI Agent investment cost in year one.' },
-				{ value: '10 clients', label: 'per dealer / day', text: 'Operating assumption used to quantify impact across a 2k-dealer network.' },
-				{ value: '24/7', label: 'dealer support', text: 'Continuous business, technical, and training lookup personalized by dealer.' },
+			architectureTitle: 'AI in the middle. Accountability at both ends.',
+			architectureLead:
+				'Sale AI only reads and acts within assigned permissions. Dealers retain customer context; SAP/CRM retains governed data; people approve high-impact exceptions.',
+			architecture: [
+				{ title: 'Dealer & Sales', text: 'Provide context, choose the option, and approve before anything reaches the customer.' },
+				{ title: 'Sale AI', text: 'Understands intent, retrieves knowledge, applies policy, and orchestrates the workflow.' },
+				{ title: 'SAP / CRM', text: 'Owns master data, pricing, orders, permissions, and transaction history.' },
 			],
-			featureTitle: 'Core capabilities',
-			features: ['Image-to-quote', 'Product comparison', 'Quote <60s', 'Order <60s', 'Dealer personalization', 'SAP / CRM bridge', 'Technical documents', 'Training assistant', 'AI adoption KPI', 'Human-in-the-loop'],
-			galleryTitle: 'Sale AI translated into operating blocks',
-			visualBlocks: [
-				{ label: 'Input', title: 'Customer image & intent', text: 'Dealers capture the site, budget, dimensions, and sales context at the point of sale.' },
-				{ label: 'Agent', title: 'Sale AI consultation', text: 'The AI reads technical documents, pricing rules, policies, and sales history to recommend options.' },
-				{ label: 'System', title: 'SAP / CRM sync', text: 'Quote, order, and dealer-permission data stay governed by the core business stack.' },
-				{ label: 'Output', title: 'Quotes, orders, KPI', text: 'Sales teams and leaders track response speed, conversion, revenue, and adoption in real time.' },
+			proofTitle: 'Evidence before promises.',
+			proofLead:
+				'The case study separates design targets, financial assumptions, and post-launch measurement instead of presenting every number in the deck as a verified result.',
+			proofItems: [
+				{ title: 'Operating target', value: '70–80%', text: 'Target reduction in consultation and quoting time, to be measured after rollout.' },
+				{ title: 'Financial scenario', value: '3–5×', text: 'First-year ROI is an estimate based on dealer scale and conversion assumptions.' },
+				{ title: 'Governance', value: 'Human + AI', text: 'Exceptions, security, and final decisions remain assigned to accountable people.' },
 			],
-			workflow: ['Upload image', 'AI config suggestion', 'Quote <60s', 'Create order', 'KPI dashboard'],
-			governance: [
-				{ title: 'Human-in-the-loop', text: 'Humans approve important recommendations while AI handles repetitive lookup and drafting.' },
-				{ title: 'Dealer permission', text: 'Each dealer only sees the data, policy, and pricing they are allowed to access.' },
-				{ title: 'Adoption rhythm', text: 'Track AI usage, response time, and conversion performance week by week.' },
-			],
-			closing: 'Sale AI shows how I deploy AI in large enterprises: not by replacing ERP/CRM, but by optimizing the final customer-facing layer where speed, experience, and revenue are decided.',
-			contact: 'Discuss Sale AI / sales AI Agents',
+			galleryTitle: 'From the stage to the operating model.',
 			gallery: [
-				{ title: 'AI Agents in the value chain', image: AgentConceptSlide },
-				{ title: 'ADG Sale AI at the dealer conference', image: CaseSlide },
-				{ title: 'Enterprise-wide AI impact map', image: EnterpriseImpactSlide },
-				{ title: 'Door-industry pain points', image: PainSlide },
-				{ title: 'Strategic objective', image: StrategySlide },
-				{ title: '60-second quote', image: QuoteSlide },
-				{ title: '2-minute closing flow', image: FlowSlide },
-				{ title: 'Human + AI principles', image: OperatingModelSlide },
-				{ title: 'Project KPIs', image: KpiSlide },
+				{ title: 'Door-industry pain points', note: 'The context before solution design', image: PainSlide },
+				{ title: 'The 120-second closing flow', note: 'Point-of-sale operating sequence', image: FlowSlide },
+				{ title: 'Project KPI', note: 'What must be measured after rollout', image: KpiSlide },
 			],
+			closingTitle: 'An AI Agent matters only when it reaches the transaction.',
+			closingBody:
+				'I designed Sale AI as a measurable operating layer — connecting knowledge, permissions, business actions, and a weekly improvement rhythm.',
+			contact: 'Discuss AI Agents for sales',
 		};
 ---
 
-<BaseHead title={`${copy.title} | ${SITE_TITLE}`} description={copy.description} />
+<BaseHead title={`${copy.title} | ${SITE_TITLE}`} description={copy.description} image={EventFeature} locale={locale} />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-<body class="sale-ai-project-shell">
+<div class="sale-ai-case">
 	<Header locale={locale} />
 	<main>
-		<div class="page-wrap">
-			<section class="hero-section">
-				<div class="hero-copy">
-					<a class="back-link" href={localizePath('/', locale)}>{copy.back}</a>
-					<div class="eyebrow"><span>{copy.badge}</span><span>{copy.role}</span></div>
-					<h1>{copy.heroTitle}</h1>
-					<p>{copy.heroLead}</p>
-					<a class="primary-link" href="#model">{copy.cta}</a>
+		<section class="case-hero case-shell">
+			<div class="hero-copy case-reveal" style="--reveal-index: 0">
+				<a class="back-link" href={localizePath('/', locale)}>← {copy.back}</a>
+				<ul class="meta-list" aria-label="Project metadata">
+					{copy.meta.map((item) => <li>{item}</li>)}
+				</ul>
+				<h1>{copy.heroTitle}</h1>
+				<p class="hero-lead">{copy.heroLead}</p>
+				<div class="hero-actions">
+					<a class="case-button case-button-primary" href="#workflow">{copy.primaryCta}</a>
+					<a class="case-button case-button-secondary" href="#proof">{copy.secondaryCta}</a>
 				</div>
-				<div class="hero-visual">
-					<Image src={EventFeature} alt="ADG Sale AI dealer conference product demo" widths={[640, 900, 1200]} sizes="(max-width: 900px) 92vw, 45vw" loading="eager" />
-				</div>
-			</section>
+			</div>
+			<figure class="hero-figure case-reveal" style="--reveal-index: 1">
+				<Image src={EventFeature} alt={copy.heroCaption} widths={[640, 900, 1150]} sizes="(max-width: 959px) 100vw, 48vw" loading="eager" />
+				<figcaption>{copy.heroCaption}</figcaption>
+			</figure>
+		</section>
 
-			<section class="stats-section" aria-labelledby="stats-title">
-				<div>
-					<p class="section-kicker">Numbers</p>
-					<h2 id="stats-title">{copy.statsTitle}</h2>
-				</div>
-				<div class="stats-grid">
-					{copy.stats.map((stat) => (
-						<article>
-							<strong>{stat.value}</strong>
-							<span>{stat.label}</span>
+		<section class="snapshot case-shell" aria-labelledby="snapshot-title">
+			<div class="snapshot-copy">
+				<h2 id="snapshot-title">{copy.snapshotTitle}</h2>
+				<p>{copy.snapshotBody}</p>
+			</div>
+			<div class="baseline" aria-label="Project baseline and targets">
+				{copy.baseline.map((item) => (
+					<div class="baseline-item">
+						<strong>{item.value}</strong>
+						<span>{item.label}</span>
+					</div>
+				))}
+			</div>
+		</section>
+
+		<section class="workflow case-shell" id="workflow" aria-labelledby="workflow-title">
+			<header class="section-intro">
+				<h2 id="workflow-title">{copy.workflowTitle}</h2>
+				<p>{copy.workflowLead}</p>
+			</header>
+
+			<div class="workflow-layout">
+				<nav class="stage-index" aria-label="Workflow stages">
+					{copy.stages.map((stage, index) => (
+						<a href={`#stage-${stage.n}`} data-stage-link={index}>
+							<span>{stage.n}</span>
+							<strong>{stage.title}</strong>
+							<small>{stage.time}</small>
+						</a>
+					))}
+				</nav>
+
+				<div class="stage-story">
+					{copy.stages.map((stage, index) => (
+						<article class="stage" id={`stage-${stage.n}`} data-stage={index}>
+							<div class="stage-heading">
+								<span>{stage.n}</span>
+								<div>
+									<p>{stage.time}</p>
+									<h3>{stage.title}</h3>
+								</div>
+							</div>
+							<p class="stage-copy">{stage.text}</p>
+							<div class="stage-io">
+								<div><span>Input</span><strong>{stage.input}</strong></div>
+								<svg viewBox="0 0 120 24" aria-hidden="true">
+									<path d="M2 12h108" />
+									<path d="m101 4 10 8-10 8" />
+								</svg>
+								<div><span>Output</span><strong>{stage.output}</strong></div>
+							</div>
+							{index === 2 && (
+								<figure class="stage-proof-image">
+									<Image src={QuoteFeature} alt={isVi ? 'Minh họa tính năng tạo báo giá trong 60 giây' : 'Illustration of the 60-second quote feature'} widths={[640, 960, 1280]} sizes="(max-width: 959px) 100vw, 60vw" loading="lazy" />
+								</figure>
+							)}
 						</article>
 					))}
 				</div>
-			</section>
+			</div>
+		</section>
 
-			<section class="model-section" id="model">
-				<div class="section-heading">
-					<p class="section-kicker">AI Agent layer</p>
-					<h2>{copy.modelTitle}</h2>
-					<p>{copy.modelLead}</p>
-				</div>
-				<div class="layer-grid">
-					{copy.layers.map((layer, index) => (
-						<article>
-							<span>{String(index + 1).padStart(2, '0')}</span>
-							<h3>{layer.title}</h3>
-							<p>{layer.text}</p>
-						</article>
+		<section class="architecture-band" aria-labelledby="architecture-title">
+			<div class="case-shell architecture-inner">
+				<header class="section-intro inverse">
+					<h2 id="architecture-title">{copy.architectureTitle}</h2>
+					<p>{copy.architectureLead}</p>
+				</header>
+				<div class="architecture-diagram">
+					{copy.architecture.map((item, index) => (
+						<>
+							<article class:list={{ 'architecture-node': true, agent: index === 1 }}>
+								<span>{String(index + 1).padStart(2, '0')}</span>
+								<h3>{item.title}</h3>
+								<p>{item.text}</p>
+							</article>
+							{index < copy.architecture.length - 1 && (
+								<svg class="architecture-connector" viewBox="0 0 96 24" aria-hidden="true">
+									<path d="M2 12h84" />
+									<path d="m78 4 10 8-10 8" />
+								</svg>
+							)}
+						</>
 					))}
 				</div>
-			</section>
+			</div>
+		</section>
 
-			<section class="feature-section">
-				<div class="feature-copy">
-					<p class="section-kicker">Sales workflow</p>
-					<h2>{copy.implementationTitle}</h2>
-					<p>{copy.implementationLead}</p>
-					<div class="feature-cloud">
-						{copy.features.map((feature) => <span>{feature}</span>)}
-					</div>
-				</div>
-				<div class="sales-diagram" aria-label="120-second sales workflow diagram">
-					<div class="diagram-phone">
-						<span>Dealer app</span>
-						<strong>Site photo</strong>
-						<small>Budget / size / intent</small>
-					</div>
-					<div class="diagram-agent">
-						<span>Sale AI</span>
-						<strong>Product match</strong>
-						<small>Policy + price + spec</small>
-					</div>
-					<div class="diagram-output">
-						<span>&lt;60s</span>
-						<strong>Quote + order</strong>
-						<small>SAP / CRM synced</small>
-					</div>
-				</div>
-			</section>
+		<section class="proof case-shell" id="proof" aria-labelledby="proof-title">
+			<header class="section-intro">
+				<h2 id="proof-title">{copy.proofTitle}</h2>
+				<p>{copy.proofLead}</p>
+			</header>
+			<div class="proof-list">
+				{copy.proofItems.map((item) => (
+					<article>
+						<p>{item.title}</p>
+						<strong>{item.value}</strong>
+						<span>{item.text}</span>
+					</article>
+				))}
+			</div>
+		</section>
 
-			<section class="proof-section">
-				<div class="section-heading compact">
-					<p class="section-kicker">Proof</p>
-					<h2>{copy.proofTitle}</h2>
-				</div>
-				<div class="proof-grid">
-					{copy.cases.map((item) => (
-						<article>
-							<strong>{item.value}</strong>
-							<span>{item.label}</span>
-							<p>{item.text}</p>
-						</article>
-					))}
-				</div>
-			</section>
+		<section class="gallery case-shell" aria-labelledby="gallery-title">
+			<h2 id="gallery-title">{copy.galleryTitle}</h2>
+			<p class="gallery-hint">{isVi ? 'Vuốt ngang để xem các slide tiếp theo →' : 'Swipe sideways to view the next slides →'}</p>
+			<div class="gallery-strip">
+				{copy.gallery.map((item, index) => (
+					<figure>
+						<Image src={item.image} alt={item.title} widths={[640, 900, 1100]} sizes="(max-width: 767px) 88vw, 56vw" loading="lazy" />
+						<figcaption><span>{String(index + 1).padStart(2, '0')}</span><strong>{item.title}</strong><small>{item.note}</small></figcaption>
+					</figure>
+				))}
+			</div>
+		</section>
 
-			<section class="visual-story-section">
-				<div class="section-heading compact">
-					<h2>{copy.galleryTitle}</h2>
-				</div>
-
-				<div class="agent-map" aria-label="Sale AI operating map">
-					<div class="agent-orbit">
-						<span></span>
-						<strong>Sale AI</strong>
-						<small>Agent Layer</small>
-					</div>
-					{copy.visualBlocks.map((block) => (
-						<article class="agent-card">
-							<span>{block.label}</span>
-							<h3>{block.title}</h3>
-							<p>{block.text}</p>
-						</article>
-					))}
-				</div>
-
-				<div class="workflow-rail" aria-label="Sale AI workflow">
-					{copy.workflow.map((step, index) => (
-						<div class="workflow-step" style={`--step-index: ${index}`}>
-							<span>{String(index + 1).padStart(2, '0')}</span>
-							<strong>{step}</strong>
-						</div>
-					))}
-				</div>
-
-				<div class="governance-grid">
-					{copy.governance.map((item) => (
-						<article>
-							<h3>{item.title}</h3>
-							<p>{item.text}</p>
-						</article>
-					))}
-				</div>
-			</section>
-
-			<section class="closing-section">
-				<p>{copy.closing}</p>
-				<a class="primary-link" href="mailto:hello@thanhtung.com">{copy.contact}</a>
-			</section>
-		</div>
+		<section class="case-close case-shell">
+			<div>
+				<h2>{copy.closingTitle}</h2>
+				<p>{copy.closingBody}</p>
+			</div>
+			<a class="case-button case-button-primary" href="mailto:thanhtung@simplamo.com">{copy.contact}</a>
+		</section>
 	</main>
 	<Footer />
-</body>
+
+	<script>
+		const stages = Array.from(document.querySelectorAll<HTMLElement>('[data-stage]'));
+		const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-stage-link]'));
+
+		const activateStage = (index: number) => {
+			links.forEach((link, linkIndex) => link.classList.toggle('active', linkIndex === index));
+		};
+		activateStage(0);
+
+		if (stages.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+			const observer = new IntersectionObserver(
+				(entries) => {
+					const visible = entries
+						.filter((entry) => entry.isIntersecting)
+						.sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+					if (visible) activateStage(Number((visible.target as HTMLElement).dataset.stage ?? 0));
+				},
+				{ rootMargin: '-28% 0px -52% 0px', threshold: [0.1, 0.4, 0.7] },
+			);
+			stages.forEach((stage) => observer.observe(stage));
+		}
+	</script>
+</div>
 
 <style>
-	:global(body.sale-ai-project-shell) {
+	/* Hallmark · pre-emit critique: P5 H5 E4 S5 R5 V5
+	 * genre: modern-minimal · macrostructure: Narrative Workflow · theme: Cobalt
+	 * enrichment: real project photography + tier-B SVG data-flow · motion: hero settle + active-stage tracking
+	 */
+	:global(html) {
+		overflow-x: clip;
+		scroll-behavior: smooth;
+	}
+
+	.sale-ai-case {
+		--case-paper: var(--sale-ai-color-paper);
+		--case-paper-2: var(--sale-ai-color-paper-2);
+		--case-ink: var(--sale-ai-color-ink);
+		--case-ink-2: var(--sale-ai-color-ink-2);
+		--case-rule: var(--sale-ai-color-rule);
+		--case-accent: var(--sale-ai-color-accent);
+		--case-accent-soft: var(--sale-ai-color-accent-soft);
+		--case-signal: var(--sale-ai-color-signal);
+		--case-focus: var(--sale-ai-color-focus);
+		--font-display: var(--sale-ai-font-display);
+		--font-body: var(--sale-ai-font-body);
+		--font-mono: var(--sale-ai-font-mono);
+		--space-xs: var(--sale-ai-space-xs);
+		--space-sm: var(--sale-ai-space-sm);
+		--space-md: var(--sale-ai-space-md);
+		--space-lg: var(--sale-ai-space-lg);
+		--space-xl: var(--sale-ai-space-xl);
+		--space-2xl: var(--sale-ai-space-2xl);
+		--space-3xl: var(--sale-ai-space-3xl);
+		--space-4xl: var(--sale-ai-space-4xl);
+		--ease-out: var(--sale-ai-ease-out);
+		--ease-in: var(--sale-ai-ease-in);
+		--dur-micro: var(--sale-ai-dur-micro);
+		--dur-short: var(--sale-ai-dur-short);
+		--dur-long: var(--sale-ai-dur-long);
 		margin: 0;
-		background:
-			radial-gradient(circle at top left, rgb(255 128 0 / 0.14), transparent 34rem),
-			linear-gradient(180deg, #fffaf5 0%, #fff 36%, #f6f2ec 100%);
-		color: #17120d;
-		font-family: Arial, Helvetica, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+		overflow-x: clip;
+		background: var(--case-paper);
+		color: var(--case-ink);
+		font-family: var(--font-body);
 	}
 
-	:global(.sale-ai-project-shell main) {
-		min-height: 100vh;
+	.sale-ai-case main {
+		min-height: 100dvh;
 	}
 
-	.page-wrap {
+	.case-shell {
 		width: min(1180px, calc(100% - 2rem));
-		margin: 0 auto;
+		margin-inline: auto;
 	}
 
-	.hero-section {
+	.case-hero {
 		display: grid;
-		grid-template-columns: minmax(0, 0.92fr) minmax(340px, 1.08fr);
-		gap: clamp(1.25rem, 4vw, 3.8rem);
-		align-items: center;
-		min-height: min(690px, calc(100dvh - 88px));
-		padding: clamp(1rem, 3vw, 2.6rem) 0 clamp(2rem, 5vw, 4rem);
-	}
-
-	.back-link {
-		color: #8a4f17;
-		font-weight: 800;
-		font-size: 0.92rem;
-		text-decoration: none;
+		grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+		gap: var(--space-2xl);
+		align-items: end;
+		min-height: clamp(32rem, 70dvh, 44rem);
+		padding-block: var(--space-lg) var(--space-2xl);
 	}
 
 	.hero-copy {
 		display: grid;
-		gap: 1.3rem;
+		gap: var(--space-lg);
+		align-self: center;
+		min-width: 0;
 	}
 
-	.eyebrow,
-	.feature-cloud {
+	.back-link {
+		width: fit-content;
+		color: var(--case-ink-2);
+		font-size: 0.86rem;
+		font-weight: 600;
+		text-decoration: none;
+	}
+
+	.back-link:hover {
+		color: var(--case-accent);
+	}
+
+	.meta-list {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.55rem;
+		gap: var(--space-sm) var(--space-lg);
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		color: var(--case-ink-2);
+		font-family: var(--font-mono);
+		font-size: 0.7rem;
+		letter-spacing: 0.04em;
 	}
 
-	.eyebrow span,
-	.feature-cloud span {
-		border: 1px solid rgb(236 115 21 / 0.24);
-		background: rgb(255 255 255 / 0.82);
-		color: #8f4e10;
-		font-weight: 850;
-		font-size: 0.78rem;
-		text-transform: uppercase;
-		letter-spacing: 0.08em;
-		padding: 0.52rem 0.78rem;
-		border-radius: 999px;
+	.meta-list li + li::before {
+		content: '/';
+		margin-inline-end: var(--space-lg);
+		color: var(--case-rule);
+	}
+
+	h1,
+	h2,
+	h3 {
+		margin: 0;
+		color: var(--case-ink);
+		font-family: var(--font-display);
+		font-style: normal;
 	}
 
 	h1 {
-		font-size: clamp(2.65rem, 5.25vw, 5.45rem);
-		letter-spacing: -0.066em;
-		line-height: 0.96;
-		max-width: 11.8ch;
-		margin: 0;
+		max-width: 12ch;
+		font-size: clamp(2.8rem, 4.8vw, 4.65rem);
+		font-weight: 700;
+		line-height: 1.08;
+		padding-block: 0.14em;
+		letter-spacing: -0.055em;
+		overflow-wrap: anywhere;
 	}
 
-	.hero-copy p,
-	.section-heading p,
-	.feature-copy p,
-	.closing-section p {
-		font-size: clamp(1.02rem, 1.5vw, 1.22rem);
-		line-height: 1.7;
-		color: #5f5148;
+	.hero-lead {
+		max-width: 60ch;
 		margin: 0;
+		color: var(--case-ink-2);
+		font-size: clamp(1.05rem, 1.5vw, 1.28rem);
+		line-height: 1.6;
 	}
 
-	.primary-link {
+	.hero-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-sm);
+	}
+
+	.case-button {
 		display: inline-flex;
-		width: fit-content;
 		align-items: center;
 		justify-content: center;
-		border-radius: 999px;
-		background: #f58220;
-		color: #fff;
-		font-weight: 900;
-		padding: 0.92rem 1.18rem;
+		min-height: 2.9rem;
+		width: fit-content;
+		padding-inline: var(--space-lg);
+		border: 1px solid transparent;
+		border-radius: 0.4rem;
+		font-size: 0.9rem;
+		font-weight: 700;
+		line-height: 1;
 		text-decoration: none;
-		box-shadow: 0 18px 45px rgb(245 130 32 / 0.24);
+		white-space: nowrap;
+		transition: transform var(--dur-micro) var(--ease-out), background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
 	}
 
-	.hero-visual,
-	.feature-section,
-	.stats-section,
-	.visual-story-section,
-	.closing-section {
-		border: 1px solid rgb(36 24 10 / 0.08);
-		border-radius: 34px;
-		background: rgb(255 255 255 / 0.76);
-		box-shadow: 0 28px 70px rgb(48 31 9 / 0.1);
+	.case-button:hover {
+		transform: translateY(-1px);
 	}
 
-	.hero-visual {
-		padding: clamp(0.7rem, 1.8vw, 1.35rem);
-		transform: rotate(1.1deg);
+	.case-button:active {
+		transform: translateY(1px);
 	}
 
-	.hero-visual img {
-		width: 100%;
-		height: auto;
-		border-radius: 24px;
-		display: block;
+	.case-button[aria-disabled='true'],
+	.case-button:disabled {
+		cursor: not-allowed;
+		opacity: 0.55;
+		transform: none;
 	}
 
-	.stats-section,
-	.model-section,
-	.feature-section,
-	.proof-section,
-	.visual-story-section,
-	.closing-section {
-		margin: clamp(2.5rem, 8vw, 6.4rem) 0;
+	.case-button:focus-visible,
+	.stage-index a:focus-visible,
+	.back-link:focus-visible {
+		outline: 3px solid var(--case-focus);
+		outline-offset: 3px;
 	}
 
-	.stats-section,
-	.feature-section,
-	.visual-story-section,
-	.closing-section {
-		padding: clamp(1.4rem, 4vw, 3rem);
+	.case-button-primary {
+		background: var(--case-ink);
+		color: var(--case-paper);
 	}
 
-	.stats-section {
+	.case-button-primary:hover {
+		background: var(--case-accent);
+		color: var(--case-paper);
+	}
+
+	.case-button-secondary {
+		border-color: var(--case-rule);
+		background: transparent;
+		color: var(--case-ink);
+	}
+
+	.case-button-secondary:hover {
+		border-color: var(--case-ink);
+		background: var(--case-paper-2);
+	}
+
+	.hero-figure {
+		align-self: stretch;
 		display: grid;
-		grid-template-columns: 0.72fr 1.28fr;
-		gap: clamp(1.2rem, 4vw, 3rem);
-		align-items: start;
+		grid-template-rows: 1fr auto;
+		gap: var(--space-sm);
+		margin: 0;
+		min-width: 0;
 	}
 
-	.section-kicker {
-		margin: 0 0 0.75rem;
-		font-size: 0.78rem;
-		font-weight: 900;
-		letter-spacing: 0.14em;
-		text-transform: uppercase;
-		color: #f58220;
+	.hero-figure img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		min-height: 26rem;
+		border: 1px solid var(--case-rule);
+		border-radius: 0.5rem;
+		object-fit: cover;
+		object-position: center;
+	}
+
+	.hero-figure figcaption,
+	.gallery-strip figcaption {
+		color: var(--case-ink-2);
+		font-family: var(--font-mono);
+		font-size: 0.72rem;
+		line-height: 1.5;
+	}
+
+	.case-reveal {
+		opacity: 0;
+		transform: translateY(10px);
+		animation: case-settle var(--dur-long) var(--ease-out) forwards;
+		animation-delay: calc(var(--reveal-index) * 90ms);
+	}
+
+	.snapshot,
+	.workflow,
+	.proof,
+	.gallery {
+		padding-block: var(--space-4xl);
+	}
+
+	.snapshot {
+		display: grid;
+		grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+		gap: var(--space-3xl);
+		border-top: 1px solid var(--case-rule);
+	}
+
+	.snapshot-copy {
+		display: grid;
+		gap: var(--space-lg);
 	}
 
 	h2 {
-		font-size: clamp(2rem, 4vw, 4.4rem);
-		letter-spacing: -0.055em;
-		line-height: 0.96;
-		margin: 0;
+		max-width: 18ch;
+		font-size: clamp(2.25rem, 4.2vw, 4.25rem);
+		font-weight: 700;
+		line-height: 1.1;
+		padding-block: 0.14em;
+		letter-spacing: -0.045em;
+		overflow-wrap: anywhere;
 	}
 
-	.stats-grid,
-	.layer-grid,
-	.proof-grid {
+	.snapshot-copy p,
+	.section-intro > p,
+	.case-close p {
+		max-width: 65ch;
+		margin: 0;
+		color: var(--case-ink-2);
+		font-size: 1.05rem;
+		line-height: 1.65;
+	}
+
+	.baseline {
 		display: grid;
-		gap: 1rem;
+		align-content: start;
 	}
 
-	.stats-grid {
-		grid-template-columns: repeat(3, minmax(0, 1fr));
+	.baseline-item {
+		display: grid;
+		grid-template-columns: minmax(8rem, 0.68fr) minmax(0, 1.32fr);
+		gap: var(--space-lg);
+		align-items: baseline;
+		padding-block: var(--space-lg);
+		border-top: 1px solid var(--case-rule);
 	}
 
-	.stats-grid article,
-	.layer-grid article,
-	.proof-grid article {
-		border: 1px solid rgb(36 24 10 / 0.08);
-		border-radius: 24px;
-		background: rgb(255 255 255 / 0.86);
-		padding: 1rem;
-		margin: 0;
+	.baseline-item:last-child {
+		border-bottom: 1px solid var(--case-rule);
 	}
 
-	.stats-grid strong,
-	.proof-grid strong {
-		display: block;
-		font-family: Arial, Helvetica, ui-sans-serif, system-ui, sans-serif;
-		font-size: clamp(1.62rem, 3vw, 2.95rem);
+	.baseline-item strong,
+	.proof-list strong {
+		font-family: var(--font-mono);
 		font-variant-numeric: tabular-nums;
-		font-feature-settings: 'zero' 0;
-		line-height: 1;
-		letter-spacing: -0.025em;
-		white-space: nowrap;
-		color: #f58220;
-	}
-
-	.stats-grid span,
-	.proof-grid span {
-		display: block;
-		margin-top: 0.6rem;
-		color: #5f5148;
-		font-weight: 750;
-		line-height: 1.35;
-	}
-
-	.section-heading {
-		max-width: 760px;
-		margin-bottom: clamp(1.3rem, 4vw, 2.4rem);
-	}
-
-	.section-heading.compact {
-		max-width: 680px;
-	}
-
-	.layer-grid {
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-	}
-
-	.layer-grid span {
-		color: #f58220;
-		font-weight: 950;
-		font-size: 0.84rem;
-	}
-
-	.layer-grid h3 {
-		font-size: 1.15rem;
-		margin: 0.8rem 0 0.55rem;
-	}
-
-	.layer-grid p,
-	.proof-grid p {
-		color: #685a50;
-		line-height: 1.55;
-		margin: 0;
-	}
-
-	.feature-section {
-		display: grid;
-		grid-template-columns: minmax(0, 0.86fr) minmax(320px, 1.14fr);
-		gap: clamp(1rem, 4vw, 3rem);
-		align-items: center;
-	}
-
-	.feature-copy {
-		display: grid;
-		gap: 1.2rem;
-	}
-
-	.sales-diagram {
-		position: relative;
-		display: grid;
-		grid-template-columns: 0.86fr 1fr;
-		gap: 1rem;
-		min-height: 430px;
-		padding: clamp(1rem, 2vw, 1.35rem);
-		border-radius: 28px;
-		background:
-			radial-gradient(circle at 70% 15%, rgb(245 130 32 / 0.18), transparent 18rem),
-			linear-gradient(135deg, #17120d, #2b1f15);
-		color: #fff;
-		overflow: hidden;
-	}
-
-	.sales-diagram::before {
-		content: '';
-		position: absolute;
-		inset: 18% 10%;
-		border: 1px dashed rgb(255 255 255 / 0.25);
-		border-radius: 999px;
-		transform: rotate(-9deg);
-	}
-
-	.diagram-phone,
-	.diagram-agent,
-	.diagram-output {
-		position: relative;
-		z-index: 1;
-		border: 1px solid rgb(255 255 255 / 0.13);
-		background: rgb(255 255 255 / 0.08);
-		box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14), 0 20px 55px rgb(0 0 0 / 0.18);
-		backdrop-filter: blur(18px);
-	}
-
-	.diagram-phone {
-		align-self: end;
-		min-height: 260px;
-		padding: 1.1rem;
-		border-radius: 28px;
-	}
-
-	.diagram-agent {
-		align-self: start;
-		padding: 1.25rem;
-		border-radius: 999px;
-		text-align: center;
-	}
-
-	.diagram-output {
-		grid-column: 1 / -1;
-		justify-self: end;
-		width: min(100%, 440px);
-		padding: 1.1rem;
-		border-radius: 24px;
-	}
-
-	.diagram-phone span,
-	.diagram-agent span,
-	.diagram-output span {
-		display: inline-flex;
-		margin-bottom: 0.8rem;
-		border-radius: 999px;
-		background: rgb(245 130 32 / 0.22);
-		color: #ffd8b1;
-		font-weight: 900;
-		font-size: 0.74rem;
-		letter-spacing: 0.1em;
-		text-transform: uppercase;
-		padding: 0.38rem 0.62rem;
-	}
-
-	.diagram-phone strong,
-	.diagram-agent strong,
-	.diagram-output strong {
-		display: block;
-		font-size: clamp(1.25rem, 2vw, 1.8rem);
 		letter-spacing: -0.04em;
 	}
 
-	.diagram-phone small,
-	.diagram-agent small,
-	.diagram-output small {
-		display: block;
-		margin-top: 0.45rem;
-		color: rgb(255 255 255 / 0.62);
-		font-weight: 750;
+	.baseline-item strong {
+		font-size: clamp(1.45rem, 2.5vw, 2.35rem);
 	}
 
-	.proof-grid {
-		grid-template-columns: repeat(4, minmax(0, 1fr));
+	.baseline-item span {
+		color: var(--case-ink-2);
+		line-height: 1.45;
 	}
 
-	.visual-story-section {
-		background:
-			linear-gradient(135deg, rgb(255 255 255 / 0.94), rgb(255 244 233 / 0.74)),
-			radial-gradient(circle at 72% 22%, rgb(245 130 32 / 0.16), transparent 22rem);
-		overflow: hidden;
+	.workflow {
+		border-top: 1px solid var(--case-rule);
 	}
 
-	.agent-map {
-		position: relative;
+	.section-intro {
 		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 1rem;
-		padding: clamp(7.5rem, 17vw, 11rem) 0 clamp(1rem, 3vw, 2rem);
+		grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.72fr);
+		gap: var(--space-2xl);
+		align-items: end;
+		margin-bottom: var(--space-3xl);
 	}
 
-	.agent-map::before {
-		content: '';
-		position: absolute;
-		inset: 10% 10% auto;
-		height: min(46vw, 360px);
-		border: 1px dashed rgb(245 130 32 / 0.34);
-		border-radius: 999px;
-		transform: rotate(-4deg);
-		pointer-events: none;
-	}
-
-	.agent-orbit {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		z-index: 2;
+	.workflow-layout {
 		display: grid;
-		width: clamp(9rem, 18vw, 13rem);
-		aspect-ratio: 1;
-		place-items: center;
-		padding: 1rem;
-		border-radius: 999px;
-		background: #17120d;
-		color: #fff;
-		box-shadow: 0 26px 70px rgb(23 18 13 / 0.25);
-		transform: translate(-50%, -50%);
-		text-align: center;
+		grid-template-columns: minmax(13rem, 0.32fr) minmax(0, 1fr);
+		gap: var(--space-3xl);
+		align-items: start;
 	}
 
-	.agent-orbit span {
-		position: absolute;
-		inset: -12px;
-		border: 1px solid rgb(245 130 32 / 0.42);
-		border-radius: inherit;
+	.stage-index {
+		position: sticky;
+		top: 7rem;
+		display: grid;
+		border-top: 1px solid var(--case-rule);
 	}
 
-	.agent-orbit strong {
-		font-size: clamp(1.35rem, 2.4vw, 2.1rem);
-		letter-spacing: -0.05em;
+	.stage-index a {
+		display: grid;
+		grid-template-columns: 2rem minmax(0, 1fr);
+		gap: var(--space-sm) var(--space-md);
+		padding-block: var(--space-md);
+		border-bottom: 1px solid var(--case-rule);
+		color: var(--case-ink-2);
+		text-decoration: none;
+		transition: color var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out);
 	}
 
-	.agent-orbit small {
-		color: rgb(255 255 255 / 0.68);
-		font-weight: 800;
+	.stage-index a > span,
+	.stage-index a > small {
+		font-family: var(--font-mono);
+		font-size: 0.68rem;
+	}
+
+	.stage-index a > strong {
+		min-width: 0;
+		font-size: 0.88rem;
+		white-space: nowrap;
+	}
+
+	.stage-index a > small {
+		grid-column: 2;
+		color: var(--case-ink-2);
+	}
+
+	.stage-index a.active {
+		color: var(--case-accent);
+		transform: translateX(var(--space-xs));
+	}
+
+	.stage-story {
+		display: grid;
+	}
+
+	.stage {
+		display: grid;
+		gap: var(--space-xl);
+		min-height: 34rem;
+		padding-block: var(--space-xl) var(--space-4xl);
+		border-top: 1px solid var(--case-rule);
+		scroll-margin-top: 6rem;
+	}
+
+	.stage:first-child {
+		padding-top: 0;
+		border-top: 0;
+	}
+
+	.stage-heading {
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr);
+		gap: var(--space-lg);
+		align-items: start;
+	}
+
+	.stage-heading > span {
+		color: var(--case-accent);
+		font-family: var(--font-mono);
+		font-size: clamp(2.2rem, 5vw, 4.8rem);
+		line-height: 1;
+	}
+
+	.stage-heading p {
+		margin: 0 0 var(--space-sm);
+		color: var(--case-signal);
+		font-family: var(--font-mono);
+		font-size: 0.78rem;
+	}
+
+	.stage-heading h3 {
+		font-size: clamp(1.8rem, 3.5vw, 3.35rem);
+		line-height: 1;
+		letter-spacing: -0.04em;
+	}
+
+	.stage-copy {
+		max-width: 64ch;
+		margin: 0;
+		color: var(--case-ink-2);
+		font-size: clamp(1.05rem, 1.7vw, 1.25rem);
+		line-height: 1.65;
+	}
+
+	.stage-io {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) 7rem minmax(0, 1fr);
+		gap: var(--space-md);
+		align-items: center;
+		padding-block: var(--space-lg);
+		border-block: 1px solid var(--case-rule);
+	}
+
+	.stage-io > div {
+		display: grid;
+		gap: var(--space-xs);
+	}
+
+	.stage-io span {
+		color: var(--case-ink-2);
+		font-family: var(--font-mono);
+		font-size: 0.67rem;
 		text-transform: uppercase;
-		letter-spacing: 0.12em;
+		letter-spacing: 0.08em;
 	}
 
-	.agent-card,
-	.governance-grid article,
-	.workflow-step {
-		border: 1px solid rgb(36 24 10 / 0.08);
-		border-radius: 24px;
-		background: rgb(255 255 255 / 0.88);
-		box-shadow: 0 16px 45px rgb(48 31 9 / 0.07);
+	.stage-io strong {
+		font-size: 0.95rem;
+		line-height: 1.35;
 	}
 
-	.agent-card {
-		min-height: 184px;
-		padding: clamp(1rem, 2.2vw, 1.45rem);
+	.stage-io svg,
+	.architecture-connector {
+		width: 100%;
+		overflow: visible;
 	}
 
-	.agent-card:nth-child(2),
-	.agent-card:nth-child(4) {
-		transform: translateY(-1rem);
+	.stage-io path,
+	.architecture-connector path {
+		fill: none;
+		stroke: var(--case-accent);
+		stroke-width: 1.5;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+		stroke-dasharray: 6 6;
+		animation: data-flow 1.8s linear infinite;
 	}
 
-	.agent-card:nth-child(3),
-	.agent-card:nth-child(5) {
-		transform: translateY(1rem);
-	}
-
-	.agent-card span {
-		color: #f58220;
-		font-weight: 950;
-		font-size: 0.75rem;
-		text-transform: uppercase;
-		letter-spacing: 0.14em;
-	}
-
-	.agent-card h3,
-	.governance-grid h3 {
-		font-size: clamp(1.12rem, 2vw, 1.45rem);
-		letter-spacing: -0.03em;
-		margin: 0.55rem 0;
-	}
-
-	.agent-card p,
-	.governance-grid p {
-		color: #685a50;
-		line-height: 1.55;
+	.stage-proof-image {
 		margin: 0;
 	}
 
-	.workflow-rail {
-		display: grid;
-		grid-template-columns: repeat(5, minmax(0, 1fr));
-		gap: 0.72rem;
-		margin-top: clamp(1.2rem, 4vw, 2.5rem);
-	}
-
-	.workflow-step {
-		position: relative;
-		min-height: 126px;
-		padding: 1rem;
-		overflow: hidden;
-	}
-
-	.workflow-step::after {
-		content: '';
-		position: absolute;
-		inset: auto 1rem 1rem;
-		height: 4px;
-		border-radius: 999px;
-		background: linear-gradient(90deg, #f58220, rgb(245 130 32 / 0.2));
-		transform-origin: left;
-	}
-
-	.workflow-step span {
+	.stage-proof-image img {
 		display: block;
-		color: rgb(143 78 16 / 0.55);
-		font-weight: 950;
+		width: 100%;
+		height: auto;
+		border: 1px solid var(--case-rule);
+		border-radius: 0.4rem;
 	}
 
-	.workflow-step strong {
-		display: block;
-		margin-top: 1rem;
-		font-size: clamp(1rem, 1.5vw, 1.25rem);
-		line-height: 1.2;
-		letter-spacing: -0.03em;
+	.architecture-band {
+		background: var(--case-ink);
+		color: var(--case-paper);
 	}
 
-	.governance-grid {
+	.architecture-inner {
+		padding-block: var(--space-4xl);
+	}
+
+	.section-intro.inverse h2,
+	.architecture-node h3 {
+		color: var(--case-paper);
+	}
+
+	.section-intro.inverse > p,
+	.architecture-node p {
+		color: var(--case-rule);
+	}
+
+	.architecture-diagram {
 		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: 1rem;
-		margin-top: 1rem;
-	}
-
-	.governance-grid article {
-		padding: 1.1rem;
-	}
-
-	.closing-section {
-		display: flex;
+		grid-template-columns: minmax(0, 1fr) 5rem minmax(0, 1.08fr) 5rem minmax(0, 1fr);
+		gap: var(--space-md);
 		align-items: center;
-		justify-content: space-between;
-		gap: 1.5rem;
 	}
 
-	.closing-section p {
-		max-width: 760px;
-		font-weight: 760;
-		color: #24180f;
+	.architecture-node {
+		min-height: 16rem;
+		padding: var(--space-xl);
+		border: 1px solid color-mix(in oklch, var(--case-rule) 35%, transparent);
+		border-radius: 0.4rem;
 	}
 
-	@media (prefers-reduced-motion: no-preference) {
-		.agent-orbit span {
-			animation: sale-ai-pulse 3.2s ease-in-out infinite;
-		}
-
-		.workflow-step::after {
-			animation: sale-ai-progress 3.6s ease-in-out infinite;
-			animation-delay: calc(var(--step-index) * 0.18s);
-		}
-
-		.diagram-agent {
-			animation: sale-ai-breathe 4s ease-in-out infinite;
-		}
+	.architecture-node.agent {
+		border-color: var(--case-accent);
+		background: color-mix(in oklch, var(--case-accent) 12%, var(--case-ink));
 	}
 
-	@keyframes sale-ai-pulse {
-		0%, 100% { transform: scale(1); opacity: 0.72; }
-		50% { transform: scale(1.08); opacity: 0.22; }
+	.architecture-node > span {
+		color: var(--case-accent-soft);
+		font-family: var(--font-mono);
+		font-size: 0.72rem;
 	}
 
-	@keyframes sale-ai-progress {
-		0%, 100% { transform: scaleX(0.28); opacity: 0.45; }
-		50% { transform: scaleX(1); opacity: 1; }
+	.architecture-node h3 {
+		margin-block: var(--space-xl) var(--space-md);
+		font-size: clamp(1.35rem, 2.5vw, 2.25rem);
+		letter-spacing: -0.035em;
 	}
 
-	@keyframes sale-ai-breathe {
-		0%, 100% { transform: scale(1); }
-		50% { transform: scale(1.025); }
+	.architecture-node p {
+		margin: 0;
+		line-height: 1.6;
 	}
 
-	@media (max-width: 980px) {
-		.hero-section,
-		.stats-section,
-		.feature-section {
-			grid-template-columns: 1fr;
-		}
-
-		.hero-section {
-			min-height: auto;
-		}
-
-		.hero-visual {
-			transform: none;
-		}
-
-		.layer-grid,
-		.proof-grid,
-		.governance-grid {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-		}
-
-		.workflow-rail {
-			grid-template-columns: repeat(3, minmax(0, 1fr));
-		}
+	.proof {
+		border-bottom: 1px solid var(--case-rule);
 	}
 
-	@media (max-width: 640px) {
-		.page-wrap {
-			width: min(100% - 1rem, 1180px);
-		}
+	.proof-list {
+		display: grid;
+		grid-template-columns: 1.1fr 0.9fr 1.2fr;
+		border-top: 1px solid var(--case-rule);
+	}
 
-		h1 {
-			font-size: clamp(2.2rem, 10.5vw, 3.25rem);
-			max-width: 12.2ch;
-		}
+	.proof-list article {
+		display: grid;
+		align-content: start;
+		gap: var(--space-lg);
+		min-height: 20rem;
+		padding: var(--space-xl);
+		border-bottom: 1px solid var(--case-rule);
+	}
 
-		.stats-grid,
-		.layer-grid,
-		.proof-grid,
-		.agent-map,
-		.workflow-rail,
-		.governance-grid,
-		.sales-diagram {
-			grid-template-columns: 1fr;
-		}
+	.proof-list article + article {
+		border-inline-start: 1px solid var(--case-rule);
+	}
 
-		.stats-grid {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-		}
+	.proof-list p {
+		margin: 0;
+		color: var(--case-ink-2);
+		font-family: var(--font-mono);
+		font-size: 0.72rem;
+		text-transform: uppercase;
+		letter-spacing: 0.07em;
+	}
 
-		.agent-map {
-			padding: 0;
-		}
+	.proof-list strong {
+		font-size: clamp(2.4rem, 5vw, 5rem);
+		line-height: 0.95;
+		overflow-wrap: anywhere;
+	}
 
-		.agent-map::before,
-		.agent-orbit {
+	.proof-list span {
+		color: var(--case-ink-2);
+		line-height: 1.6;
+	}
+
+	.gallery h2 {
+		margin-bottom: var(--space-sm);
+	}
+
+	.gallery-hint {
+		margin: 0 0 var(--space-2xl);
+		color: var(--case-ink-2);
+		font-family: var(--font-mono);
+		font-size: 0.72rem;
+	}
+
+	.gallery-strip {
+		display: grid;
+		grid-auto-flow: column;
+		grid-auto-columns: minmax(19rem, 56rem);
+		gap: var(--space-xl);
+		overflow-x: auto;
+		scroll-snap-type: x mandatory;
+		padding-bottom: var(--space-lg);
+		scrollbar-color: var(--case-rule) transparent;
+	}
+
+	.gallery-strip figure {
+		display: grid;
+		gap: var(--space-md);
+		margin: 0;
+		scroll-snap-align: start;
+	}
+
+	.gallery-strip img {
+		display: block;
+		width: 100%;
+		height: auto;
+		border: 1px solid var(--case-rule);
+		border-radius: 0.4rem;
+	}
+
+	.gallery-strip figcaption {
+		display: grid;
+		grid-template-columns: 2rem minmax(0, 1fr);
+		gap: var(--space-xs) var(--space-md);
+	}
+
+	.gallery-strip figcaption > span {
+		grid-row: 1 / 3;
+		color: var(--case-accent);
+	}
+
+	.gallery-strip figcaption > strong {
+		color: var(--case-ink);
+		font-family: var(--font-body);
+		font-size: 0.95rem;
+	}
+
+	.gallery-strip figcaption > small {
+		font-size: inherit;
+	}
+
+	.case-close {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto;
+		gap: var(--space-2xl);
+		align-items: end;
+		padding-block: var(--space-3xl) var(--space-4xl);
+	}
+
+	.case-close > div {
+		display: grid;
+		gap: var(--space-lg);
+	}
+
+	.case-close h2 {
+		max-width: 20ch;
+	}
+
+	@keyframes case-settle {
+		to { opacity: 1; transform: none; }
+	}
+
+	@keyframes data-flow {
+		to { stroke-dashoffset: -24; }
+	}
+
+	@media (min-width: 60rem) {
+		.gallery-hint {
 			display: none;
 		}
 
-		.agent-card:nth-child(n) {
+		.gallery h2 {
+			margin-bottom: var(--space-3xl);
+		}
+	}
+
+	@media (max-width: 59.99rem) {
+		.case-hero,
+		.snapshot,
+		.section-intro,
+		.workflow-layout,
+		.case-close {
+			grid-template-columns: 1fr;
+		}
+
+		.case-hero {
+			min-height: auto;
+			padding-block-end: var(--space-2xl);
+		}
+
+		.hero-figure img {
+			min-height: 0;
+			aspect-ratio: 16 / 10;
+		}
+
+		.snapshot,
+		.workflow,
+		.proof,
+		.gallery {
+			padding-block: var(--space-3xl);
+		}
+
+		.section-intro {
+			align-items: start;
+		}
+
+		.stage-index {
+			position: static;
+			grid-template-columns: repeat(5, minmax(0, 1fr));
+			overflow-x: auto;
+			border-bottom: 1px solid var(--case-rule);
+		}
+
+		.stage-index a {
+			min-width: 9rem;
+			border-bottom: 0;
+		}
+
+		.stage-index a.active {
 			transform: none;
 		}
 
-		.sales-diagram {
+		.stage {
 			min-height: auto;
-			gap: 0.7rem;
-			padding: 0.85rem;
+			padding-block: var(--space-2xl);
 		}
 
-		.diagram-output {
-			grid-column: auto;
-			justify-self: stretch;
+		.architecture-diagram {
+			grid-template-columns: 1fr;
+		}
+
+		.architecture-connector {
+			width: 5rem;
+			transform: rotate(90deg);
+			justify-self: center;
+		}
+
+		.proof-list {
+			grid-template-columns: 1fr;
+		}
+
+		.proof-list article {
+			min-height: auto;
+		}
+
+		.proof-list article + article {
+			border-inline-start: 0;
+		}
+
+		.case-close {
+			align-items: start;
+		}
+	}
+
+	@media (max-width: 39.99rem) {
+		.case-shell {
+			width: min(100% - 1rem, 1180px);
+		}
+
+		.case-hero {
+			gap: var(--space-xl);
+			padding-block-start: var(--space-lg);
+		}
+
+		h1 {
+			max-width: none;
+			font-size: clamp(2.45rem, 12vw, 3.5rem);
+		}
+
+		h2 {
+			font-size: clamp(2rem, 10vw, 3rem);
+		}
+
+		.meta-list li + li::before {
+			display: none;
+		}
+
+		.hero-actions {
+			display: grid;
+		}
+
+		.case-button {
 			width: 100%;
 		}
 
-		.diagram-phone {
-			min-height: 168px;
+		.baseline-item {
+			grid-template-columns: 1fr;
+			gap: var(--space-xs);
 		}
 
-		.diagram-phone,
-		.diagram-agent,
-		.diagram-output {
-			padding: 0.9rem;
+		.stage-heading {
+			grid-template-columns: 3rem minmax(0, 1fr);
 		}
 
-		.diagram-phone strong,
-		.diagram-agent strong,
-		.diagram-output strong {
-			font-size: 1.12rem;
+		.stage-heading > span {
+			font-size: 2rem;
 		}
 
-		.closing-section {
-			align-items: stretch;
-			flex-direction: column;
+		.stage-io {
+			grid-template-columns: 1fr;
 		}
 
-		.primary-link {
-			width: 100%;
+		.stage-io svg {
+			width: 5rem;
+			transform: rotate(90deg);
+			justify-self: center;
+		}
+
+		.architecture-inner {
+			padding-block: var(--space-3xl);
+		}
+
+		.architecture-node {
+			min-height: auto;
+		}
+
+		.gallery-strip {
+			grid-auto-columns: 88%;
+		}
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		.gallery-strip figure:hover img {
+			transform: translateY(-2px);
+			transition: transform var(--dur-short) var(--ease-out);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		:global(html) {
+			scroll-behavior: auto;
+		}
+
+		.case-reveal {
+			opacity: 1;
+			transform: none;
+			animation: none;
+		}
+
+		.stage-io path,
+		.architecture-connector path {
+			animation: none;
+			stroke-dasharray: none;
+		}
+
+		.case-button,
+		.stage-index a,
+		.gallery-strip figure img {
+			transition-duration: 150ms;
 		}
 	}
 </style>

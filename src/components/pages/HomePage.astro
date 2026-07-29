@@ -2,7 +2,6 @@
 import HomeOgImage from '../../assets/david-tung-og-x10.png';
 import BaseHead from '../BaseHead.astro';
 import Footer from '../Footer.astro';
-import AnnouncementBanner from '../AnnouncementBanner.astro';
 import FeaturedProjects from './home/FeaturedProjects.astro';
 import HomeAnimatedBackground from './home/HomeAnimatedBackground.astro';
 import LatestWritingSection from './home/LatestWritingSection.astro';
@@ -29,7 +28,6 @@ const { isVi, focusSignals, profileCard, proofStats, projectCards, services, sta
 		<BaseHead title={SITE_TITLE} description={t.siteDescription} image={HomeOgImage} locale={locale} />
 	</head>
 	<body>
-		<AnnouncementBanner />
 		<HomeAnimatedBackground
 			locale={locale}
 			isVi={isVi}

@@ -15,8 +15,16 @@ interface Props {
 const { playbook, locale, headingLevel = 'h2', loading = 'lazy' } = Astro.props;
 const Heading = headingLevel;
 const t = locale === 'vi'
-	? { pages: 'trang', readMore: 'Đọc playbook' }
-	: { pages: 'pages', readMore: 'Read playbook' };
+	? { pages: 'trang', readMore: 'Đọc playbook', published: 'Xuất bản' }
+	: { pages: 'pages', readMore: 'Read playbook', published: 'Published' };
+
+const formatDate = (date: Date) => {
+	return new Intl.DateTimeFormat(locale === 'vi' ? 'vi-VN' : 'en-US', {
+		year: 'numeric',
+		month: 'long',
+		day: 'numeric',
+	}).format(date);
+};
 ---
 
 <Card class="group overflow-hidden bg-white/85 transition hover:border-orange-200 hover:shadow-xl">
@@ -42,7 +50,7 @@ const t = locale === 'vi'
 			}
 			<!-- Content: right side -->
 			<div class="flex flex-1 flex-col p-4 sm:p-5 lg:p-6">
-				<div class="mb-3 flex items-center gap-2 text-sm font-extrabold text-orange-600">
+				<div class="mb-3 flex items-center gap-3 text-sm font-extrabold text-orange-600">
 					{playbook.data.pages && (
 						<span class="inline-flex items-center gap-1">
 							<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -52,6 +60,8 @@ const t = locale === 'vi'
 							{playbook.data.pages}
 						</span>
 					)}
+					<span class="text-neutral-400">·</span>
+					<span class="font-semibold text-neutral-500">{formatDate(playbook.data.publishedDate)}</span>
 				</div>
 				<Heading class="mb-2 line-clamp-2 !text-xl text-neutral-950 transition group-hover:text-orange-600 sm:!text-2xl">
 					{playbook.data.title}

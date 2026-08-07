@@ -261,7 +261,7 @@ const formatDate = (date: Date) => {
 			if (ctaBar && leadForm) {
 				const observer = new IntersectionObserver((entries) => {
 					entries.forEach((entry) => {
-						ctaBar.style.display = entry.isIntersecting ? 'none' : 'block';
+						ctaBar.style.display = entry.isIntersecting ? 'none' : '';
 					});
 				}, { rootMargin: '0px 0px -60px 0px' });
 				observer.observe(leadForm);

@@ -1,0 +1,54 @@
+---
+import { Image } from 'astro:assets';
+import PlaybookCard from './PlaybookCard.astro';
+import BaseHead from '../../../components/BaseHead.astro';
+import Footer from '../../../components/Footer.astro';
+import ProjectAnimatedBackground from '../project-detail/ProjectAnimatedBackground.astro';
+import { SITE_TITLE } from '../../../consts';
+import { getTranslations, type Locale } from '../../../i18n';
+import { getPlaybooks } from '../../../lib/playbooks';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale);
+const playbooks = await getPlaybooks(locale);
+
+const pageTitle = locale === 'vi' ? 'Playbook' : 'Playbooks';
+const pageDescription = locale === 'vi'
+	? 'Playbook kỹ thuật dành cho Solo CEO và chủ doanh nghiệp — phân tích thực chiến, có nguồn kiểm chứng.'
+	: 'Technical playbooks for Solo CEOs and business owners — real analysis with verified sources.';
+---
+
+<!doctype html>
+<html lang={locale}>
+	<head>
+		<BaseHead title={`${pageTitle} | ${SITE_TITLE}`} description={pageDescription} locale={locale} />
+	</head>
+	<body>
+		<ProjectAnimatedBackground>
+		<main class="mx-auto site-container !py-8">
+			<section class="py-2">
+				<div class="flex align-center justify-between">
+					<h1 class="mb-4 text-5xl leading-none text-neutral-950 sm:text-6xl lg:text-7xl">{pageTitle}</h1>
+					<p class="mb-4 inline-flex rounded-full border border-neutral-200 bg-white/75 px-3 py-1.5 text-sm font-extrabold text-orange-600 shadow-sm backdrop-blur">
+						{playbooks.length} {locale === 'vi' ? 'playbook' : 'playbooks'}
+					</p>
+				</div>
+				<p class="max-w-2xl text-lg leading-8 text-neutral-600 sm:text-xl">{pageDescription}</p>
+			</section>
+
+			<section class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" aria-label={pageTitle}>
+				{
+					playbooks.map((pb, index) => (
+						<PlaybookCard playbook={pb} locale={locale} loading={index === 0 ? 'eager' : 'lazy'} />
+					))
+				}
+			</section>
+		</main>
+		</ProjectAnimatedBackground>
+		<Footer />
+	</body>
+</html>

@@ -12,8 +12,9 @@ const ui = {
 	vi: {
 		siteDescription: 'Ghi chép về quản trị, vận hành và chuyển đổi số cho doanh nghiệp Việt Nam.',
 		nav: {
-			home: 'Trang chủ',
-			blog: 'Bài viết',
+			home: 'Home',
+			blog: 'Blog',
+			playbooks: 'Playbook',
 			about: 'Giới thiệu',
 		},
 		home: {
@@ -53,7 +54,8 @@ const ui = {
 		siteDescription: 'Notes on management, operations, and digital transformation for growing teams.',
 		nav: {
 			home: 'Home',
-			blog: 'Writing',
+			blog: 'Blog',
+			playbooks: 'Playbooks',
 			about: 'About',
 		},
 		home: {

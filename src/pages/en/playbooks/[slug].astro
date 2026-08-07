@@ -1,0 +1,12 @@
+---
+import PlaybookDetailPage from '../../../components/pages/playbook/PlaybookDetailPage.astro';
+import { getPlaybookStaticPaths } from '../../../lib/playbooks';
+
+export async function getStaticPaths() {
+	return await getPlaybookStaticPaths('en');
+}
+
+const { playbook, locale } = Astro.props;
+---
+
+<PlaybookDetailPage playbook={playbook} locale={locale} />

@@ -1,0 +1,273 @@
+---
+import { Image } from 'astro:assets';
+import { render } from 'astro:content';
+import BaseHead from '../../../components/BaseHead.astro';
+import Footer from '../../../components/Footer.astro';
+import Badge from '../../../components/ui/Badge.astro';
+import Card from '../../../components/ui/Card.astro';
+import ProjectAnimatedBackground from '../project-detail/ProjectAnimatedBackground.astro';
+import PlaybookLeadForm from './PlaybookLeadForm.tsx';
+import { SITE_TITLE } from '../../../consts';
+import { getTranslations, type Locale } from '../../../i18n';
+import { getPlaybookPath, type Playbook } from '../../../lib/playbooks';
+
+interface Props {
+	playbook: Playbook;
+	locale: Locale;
+}
+
+const { playbook, locale } = Astro.props;
+const t = getTranslations(locale);
+const pb = playbook.data;
+const { Content } = await render(playbook);
+
+const tLabels = locale === 'vi'
+	? {
+			tableOfContents: 'Mục lục',
+			summary: 'Tóm tắt',
+			keyTakeaway: 'Một câu mang đi',
+			leadFormTitle: 'Nhận PDF đầy đủ',
+			leadFormSubtitle: 'Để lại email — gửi file PDF đầy đủ.',
+			backToList: 'Tất cả playbook',
+			vol: 'Tập',
+			published: 'Xuất bản',
+			downloadTitle: 'Tải xuống playbook đầy đủ',
+			downloadDesc: 'Playbook đầy đủ 13 trang với bảng so sánh 18 tiêu chí, lộ trình 4 tuần, và đầy đủ nguồn kiểm chứng. Để lại thông tin để nhận PDF.',
+			benefits: [
+				'Bảng so sánh Odoo / Twenty / Comp AI CRM',
+				'Lộ trình triển khai 4 tuần cho Solo CEO',
+				'Toàn bộ nguồn và ngày truy xuất',
+			],
+		}
+	: {
+			tableOfContents: 'Table of contents',
+			summary: 'Summary',
+			keyTakeaway: 'One sentence to take away',
+			leadFormTitle: 'Get the full PDF',
+			leadFormSubtitle: 'Leave your email — we\'ll send the full PDF.',
+			backToList: 'All playbooks',
+			vol: 'Vol',
+			published: 'Published',
+			downloadTitle: 'Download the full playbook',
+			downloadDesc: 'Full 13-page playbook with 18-criteria comparison table, 4-week roadmap, and complete verified sources. Leave your info to get the PDF.',
+			benefits: [
+				'Comparison table: Odoo / Twenty / Comp AI CRM',
+				'4-week implementation roadmap for Solo CEO',
+				'All sources with access dates',
+			],
+		};
+
+const formatDate = (date: Date) => {
+	return new Intl.DateTimeFormat(locale === 'vi' ? 'vi-VN' : 'en-US', {
+		year: 'numeric',
+		month: 'long',
+		day: 'numeric',
+	}).format(date);
+};
+---
+
+<!doctype html>
+<html lang={locale}>
+	<head>
+		<BaseHead title={`${pb.title} | ${SITE_TITLE}`} description={pb.description} locale={locale} />
+	</head>
+	<body>
+		<ProjectAnimatedBackground>
+		<main class="mx-auto max-w-6xl !px-4 !py-5 pb-24 sm:!px-5 sm:!py-6 sm:pb-24 lg:!px-6 lg:!py-8 lg:pb-8 xl:pb-8">
+			<!-- Back link -->
+			<a
+				href={locale === 'vi' ? '/playbooks/' : '/en/playbooks/'}
+				class="mb-6 inline-flex items-center gap-1.5 text-sm font-bold text-orange-600 transition hover:text-cyan-950"
+			>
+				<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+					<polyline points="15 18 9 12 15 6" />
+				</svg>
+				{tLabels.backToList}
+			</a>
+
+			<!-- Hero section -->
+			<section class="mb-8 grid gap-6 sm:grid-cols-[200px_1fr] sm:gap-8 lg:grid-cols-[260px_1fr]">
+				<!-- Book cover with shadow -->
+				<div class="relative mx-auto sm:mx-0">
+					<div class="relative aspect-[3/4] w-[180px] overflow-hidden rounded-lg bg-white shadow-2xl ring-1 ring-neutral-200/50 sm:w-full">
+						{
+							pb.coverImage && (
+								<Image
+									class="block h-full w-full object-cover"
+									width={480}
+									height={640}
+									src={pb.coverImage}
+									alt=""
+								/>
+							)
+						}
+						<!-- Book spine shadow effect on left edge -->
+						<div class="pointer-events-none absolute inset-y-0 left-0 w-2 bg-gradient-to-r from-black/15 to-transparent" />
+						<!-- Subtle page edge on right -->
+						<div class="pointer-events-none absolute inset-y-0 right-0 w-1 bg-gradient-to-l from-neutral-200/60 to-transparent" />
+					</div>
+				</div>
+				<div class="flex flex-col justify-center gap-3">
+					<div class="flex flex-wrap items-center gap-2">
+						{pb.vol && <Badge>{pb.vol}</Badge>}
+						{pb.pages && <Badge class="text-neutral-600">{pb.pages}</Badge>}
+					</div>
+					<h1 class="text-balance !text-3xl leading-tight text-neutral-950 sm:!text-4xl lg:!text-5xl">{pb.title}</h1>
+					<p class="max-w-xl text-base leading-7 text-neutral-600 sm:text-lg sm:leading-8">{pb.description}</p>
+					<p class="text-sm font-bold text-neutral-400">
+						{tLabels.published}: {formatDate(pb.publishedDate)}
+					</p>
+				</div>
+			</section>
+
+			<!-- Key takeaway highlight -->
+			{
+				pb.keyTakeaway && (
+					<blockquote class="mb-8 rounded-2xl border-l-4 border-orange-500 bg-orange-50/60 p-5 text-lg font-semibold italic leading-8 text-neutral-800 backdrop-blur sm:p-6 lg:mb-10">
+						&ldquo;{pb.keyTakeaway}&rdquo;
+					</blockquote>
+				)
+			}
+
+			<!-- Main content + sticky lead form sidebar -->
+			<div class="grid gap-5 xl:grid-cols-[minmax(0,1fr)_20rem] xl:items-start">
+				<!-- Left: content -->
+				<div class="min-w-0">
+					<!-- Summary section -->
+					{
+						pb.summary && pb.summary.length > 0 && (
+							<Card class="mb-5 p-4 sm:p-5 lg:p-6">
+								<h2 class="mb-4 !text-2xl font-extrabold text-neutral-950">{tLabels.summary}</h2>
+								<ul class="space-y-3">
+									{pb.summary.map((item) => (
+										<li class="flex gap-3 text-base leading-7 text-neutral-700">
+											<svg class="mt-1.5 h-5 w-5 shrink-0 text-orange-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+												<polyline points="20 6 9 17 4 12" />
+											</svg>
+											<span>{item}</span>
+										</li>
+									))}
+								</ul>
+							</Card>
+						)
+					}
+
+					<!-- Table of contents -->
+					{
+						pb.toc && pb.toc.length > 0 && (
+							<Card class="mb-5 p-4 sm:p-5 lg:p-6">
+								<h2 class="mb-4 !text-2xl font-extrabold text-neutral-950">{tLabels.tableOfContents}</h2>
+								<ol class="space-y-2">
+									{pb.toc.map((item, index) => (
+										<li class="flex gap-4 rounded-xl border border-neutral-100 bg-white/60 p-3 transition hover:border-orange-200 hover:bg-white/90 sm:p-4">
+											<span class="shrink-0 text-lg font-extrabold text-orange-600">{String(index + 1).padStart(2, '0')}</span>
+											<div>
+												<p class="font-bold text-neutral-900">{item.title}</p>
+												{item.description && <p class="text-sm text-neutral-600">{item.description}</p>}
+											</div>
+										</li>
+									))}
+								</ol>
+							</Card>
+						)
+					}
+
+					<!-- Content body (from MD) -->
+					<Card class="p-4 sm:p-5 lg:p-6">
+						<div class="prose-playbook min-w-0 break-words text-base leading-8 text-neutral-700 [&>*+*]:mt-5 [&_h2]:mb-4 [&_h2]:mt-10 [&_h2]:scroll-mt-24 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-neutral-950 [&_h3]:mb-3 [&_h3]:mt-8 [&_h3]:scroll-mt-24 [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-neutral-950 [&_a]:font-semibold [&_a]:text-orange-600 [&_a:hover]:text-cyan-950 [&_p]:mb-4 [&_ul]:my-4 [&_ul]:list-disc [&_ul]:pl-6 [&_li]:my-1 [&_li::marker]:text-orange-600 [&_strong]:font-bold [&_strong]:text-neutral-900">
+							<Content />
+						</div>
+					</Card>
+				</div>
+
+				<!-- Right: sticky lead form sidebar -->
+				<aside class="hidden xl:block xl:self-stretch">
+					<div class="sticky top-24 max-h-[calc(100dvh-7rem)] overflow-y-auto">
+						<!-- Download info -->
+						<Card class="mb-3 p-4">
+							<h2 class="mb-2 !text-lg font-extrabold text-neutral-950">
+								{tLabels.downloadTitle}
+							</h2>
+							<p class="mb-3 text-sm leading-6 text-neutral-600">
+								{tLabels.downloadDesc}
+							</p>
+							<ul class="space-y-1.5 text-xs font-semibold text-neutral-700">
+								{tLabels.benefits.map((benefit) => (
+									<li class="flex gap-2">
+										<span class="text-orange-600">✓</span>
+										{benefit}
+									</li>
+								))}
+							</ul>
+						</Card>
+						<!-- Lead form -->
+						<PlaybookLeadForm
+							client:load
+							locale={locale}
+							pdfUrl={pb.pdfFile}
+							playbookTitle={pb.title}
+						/>
+					</div>
+				</aside>
+
+				<!-- Mobile lead form (stacked, shown below content) -->
+				<div class="xl:hidden" id="lead-form" data-mobile-cta-target>
+					<Card class="mb-3 p-4 sm:p-5">
+						<h2 class="mb-2 !text-xl font-extrabold text-neutral-950 sm:!text-2xl">
+							{tLabels.downloadTitle}
+						</h2>
+						<p class="mb-3 text-sm leading-6 text-neutral-600 sm:text-base sm:leading-7">
+							{tLabels.downloadDesc}
+						</p>
+						<ul class="space-y-1.5 text-sm font-semibold text-neutral-700">
+							{tLabels.benefits.map((benefit) => (
+								<li class="flex gap-2">
+									<span class="text-orange-600">✓</span>
+									{benefit}
+								</li>
+							))}
+						</ul>
+					</Card>
+					<PlaybookLeadForm
+						client:load
+						locale={locale}
+						pdfUrl={pb.pdfFile}
+						playbookTitle={pb.title}
+					/>
+				</div>
+			</div>
+		</main>
+		</ProjectAnimatedBackground>
+		<!-- Mobile fixed bottom CTA -->
+		<div class="fixed inset-x-0 bottom-0 z-50 xl:hidden" id="mobile-cta-bar">
+			<div class="border-t border-neutral-200 bg-white/90 px-4 py-3 shadow-[0_-4px_20px_rgb(15_23_42/0.08)] backdrop-blur-lg">
+				<button
+					type="button"
+					class="flex w-full items-center justify-center gap-2 rounded-full bg-orange-600 px-6 py-3 text-sm font-bold !text-white shadow-lg transition active:scale-95"
+					onclick="document.getElementById('lead-form').scrollIntoView({behavior:'smooth',block:'start'});"
+				>
+					<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+						<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+						<polyline points="7 10 12 15 17 10" />
+						<line x1="12" y1="15" x2="12" y2="3" />
+					</svg>
+					{locale === 'vi' ? 'Tải PDF miễn phí' : 'Download PDF free'}
+				</button>
+			</div>
+		</div>
+		<script>
+			const ctaBar = document.getElementById('mobile-cta-bar');
+			const leadForm = document.getElementById('lead-form');
+			if (ctaBar && leadForm) {
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach((entry) => {
+						ctaBar.style.display = entry.isIntersecting ? 'none' : 'block';
+					});
+				}, { rootMargin: '0px 0px -60px 0px' });
+				observer.observe(leadForm);
+			}
+		</script>
+
+		<Footer />
+	</body>
+</html>

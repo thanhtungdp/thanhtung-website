@@ -1,0 +1,64 @@
+---
+import { Image } from 'astro:assets';
+import Card from '../../ui/Card.astro';
+import Badge from '../../ui/Badge.astro';
+import { type Locale } from '../../../i18n';
+import { getPlaybookPath, type Playbook } from '../../../lib/playbooks';
+
+interface Props {
+	playbook: Playbook;
+	locale: Locale;
+	headingLevel?: 'h2' | 'h3';
+	loading?: 'eager' | 'lazy';
+}
+
+const { playbook, locale, headingLevel = 'h2', loading = 'lazy' } = Astro.props;
+const Heading = headingLevel;
+const t = locale === 'vi'
+	? { pages: 'trang', readMore: 'Đọc playbook' }
+	: { pages: 'pages', readMore: 'Read playbook' };
+---
+
+<Card class="group h-full overflow-hidden bg-white/85 transition hover:-translate-y-1 hover:border-orange-200 hover:shadow-xl">
+	<article class="h-full">
+		<a class="flex h-full flex-col text-inherit no-underline" href={getPlaybookPath(playbook, locale)}>
+			{
+				playbook.data.coverImage && (
+					<div class="relative aspect-[3/4] overflow-hidden bg-neutral-100">
+						<Image
+							class="block h-full w-full rounded-none object-cover transition duration-300 group-hover:scale-105"
+							width={480}
+							height={640}
+							src={playbook.data.coverImage}
+							alt=""
+							loading={loading}
+						/>
+						<div class="absolute left-3 top-3 flex gap-2">
+							{playbook.data.vol && <Badge class="bg-white/90">{playbook.data.vol}</Badge>}
+						</div>
+					</div>
+				)
+			}
+			<div class="flex flex-1 flex-col p-4 sm:p-5">
+				<div class="mb-3 flex items-center gap-2 text-sm font-extrabold text-orange-600">
+					{playbook.data.pages && (
+						<span class="inline-flex items-center gap-1">
+							<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+								<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+								<path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+							</svg>
+							{playbook.data.pages}
+						</span>
+					)}
+				</div>
+				<Heading class="mb-3 line-clamp-2 !text-2xl text-neutral-950 transition group-hover:text-orange-600">
+					{playbook.data.title}
+				</Heading>
+				<p class="mb-4 line-clamp-3 text-base leading-7 text-neutral-600">
+					{playbook.data.description}
+				</p>
+				<span class="mt-auto text-sm font-extrabold text-orange-600">{t.readMore}</span>
+			</div>
+		</a>
+	</article>
+</Card>

@@ -2,7 +2,7 @@
 title: "AI Model Routing — Choosing AI models for AI Agents"
 description: "Claude, ChatGPT/OpenAI, GLM, Kimi and DeepSeek — viewed by operational role, not by benchmark ranking. Productivity doesn't come from one strong model, it comes from an intelligent routing system."
 vol: "PLAYBOOK 08/2026"
-pages: "10 pages"
+pages: "13 pages"
 publishedDate: 2026-08-08
 coverImage: ../../../assets/playbooks/ai-model-routing-cover.png
 pdfFile: /playbooks/AI-Model-Routing-Playbook-David-Tung.pdf

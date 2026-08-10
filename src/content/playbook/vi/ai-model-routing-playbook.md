@@ -2,7 +2,7 @@
 title: "AI Model Routing — Lựa chọn model AI cho AI Agent"
 description: "Claude, ChatGPT/OpenAI, GLM, Kimi và DeepSeek — nhìn theo vai trò vận hành, không theo bảng xếp hạng. Năng suất không đến từ một model mạnh, nó đến từ một hệ thống phân công thông minh."
 vol: "CẨM NANG 08/2026"
-pages: "10 trang"
+pages: "13 trang"
 publishedDate: 2026-08-08
 coverImage: ../../../assets/playbooks/ai-model-routing-cover.png
 pdfFile: /playbooks/AI-Model-Routing-Playbook-David-Tung.pdf

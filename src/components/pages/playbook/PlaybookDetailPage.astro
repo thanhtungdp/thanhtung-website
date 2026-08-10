@@ -32,11 +32,11 @@ const tLabels = locale === 'vi'
 			vol: 'Tập',
 			published: 'Xuất bản',
 			downloadTitle: 'Tải xuống playbook đầy đủ',
-			downloadDesc: 'Playbook đầy đủ 13 trang với bảng so sánh 18 tiêu chí, lộ trình 4 tuần, và đầy đủ nguồn kiểm chứng. Để lại thông tin để nhận PDF.',
+			downloadDesc: `Playbook đầy đủ ${pb.pages ?? ''} với nội dung thực chiến, ví dụ minh họa và hướng dẫn áp dụng. Để lại thông tin để nhận PDF.`,
 			benefits: [
-				'Bảng so sánh Odoo / Twenty / Comp AI CRM',
-				'Lộ trình triển khai 4 tuần cho Solo CEO',
-				'Toàn bộ nguồn và ngày truy xuất',
+				'Nội dung cô đọng, có thể áp dụng ngay',
+				'Khung tư duy và lộ trình thực thi rõ ràng',
+				'Toàn bộ ví dụ và ghi chú trong bản PDF',
 			],
 		}
 	: {
@@ -49,11 +49,11 @@ const tLabels = locale === 'vi'
 			vol: 'Vol',
 			published: 'Published',
 			downloadTitle: 'Download the full playbook',
-			downloadDesc: 'Full 13-page playbook with 18-criteria comparison table, 4-week roadmap, and complete verified sources. Leave your info to get the PDF.',
+			downloadDesc: `Full ${pb.pages ?? ''} playbook with practical content, examples, and implementation guidance. Leave your info to get the PDF.`,
 			benefits: [
-				'Comparison table: Odoo / Twenty / Comp AI CRM',
-				'4-week implementation roadmap for Solo CEO',
-				'All sources with access dates',
+				'Concise content designed for immediate use',
+				'Clear frameworks and implementation roadmap',
+				'All examples and notes included in the PDF',
 			],
 		};
 

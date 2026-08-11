@@ -117,12 +117,12 @@ export default function PlaybookLeadForm({
 				email: String(formData.get('email') || '').trim(),
 				'playbook-slug': window.location.pathname,
 			};
-			// n8n currently does not answer CORS preflight requests, so use a simple
-			// cross-origin POST while keeping the request body as the required JSON.
+			// URLSearchParams uses application/x-www-form-urlencoded, which n8n parses
+			// into an object and browsers can send cross-origin without a CORS preflight.
 			await fetch(LEAD_WEBHOOK_URL, {
 				method: 'POST',
 				mode: 'no-cors',
-				body: JSON.stringify(payload),
+				body: new URLSearchParams(payload),
 			});
 			setStatus('success');
 		} catch {

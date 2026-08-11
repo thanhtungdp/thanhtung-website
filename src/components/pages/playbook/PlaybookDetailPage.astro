@@ -183,56 +183,21 @@ const formatDate = (date: Date) => {
 				<!-- Right: sticky lead form sidebar -->
 				<aside class="hidden xl:block xl:self-stretch">
 					<div class="sticky top-24 max-h-[calc(100dvh-7rem)] overflow-y-auto">
-						<!-- Download info -->
-						<Card class="mb-3 p-4">
-							<h2 class="mb-2 !text-lg font-extrabold text-neutral-950">
-								{tLabels.downloadTitle}
-							</h2>
-							<p class="mb-3 text-sm leading-6 text-neutral-600">
-								{tLabels.downloadDesc}
-							</p>
-							<ul class="space-y-1.5 text-xs font-semibold text-neutral-700">
-								{tLabels.benefits.map((benefit) => (
-									<li class="flex gap-2">
-										<span class="text-orange-600">✓</span>
-										{benefit}
-									</li>
-								))}
-							</ul>
-						</Card>
 						<!-- Lead form -->
 						<PlaybookLeadForm
 							client:load
 							locale={locale}
 							pdfUrl={pb.pdfFile}
-							playbookTitle={pb.title}
 						/>
 					</div>
 				</aside>
 
 				<!-- Mobile lead form (stacked, shown below content) -->
 				<div class="xl:hidden" id="lead-form" data-mobile-cta-target>
-					<Card class="mb-3 p-4 sm:p-5">
-						<h2 class="mb-2 !text-xl font-extrabold text-neutral-950 sm:!text-2xl">
-							{tLabels.downloadTitle}
-						</h2>
-						<p class="mb-3 text-sm leading-6 text-neutral-600 sm:text-base sm:leading-7">
-							{tLabels.downloadDesc}
-						</p>
-						<ul class="space-y-1.5 text-sm font-semibold text-neutral-700">
-							{tLabels.benefits.map((benefit) => (
-								<li class="flex gap-2">
-									<span class="text-orange-600">✓</span>
-									{benefit}
-								</li>
-							))}
-						</ul>
-					</Card>
 					<PlaybookLeadForm
 						client:load
 						locale={locale}
 						pdfUrl={pb.pdfFile}
-						playbookTitle={pb.title}
 					/>
 				</div>
 			</div>

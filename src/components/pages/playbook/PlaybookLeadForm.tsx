@@ -3,9 +3,9 @@ import { useState } from 'react';
 interface PlaybookLeadFormProps {
 	locale: 'vi' | 'en';
 	pdfUrl: string;
-	playbookTitle: string;
-	apiEndpoint?: string;
 }
+
+const LEAD_WEBHOOK_URL = 'https://n8n.simplamo.com/webhook/david-playbook';
 
 const t = {
 	vi: {
@@ -15,6 +15,8 @@ const t = {
 		namePlaceholder: 'Nguyễn Văn An',
 		emailLabel: 'Email',
 		emailPlaceholder: 'an@congty.vn',
+		jobTitleLabel: 'Chức danh',
+		jobTitlePlaceholder: 'CEO / Trưởng phòng / Sinh viên',
 		companyLabel: 'Công ty (tùy chọn)',
 		companyPlaceholder: 'Công ty TNHH ABC',
 		submit: 'Gửi & tải PDF',
@@ -25,6 +27,7 @@ const t = {
 		nameRequired: 'Vui lòng nhập họ tên',
 		emailRequired: 'Vui lòng nhập email',
 		emailInvalid: 'Email không hợp lệ',
+		jobTitleRequired: 'Vui lòng nhập chức danh',
 	},
 	en: {
 		title: 'Get the full playbook (PDF)',
@@ -33,6 +36,8 @@ const t = {
 		namePlaceholder: 'John Smith',
 		emailLabel: 'Email',
 		emailPlaceholder: 'john@company.com',
+		jobTitleLabel: 'Job title',
+		jobTitlePlaceholder: 'CEO / Manager / Student',
 		companyLabel: 'Company (optional)',
 		companyPlaceholder: 'Acme Inc.',
 		submit: 'Submit & download PDF',
@@ -43,14 +48,13 @@ const t = {
 		nameRequired: 'Please enter your name',
 		emailRequired: 'Please enter your email',
 		emailInvalid: 'Invalid email',
+		jobTitleRequired: 'Please enter your job title',
 	},
 };
 
 export default function PlaybookLeadForm({
 	locale,
 	pdfUrl,
-	playbookTitle,
-	apiEndpoint,
 }: PlaybookLeadFormProps) {
 	const labels = t[locale];
 	const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
@@ -60,10 +64,12 @@ export default function PlaybookLeadForm({
 		const e: Record<string, string> = {};
 		const name = (data.get('name') as string)?.trim() || '';
 		const email = (data.get('email') as string)?.trim() || '';
+		const jobTitle = (data.get('jobTitle') as string)?.trim() || '';
 
 		if (!name) e.name = labels.nameRequired;
 		if (!email) e.email = labels.emailRequired;
 		else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) e.email = labels.emailInvalid;
+		if (!jobTitle) e.jobTitle = labels.jobTitleRequired;
 
 		return e;
 	};
@@ -80,21 +86,20 @@ export default function PlaybookLeadForm({
 		setStatus('submitting');
 
 		try {
-			if (apiEndpoint) {
-				const payload = {
-					name: formData.get('name'),
-					email: formData.get('email'),
-					company: formData.get('company') || '',
-					playbook: playbookTitle,
-					locale,
-					submittedAt: new Date().toISOString(),
-				};
-				await fetch(apiEndpoint, {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify(payload),
-				});
-			}
+			const payload = {
+				fullname: String(formData.get('name') || '').trim(),
+				role: String(formData.get('jobTitle') || '').trim(),
+				company: String(formData.get('company') || '').trim(),
+				email: String(formData.get('email') || '').trim(),
+				'playbook-slug': window.location.pathname,
+			};
+			// n8n currently does not answer CORS preflight requests, so use a simple
+			// cross-origin POST while keeping the request body as the required JSON.
+			await fetch(LEAD_WEBHOOK_URL, {
+				method: 'POST',
+				mode: 'no-cors',
+				body: JSON.stringify(payload),
+			});
 			setStatus('success');
 		} catch {
 			setStatus('error');
@@ -132,6 +137,16 @@ export default function PlaybookLeadForm({
 						className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-2.5 text-sm font-medium text-neutral-900 outline-none transition focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
 					/>
 					{errors.email && <p className="mt-1 text-xs font-semibold text-red-500">{errors.email}</p>}
+				</div>
+				<div>
+					<label className="mb-1.5 block text-sm font-bold text-neutral-700">{labels.jobTitleLabel}</label>
+					<input
+						type="text"
+						name="jobTitle"
+						placeholder={labels.jobTitlePlaceholder}
+						className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-2.5 text-sm font-medium text-neutral-900 outline-none transition focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
+					/>
+					{errors.jobTitle && <p className="mt-1 text-xs font-semibold text-red-500">{errors.jobTitle}</p>}
 				</div>
 				<div>
 					<label className="mb-1.5 block text-sm font-bold text-neutral-700">{labels.companyLabel}</label>

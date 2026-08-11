@@ -16,7 +16,19 @@ const t = {
 		emailLabel: 'Email',
 		emailPlaceholder: 'an@congty.vn',
 		jobTitleLabel: 'Chức danh',
-		jobTitlePlaceholder: 'CEO / Trưởng phòng / Sinh viên',
+		jobTitlePlaceholder: 'Chọn chức danh của bạn',
+		jobTitleOptions: [
+			'Chủ doanh nghiệp / Founder',
+			'Chủ tịch / Thành viên HĐQT',
+			'CEO / Tổng Giám đốc',
+			'C-level / Ban Điều hành',
+			'Giám đốc chức năng',
+			'Trưởng phòng / Head of Department',
+			'Quản lý / Team Lead',
+			'Chuyên gia / Tư vấn',
+			'Nhân viên',
+			'Khác',
+		],
 		companyLabel: 'Công ty (tùy chọn)',
 		companyPlaceholder: 'Công ty TNHH ABC',
 		submit: 'Gửi & tải PDF',
@@ -37,7 +49,19 @@ const t = {
 		emailLabel: 'Email',
 		emailPlaceholder: 'john@company.com',
 		jobTitleLabel: 'Job title',
-		jobTitlePlaceholder: 'CEO / Manager / Student',
+		jobTitlePlaceholder: 'Select your job title',
+		jobTitleOptions: [
+			'Business Owner / Founder',
+			'Chairperson / Board Member',
+			'CEO / Managing Director',
+			'C-level / Executive Team',
+			'Functional Director',
+			'Head of Department',
+			'Manager / Team Lead',
+			'Specialist / Consultant',
+			'Employee',
+			'Other',
+		],
 		companyLabel: 'Company (optional)',
 		companyPlaceholder: 'Acme Inc.',
 		submit: 'Submit & download PDF',
@@ -140,12 +164,16 @@ export default function PlaybookLeadForm({
 				</div>
 				<div>
 					<label className="mb-1.5 block text-sm font-bold text-neutral-700">{labels.jobTitleLabel}</label>
-					<input
-						type="text"
+					<select
 						name="jobTitle"
-						placeholder={labels.jobTitlePlaceholder}
+						defaultValue=""
 						className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-2.5 text-sm font-medium text-neutral-900 outline-none transition focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
-					/>
+					>
+						<option value="" disabled>{labels.jobTitlePlaceholder}</option>
+						{labels.jobTitleOptions.map((option) => (
+							<option key={option} value={option}>{option}</option>
+						))}
+					</select>
 					{errors.jobTitle && <p className="mt-1 text-xs font-semibold text-red-500">{errors.jobTitle}</p>}
 				</div>
 				<div>
